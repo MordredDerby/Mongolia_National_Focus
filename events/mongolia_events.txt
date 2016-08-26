@@ -1,0 +1,332 @@
+add_namespace = MON
+
+#Просьба о передаче Мэньцзяна
+country_event = {
+	id = MON.1
+	title = MON.1.t
+	desc = MON.1.d
+	picture = GFX_report_event_asian_politicians
+
+	is_triggered_only = yes
+	
+	fire_only_once = yes
+	
+	option = {
+		name = MON.1.a
+		ai_chance = { factor = 10 }
+		MEN = {
+			every_state = {
+				limit = {
+					is_core_of = MEN
+				}
+				add_core_of = MON
+			}
+		}
+		MON = { 
+			annex_country = { target = MEN transfer_troops = yes } 
+			add_opinion_modifier = {
+					target = ROOT
+					modifier = transfered
+			}
+			add_popularity = {
+					ideology = fascism
+					popularity = 0.3
+			}
+		}
+	}
+	
+	option = {
+		name = MON.1.b
+		ai_chance = { factor = 20 }
+		MON = { 
+			country_event = { id = MON.2 days = 1 } 
+			add_opinion_modifier = {
+					target = ROOT
+					modifier = refused_transfer 
+			}
+		}
+	}
+}
+
+#Япония отказалась передать Мэньцзян
+country_event = {
+	id = MON.2
+	title = MON.2.t
+	desc = MON.2.d
+	picture = GFX_report_event_china_politicians_captured
+
+	is_triggered_only = yes
+	
+	fire_only_once = yes
+	
+	option = {
+		name = MON.2.a
+		add_popularity = {
+			deology = fascism
+			popularity = -0.15
+		}
+	}
+}
+
+#Просьба о передаче Тувы
+country_event = {
+	id = MON.3
+	title = MON.3.t
+	desc = MON.3.d
+	picture = GFX_report_event_generic_sign_treaty1
+
+	is_triggered_only = yes
+	
+	fire_only_once = yes
+	
+	option = {
+		name = MON.3.a
+		ai_chance = { factor = 10 }
+		TAN = {
+			every_state = {
+				limit = {
+					is_core_of = TAN
+				}
+				add_core_of = MON
+			}
+		}
+		MON = { 
+			annex_country = { target = TAN transfer_troops = yes } 
+			add_opinion_modifier = {
+					target = ROOT
+					modifier = transfered
+			}
+		}
+	}
+	
+	option = {
+		name = MON.3.b
+		ai_chance = { factor = 20 }
+		MON = { 
+			country_event = { id = MON.4 days = 1 } 
+			add_opinion_modifier = {
+					target = ROOT
+					modifier = refused_transfer
+			}
+		}
+	}
+}
+
+#Советы отказались передать Туву
+country_event = {
+	id = MON.4
+	title = MON.4.t
+	desc = MON.4.d
+	picture = GFX_report_event_generic_sign_treaty2
+
+	is_triggered_only = yes
+	
+	fire_only_once = yes
+	
+	option = {
+		name = MON.4.a
+		add_popularity = {
+			deology = communism
+			popularity = -0.15
+		}
+	}
+}
+
+#Дэмчигдонрова на трон?
+country_event = {
+	id = MON.5
+	title = MON.5.t
+	desc = MON.5.d
+	picture = GFX_report_event_japan_europe_pact
+	fire_only_once = yes
+	
+	trigger = {
+		tag = MON
+		has_government = fascism
+		NOT = { is_puppet_of = JAP }
+		owns_state = 611
+		owns_state = 612
+		NOT = { country_exists = MEN }
+	}
+	mean_time_to_happen = {
+		days = 7
+	}
+	option = {
+		name = MON.5.a
+		create_country_leader = {
+			name = "Demchugdongrub"
+			desc = "POLITICS_DEMCHUGDONGRUB_DESC"
+			picture = "gfx/leaders/Asia/Portrait_Asia_Generic_land_3.dds"
+			expire = "1965.1.1"
+			ideology = fascism_ideology
+			traits = {
+				spirit_of_genghis
+			}
+		}
+		hidden_effect = {
+			MEN = { kill_country_leader = yes }
+			set_party_name = { 
+				ideology = fascism 
+				long_name = MON_fascist_party_royal
+				name = MON_fascist_party_royal_short
+			}
+		}
+	}
+	option = {
+		name = MON.5.b
+	}
+}
+
+#Японская Монголия
+country_event = {
+	id = MON.6
+	title = MON.6.t
+	desc = MON.6.d
+	picture = GFX_report_event_japan_europe_pact
+	fire_only_once = yes
+	
+	trigger = {
+		tag = JAP
+		MEN = { is_puppet_of = JAP }
+		OR = {
+			MON = { is_puppet_of = JAP }
+			330 = { is_controlled_by = JAP }
+			330 = {
+				controller = { is_puppet_of = JAP }
+			}
+		}
+	}
+	mean_time_to_happen = {
+		days = 15
+	}
+	option = {
+		name = MON.6.a
+		if = {
+			limit = {
+				NOT = { MON = { is_puppet_of = JAP } }
+			}
+			puppet = MON
+		}
+		MON = { 
+			annex_country = { target = MEN transfer_troops = yes } 
+		}
+		hidden_effect = {
+			MEN = { kill_country_leader = yes }
+			MON = {
+				add_popularity = {
+					ideology = fascism
+					popularity = 0.3
+				}
+				create_country_leader = {
+					name = "Demchugdongrub"
+					desc = "POLITICS_DEMCHUGDONGRUB_DESC"
+					picture = "gfx/leaders/Asia/Portrait_Asia_Generic_land_3.dds"
+					expire = "1965.1.1"
+					ideology = fascism_ideology
+					traits = {
+						spirit_of_genghis
+					}
+				}
+				add_state_core = 611
+				add_state_core = 612
+				add_state_core = 621
+				add_state_core = 616
+				add_state_core = 618
+				every_state = {
+					limit = {
+						is_core_of = MEN
+					}
+					add_core_of = MON
+				}
+				set_party_name = { 
+					ideology = fascism 
+					long_name = MON_fascist_party_royal
+					name = MON_fascist_party_royal_short
+				}
+			}
+			if = {
+				limit = {
+					611 = { is_controlled_by = JAP }
+					611 = { controller = { is_puppet_of = JAP } }
+				}
+				MON = { transfer_state = 611 }
+			}
+			if = {
+				limit = {
+					612 = { is_controlled_by = JAP }
+					612 = { controller = { is_puppet_of = JAP } }
+				}
+				MON = { transfer_state = 612 }
+			}
+			if = {
+				limit = {
+					621 = { is_controlled_by = JAP }
+					621 = { controller = { is_puppet_of = JAP } }
+				}
+				MON = { transfer_state = 621 }
+			}
+			if = {
+				limit = {
+					616 = { is_controlled_by = JAP }
+					616 = { controller = { is_puppet_of = JAP } }
+				}
+				MON = { transfer_state = 616 }
+			}
+			if = {
+				limit = {
+					618 = { is_controlled_by = JAP }
+					618 = { controller = { is_puppet_of = JAP } }
+				}
+				MON = { transfer_state = 618 }
+			}
+		}
+	}
+	option = {
+		name = MON.6.b
+	}
+}
+
+country_event = {
+	id = MON.7
+	title = MON.7.t
+	desc = MON.7.d
+	picture = GFX_report_event_asian_politicians
+	fire_only_once = yes
+	
+	trigger = {
+		tag = MON 
+		has_government = communism
+		has_completed_focus = MON_repressions
+	}
+	mean_time_to_happen = {
+		days = 1000
+		modifier = {
+			factor = 0.7
+			has_idea = MON_horloogiyn_choybalsan_pol
+		}
+		modifier = {
+			factor = 0.7
+			has_idea = MON_horloogiyn_choybalsan
+		}
+	}
+	option = {
+		name = MON.7.a
+		kill_country_leader = yes
+		create_country_leader = {
+			name = "Khorloogiin Choibalsan"
+			desc = "POLITICS_KHORLOOGIIN_CHOIBALSAN_DESC"
+			picture = "gfx/leaders/MON/Portrait_Choibalsan.dds"
+			expire = "1952.1.1"
+			ideology = stalinism
+			traits = {
+				dictator
+			}
+		}
+		create_field_marshal = {
+			name = "Khorloogiin Choibalsan"
+			portrait_path = "gfx/leaders/MON/Portrait_Choibalsan.dds"
+			traits = { organisational_leader }
+			skill = 2
+		}
+	}
+}

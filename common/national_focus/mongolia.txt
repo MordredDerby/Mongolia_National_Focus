@@ -1,0 +1,1541 @@
+focus_tree = {
+	id = MON_focus
+	
+	country = {
+		factor = 0
+		
+		modifier = {
+			add = 10
+			tag = MON
+		}
+	}
+	
+	default = no
+	
+	focus = {
+		id = MON_political_effort
+		icon = GFX_goal_generic_propaganda
+		x = 2
+		y = 0
+		cost = 10
+		
+		completion_reward = {
+			add_political_power = 120
+		}
+	}
+	
+	focus = {
+		id = MON_SOV_focus
+		icon = GFX_goal_support_communism
+		mutually_exclusive = { focus = MON_JAP_focus }
+		mutually_exclusive = { focus = MON_decollectivization }
+		available = {
+		}
+		cancel = {
+			OR = {
+				NOT = { country_exists = SOV }
+				NOT = { 
+					SOV = { has_government = communism }
+				}
+			}
+		}
+		prerequisite = { focus = MON_political_effort }
+		x = 0
+		y = 1
+		cost = 10
+		completion_reward = {
+			add_ideas = true_to_revolution
+		}
+	}
+	focus = {
+		id = MON_JAP_focus
+		icon = GFX_goal_support_fascism
+		mutually_exclusive = { focus = MON_SOV_focus }
+		mutually_exclusive = { focus = MON_decollectivization }
+		available = {
+		}
+		prerequisite = { focus = MON_political_effort }
+		x = 2
+		y = 1
+		cost = 10
+		completion_reward = {
+			SOV = { 
+				remove_from_faction = MON 
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = drifted_from
+				}
+			}
+			JAP = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = drifted_to
+				}
+			}
+			add_ideas = fascist_influence
+			fascism = {
+				banned = no
+			}
+		}
+	}
+	focus = {
+		id = MON_japanese_advisors
+		icon = GFX_goal_generic_army_doctrines
+		available = {
+		}
+		prerequisite = { focus = MON_JAP_focus }
+		x = 2
+		y = 2
+		cost = 10
+		completion_reward = {
+			army_experience = 5
+			add_ideas = japanese_advisors_idea
+		}
+	}
+	focus = {
+		id = MON_ask_for_mengkukuo
+		icon = GFX_goal_generic_demand_territory
+		available = {
+			country_exists = MEN
+		}
+		bypass = {
+			NOT = { country_exists = MEN }
+		}
+		prerequisite = { focus = MON_japanese_advisors }
+		x = 2
+		y = 3
+		cost = 10
+		completion_reward = {
+			JAP = { country_event = { id = MON.1 days = 7 } }
+		}
+	}
+	focus = {
+		id = MON_decollectivization
+		icon = GFX_goal_generic_national_unity
+		mutually_exclusive = { focus = MON_JAP_focus }
+		mutually_exclusive = { focus = MON_SOV_focus }
+		available = {
+		}
+		prerequisite = { focus = MON_political_effort }
+		x = 4
+		y = 1
+		cost = 10
+		completion_reward = {
+			add_national_unity = 0.05
+			add_political_power = 120
+		}
+	}
+	focus = {
+		id = MON_elected_khural
+		icon = GFX_goal_support_democracy
+		available = {
+		}
+		prerequisite = { focus = MON_decollectivization }
+		x = 4
+		y = 2
+		cost = 10
+		completion_reward = {
+			add_ideas = democratic_influence
+			custom_effect_tooltip = voting_rights_tt
+			hidden_effect = {
+				if = {
+					limit = { has_government = democratic }
+					set_politics = {
+						ruling_party = democratic
+						elections_allowed = yes
+						election_frequency = 48
+					}
+				}
+				if = {
+					limit = { has_government = communism }
+					set_politics = {
+						ruling_party = communism
+						elections_allowed = yes
+						election_frequency = 48
+					}
+				}
+				if = {
+					limit = { has_government = fascism }
+					set_politics = {
+						ruling_party = fascism
+						elections_allowed = yes
+						election_frequency = 48
+					}
+				}
+				set_party_name = { 
+					ideology = neutrality
+					long_name = MON_neutrality_party_d
+					name = MON_neutrality_d_short
+				}
+				set_party_name = { 
+					ideology = fascism
+					long_name = MON_fascist_party_d
+					name = MON_fascist_party_d_short
+				}
+				set_party_name = { 
+					ideology = democratic
+					long_name = MON_democratic_party_d
+					name = MON_democratic_party_d_short
+				}
+			}
+		}
+	}
+	focus = {
+		id = MON_SOV_break
+		icon = GFX_goal_generic_war_with_comintern
+		available = {
+			SOV = {
+				OR = {
+					has_government = democratic
+					has_government = fascism
+					has_completed_focus = SOV_great_purge
+				}
+			}
+		}
+		prerequisite = { focus = MON_elected_khural }
+		x = 4
+		y = 3
+		cost = 10
+		completion_reward = {
+			SOV = { 
+				remove_from_faction = MON 
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = drifted_from
+				}
+			}
+			set_rule = { can_create_factions = yes }
+			add_popularity = {
+					ideology = democratic
+					popularity = 0.2
+			}
+		}
+	}
+	focus = {
+		id = MON_repressions
+		icon = GFX_goal_generic_political_pressure
+		available = {
+		}
+		prerequisite = { focus = MON_SOV_focus }
+		x = 0
+		y = 2
+		cost = 10
+		completion_reward = {
+			add_political_power = 120
+			add_timed_idea = { idea = reign_of_terror days = 365 }
+		}
+	}
+	focus = {
+		id = MON_ask_for_tuva
+		icon = GFX_goal_generic_demand_territory
+		available = {
+			country_exists = TAN
+		}
+		bypass = {
+			NOT = { country_exists = TAN }
+		}
+		prerequisite = { focus = MON_repressions }
+		x = 0
+		y = 3
+		cost = 10
+		completion_reward = {
+			SOV = { country_event = { id = MON.3 days = 7 } }
+		}
+	}
+	focus = {
+		id = MON_claim_inner_mogolia
+		icon = GFX_goal_generic_more_territorial_claims
+		available = {
+			611 = {
+				NOT = { is_owned_by  = MON }
+			}
+			612 = {
+				NOT = { is_owned_by  = MON }
+			}
+			621 = {
+				NOT = { is_owned_by  = MON }
+			}
+			616 = {
+				NOT = { is_owned_by  = MON }
+			}
+		}
+		bypass = {
+			AND = {
+				611 = {
+					is_owned_by  = MON
+				}
+				612 = {
+					is_owned_by  = MON
+				}
+				621 = {
+					is_owned_by  = MON
+				}
+				616 = {
+					is_owned_by  = MON
+				}
+			}
+		}
+		prerequisite = { focus = MON_SOV_break focus = MON_ask_for_tuva focus = MON_ask_for_mengkukuo }
+		x = 2
+		y = 4
+		cost = 10
+		completion_reward = {
+			611 = {
+				add_core_of = MON
+			}
+			612 = {
+				add_core_of = MON
+			}
+			621 = {
+				add_core_of = MON
+			}
+			616 = {
+				add_core_of = MON
+			}
+		}
+	}
+	focus = {
+		id = MON_develop_inner_mongolia
+		icon = GFX_goal_generic_construct_civilian
+		available = {
+			611 = {
+				is_owned_by  = MON
+			}
+			612 = {
+				is_owned_by  = MON
+			}
+			621 = {
+				is_owned_by  = MON
+			}
+			616 = {
+				is_owned_by  = MON
+			}
+		}
+		prerequisite = { focus = MON_claim_inner_mogolia }
+		x = 0
+		y = 6
+		cost = 10
+		completion_reward = {
+			611 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			612 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			621 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			616 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = MON_claim_dzungaria
+		icon = GFX_goal_generic_more_territorial_claims
+		available = {
+			618 = {
+				NOT = { is_owned_by  = MON }
+			}
+		}
+		bypass = {
+			618 = {
+				is_owned_by  = MON
+			}
+		}
+		prerequisite = { focus = MON_claim_inner_mogolia }
+		x = 2
+		y = 5
+		cost = 10
+		completion_reward = {
+			618 = {
+				add_core_of = MON
+			}
+		}
+	}
+	focus = {
+		id = MON_develop_dzungaria
+		icon = GFX_goal_generic_construct_civilian
+		available = {
+			618 = {
+				is_owned_by  = MON
+			}
+		}
+		prerequisite = { focus = MON_claim_dzungaria }
+		x = 2
+		y = 6
+		cost = 10
+		completion_reward = {
+			618 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = MON_claim_buryatia
+		icon = GFX_goal_generic_more_territorial_claims
+		available = {
+			563 = {
+				NOT = { is_owned_by  = MON }
+			}
+			564 = {
+				NOT = { is_owned_by  = MON }
+			}
+			565 = {
+				NOT = { is_owned_by  = MON }
+			}
+		}
+		bypass = {
+			AND = {
+				563 = {
+					is_owned_by  = MON
+				}
+				564 = {
+					is_owned_by  = MON
+				}
+				565 = {
+					is_owned_by  = MON
+				}
+			}
+		}
+		prerequisite = { focus = MON_SOV_break focus = MON_ask_for_mengkukuo }
+		x = 4
+		y = 4
+		cost = 10
+		completion_reward = {
+			563 = {
+					add_core_of = MON
+			}
+			564 = {
+					add_core_of = MON
+			}
+			565 = {
+					add_core_of = MON
+			}
+		}
+	}
+	focus = {
+		id = MON_develop_transsib
+		icon = GFX_goal_generic_construct_infrastructure
+		available = {
+			563 = {
+				is_owned_by  = MON
+			}
+			564 = {
+				is_owned_by  = MON
+			}
+			565 = {
+				is_owned_by  = MON
+			}
+		}
+		prerequisite = { focus = MON_claim_buryatia }
+		x = 4
+		y = 5
+		cost = 10
+		completion_reward = {
+			563 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 5
+					instant_build = yes
+				}
+			}
+			564 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 5
+					instant_build = yes
+				}
+			}
+			565 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 5
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = MON_transmongolian_railroad
+		icon = GFX_goal_generic_construct_infrastructure
+		prerequisite = { focus = MON_develop_transsib }
+		x = 4
+		y = 6
+		cost = 10
+		completion_reward = {
+			330 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 5
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = MON_export_revolution
+		icon = GFX_goal_generic_propaganda
+		available = {
+		}
+		prerequisite = { focus = MON_ask_for_tuva }
+		x = 0
+		y = 4
+		cost = 10
+		completion_reward = {
+			add_ideas = foreign_expeditions_focus
+		}
+	}
+	focus = {
+		id = MON_industry_effort
+		icon = GFX_goal_generic_production
+		available = {
+		}
+		x = 9
+		y = 0
+		cost = 10
+		completion_reward = {
+			add_tech_bonus = {
+				name = industrial_bonus
+				bonus = 0.5
+				uses = 1
+				category = industry
+			}
+		}
+	}
+	focus = {
+		id = MON_resouce_effort
+		icon = GFX_goal_generic_construction2
+		available = {
+		}
+		prerequisite = { focus = MON_industry_effort }
+		x = 7
+		y = 1
+		cost = 10
+		completion_reward = {
+			add_tech_bonus = {
+				name = industrial_bonus
+				bonus = 0.5
+				uses = 2
+				technology = excavation1
+				technology = excavation2
+				technology = excavation3
+				technology = excavation4
+				technology = excavation5
+			}
+		}
+	}
+	focus = {
+		id = MON_oil_effort
+		icon = GFX_goal_generic_construct_civilian
+		available = {
+		}
+		prerequisite = { focus = MON_resouce_effort }
+		x = 6
+		y = 2
+		cost = 10
+		completion_reward = {
+			add_resource = { type = oil amount = 5 state = 330 }
+		}
+	}
+	focus = {
+		id = MON_oil_effort2
+		icon = GFX_goal_generic_oil_refinery
+		available = {
+		}
+		prerequisite = { focus = MON_oil_effort }
+		x = 6
+		y = 3
+		cost = 10
+		completion_reward = {
+			add_tech_bonus = {
+				name = industrial_bonus
+				bonus = 0.5
+				uses = 2
+				category = synth_resources
+			}
+		}
+	}
+	focus = {
+		id = MON_metals_effort
+		icon = GFX_goal_generic_production
+		available = {
+		}
+		prerequisite = { focus = MON_resouce_effort }
+		x = 8
+		y = 2
+		cost = 10
+		completion_reward = {
+			add_resource = { type = steel amount = 3 state = 330 }
+			add_resource = { type = tungsten amount = 3 state = 330 }
+		}
+	}
+	focus = {
+		id = MON_infrastructure_effort
+		icon = GFX_goal_generic_construct_infrastructure
+		available = {
+		}
+		prerequisite = { focus = MON_metals_effort }
+		x = 8
+		y = 3
+		cost = 10
+		complete_tooltip = {
+			add_building_construction = {
+				type = infrastructure
+				level = 2
+				instant_build = yes
+			}
+		}
+		completion_reward = {
+			330 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = MON_electrification
+		icon = GFX_goal_generic_construct_civ_factory
+		available = {
+		}
+		prerequisite = { focus = MON_industry_effort }
+		x = 10
+		y = 1
+		cost = 10
+		complete_tooltip = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = industrial_bonus
+				bonus = 0.5
+				uses = 1
+				category = electronics
+			}
+			330 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = MON_mechanization
+		icon = GFX_goal_generic_construct_civ_factory
+		available = {
+		}
+		prerequisite = { focus = MON_electrification }
+		x = 10
+		y = 2
+		cost = 10
+		completion_reward = {
+			#custom_effect_tooltip = mechanization_tooltip
+			add_ideas = MON_mechanization_idea
+			330 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = MON_industry_effort2
+		icon = GFX_goal_generic_construct_civ_factory
+		available = {
+		}
+		prerequisite = { focus = MON_mechanization }
+		x = 10
+		y = 3
+		cost = 10
+		completion_reward = {
+			330 = {
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_tech_bonus = {
+				name = industrial_bonus
+				bonus = 0.5
+				uses = 1
+				category = industry
+			}
+		}
+	}
+	focus = {
+		id = MON_mil_industry
+		icon = GFX_goal_generic_construct_mil_factory
+		available = {
+		}
+		prerequisite = { focus = MON_industry_effort2 }
+		x = 10
+		y = 4
+		cost = 10
+		completion_reward = {
+			330 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = MON_revolutions_experience
+		icon = GFX_goal_generic_major_war
+		available = {
+		}
+		x = 15
+		y = 0
+		cost = 10
+		completion_reward = {
+			army_experience = 10
+			add_tech_bonus = {
+				name = land_doc_bonus
+				bonus = 0.5
+				uses = 2
+				category = cat_mobile_warfare
+				category = cat_mass_assault
+			}
+		}
+	}
+	focus = {
+		id = MON_cavalry_modernization
+		icon = GFX_goal_generic_military_deal
+		available = {
+		}
+		x = 12
+		y = 1
+		cost = 10
+		prerequisite = { focus = MON_revolutions_experience }
+		completion_reward = {
+			add_ideas = MON_cavalry
+		}
+	}
+	focus = {
+		id = MON_motorization
+		icon = GFX_goal_generic_army_motorized
+		available = {
+		}
+		bypass = { has_tech = motorised_infantry }
+		x = 12
+		y = 3
+		cost = 10
+		prerequisite = { focus = MON_cavalry_modernization }
+		prerequisite = { focus = MON_mechanization }
+		completion_reward = {
+			add_tech_bonus = {
+				name = motorized_bonus
+				bonus = 0.75
+				category = motorized_equipment
+			}
+		}
+	}
+	focus = {
+		id = MON_desert_tigers
+		icon = GFX_goal_generic_army_tanks
+		available = {
+		}
+		x = 12
+		y = 4
+		cost = 10
+		prerequisite = { focus = MON_motorization }
+		prerequisite = { focus = MON_industry_effort2 }
+		completion_reward = {
+			add_tech_bonus = {
+				name = armor_bonus
+				bonus = 0.5
+				uses = 3
+				category = cat_mechanized_equipment
+				category = armor
+			}
+		}
+	}	
+	focus = {
+		id = MON_small_arms
+		icon = GFX_goal_generic_small_arms
+		available = {
+		}
+		x = 14
+		y = 1
+		cost = 10
+		prerequisite = { focus = MON_revolutions_experience }
+		completion_reward = {
+			add_tech_bonus = {
+				name = infantry_weapons_bonus
+				bonus = 0.5
+				uses = 2
+				category = infantry_weapons
+			}
+		}
+	}
+	focus = {
+		id = MON_artillery
+		icon = GFX_goal_generic_army_artillery2
+		available = {
+		}
+		x = 14
+		y = 2
+		cost = 10
+		prerequisite = { focus = MON_small_arms }
+		completion_reward = {
+			add_tech_bonus = {
+				name = infantry_artillery_bonus
+				bonus = 0.25
+				uses = 2
+				category = artillery
+			}
+		}
+	}
+	focus = {
+		id = MON_support
+		icon = GFX_goal_generic_special_forces
+		available = {
+		}
+		x = 14
+		y = 3
+		cost = 10
+		prerequisite = { focus = MON_artillery }
+		completion_reward = {
+			add_tech_bonus = {
+				name = special_forces_bonus
+				bonus = 0.25
+				uses = 4
+				technology = paratroopers
+				technology = paratroopers2
+				category = support_tech
+			}
+		}
+	}
+	focus = {
+		id = MON_fortify_border
+		icon = GFX_goal_generic_defence
+		mutually_exclusive = { focus = MON_fortify_capital }
+		available = {
+		}
+		x = 16
+		y = 1
+		cost = 10
+		prerequisite = { focus = MON_revolutions_experience }
+		completion_reward = {
+			custom_effect_tooltip = east_wall_TT
+			hidden_effect = {
+			330 = {
+				add_building_construction = {
+					type = bunker
+					level = 1
+					province = 4792
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 1
+					province = 12557
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 1
+					province = 1743
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 1
+					province = 12629
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 1
+					province = 10575
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 1
+					province = 4873
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 1
+					province = 12612
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 1
+					province = 4856
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 1
+					province = 1723
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 1
+					province = 1853
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 1
+					province = 12539
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 1
+					province = 10558
+					instant_build = yes
+				}
+			}
+			}
+		}
+	}
+	focus = {
+		id = MON_fortify_capital
+		icon = GFX_goal_generic_construct_military
+		available = {
+		}
+		x = 18
+		y = 1
+		cost = 10
+		prerequisite = { focus = MON_revolutions_experience }
+		completion_reward = {
+			custom_effect_tooltip = capital_fort_TT
+			hidden_effect = {
+			330 = {
+				add_building_construction = {
+					type = bunker
+					level = 6
+					province = 4801
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 1
+					province = 10554
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 1
+					province = 4862
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 1
+					province = 7752
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 1
+					province = 12686
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 1
+					province = 4732
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 1
+					province = 12605
+					instant_build = yes
+				}
+			}
+			}
+		}
+	}
+	focus = {
+		id = MON_quick_fort
+		icon = GFX_goal_generic_fortify_city
+		available = {
+		}
+		x = 16
+		y = 2
+		cost = 10
+		prerequisite = { focus = MON_fortify_border }
+		completion_reward = {
+			add_ideas = MON_defence
+		}
+	}
+	focus = {
+		id = MON_exercises
+		icon = GFX_goal_generic_army_doctrines
+		available = {
+		}
+		x = 16
+		y = 3
+		cost = 10
+		prerequisite = { focus = MON_quick_fort }
+		completion_reward = {
+			army_experience = 10
+			add_tech_bonus = {
+				name = land_doc_bonus
+				bonus = 0.5
+				uses = 2
+				category = land_doctrine
+			}
+		}
+	}
+	focus = {
+		id = MON_desert_warfare
+		icon = GFX_goal_generic_attack_allies
+		available = {
+		}
+		x = 18
+		y = 2
+		cost = 10
+		prerequisite = { focus = MON_fortify_capital }
+		completion_reward = {
+			add_ideas = MON_desert_warfare
+		}
+	}
+	focus = {
+		id = MON_peoples_war_focus
+		icon = GFX_goal_generic_demand_territory
+		available = {
+		}
+		x = 18
+		y = 3
+		cost = 10
+		prerequisite = { focus = MON_desert_warfare }
+		completion_reward = {
+			add_ideas = MON_peoples_war
+		}
+	}
+	focus = {
+		id = MON_likbez_focus
+		icon = GFX_focus_research
+		available = {
+		}
+		x = 22
+		y = 0
+		cost = 10
+		completion_reward = {
+			add_timed_idea = { idea = MON_likbez days = 146 }
+			add_national_unity = 0.05			
+		}
+	}
+	focus = {
+		id = MON_national_education
+		icon = GFX_focus_research
+		available = {
+		}
+		x = 22
+		y = 1
+		cost = 10
+		prerequisite = { focus = MON_likbez_focus focus = MON_russian_colony }
+		completion_reward = {
+			add_ideas = MON_national_education
+		}
+	}
+	focus = {
+		id = MON_academy
+		icon = GFX_focus_research
+		available = {
+		}
+		x = 22
+		y = 2
+		cost = 10
+		prerequisite = { focus = MON_national_education }
+		completion_reward = {
+			add_research_slot = 1
+		}
+	}
+	focus = {
+		id = MON_soviet_secrets
+		icon = GFX_goal_generic_secret_weapon
+		available = {
+		}
+		x = 20
+		y = 3
+		cost = 10
+		prerequisite = { focus = MON_academy }
+		completion_reward = {
+			add_tech_bonus = {
+				name = secret_bonus
+				bonus = 0.5
+				uses = 2
+				category = rocketry
+			}
+			add_tech_bonus = {
+				name = secret_bonus
+				bonus = 0.5
+				uses = 2
+				category = electronics
+			}
+		}
+	}
+	focus = {
+		id = MON_v_weapons
+		icon = GFX_focus_wonderweapons
+		available = {
+		}
+		x = 20
+		y = 4
+		cost = 10
+		prerequisite = { focus = MON_soviet_secrets }
+		completion_reward = {
+			add_tech_bonus = {
+				name = secret_bonus
+				bonus = 0.5
+				uses = 1
+				category = rocketry
+			}
+			add_tech_bonus = {
+				name = secret_bonus
+				bonus = 0.5
+				uses = 1
+				category = nuclear
+			}
+		}
+	}
+	focus = {
+		id = MON_japanese_path
+		icon = GFX_goal_generic_CAS
+		mutually_exclusive = { focus = MON_western_path }
+		mutually_exclusive = { focus = MON_russian_mongolia }
+		available = {
+			has_government = fascism
+		}
+		x = 22
+		y = 3
+		cost = 10
+		prerequisite = { focus = MON_academy }
+		completion_reward = {
+			add_research_slot = 1
+			add_tech_bonus = {
+				name = infantry_artillery_bonus
+				bonus = 0.5
+				uses = 1
+				category = infantry_weapons
+				category = artillery
+			}
+			add_tech_bonus = {
+				name = infantry_artillery_bonus
+				bonus = 0.5
+				uses = 1
+				category = infantry_weapons
+				category = artillery
+				category = light_air
+			}
+		}
+	}	
+	focus = {
+		id = MON_western_path
+		icon = GFX_goal_generic_radar
+		mutually_exclusive = { focus = MON_japanese_path }
+		mutually_exclusive = { focus = MON_russian_mongolia }
+		available = {
+			OR = {
+				has_government = communism
+				has_government = democratic
+			}
+		}
+		x = 24
+		y = 3
+		cost = 10
+		prerequisite = { focus = MON_academy }
+		completion_reward = {
+			add_research_slot = 1
+			add_tech_bonus = {
+				name = radar_focus
+				bonus = 0.5
+				uses = 2
+				category = radar_tech
+				category = encryption_tech
+				category = decryption_tech
+				category = computing_tech
+			}
+		}
+	}
+	focus = {
+		id = MON_russian_colony
+		icon = GFX_goal_generic_improve_relations
+		available = {
+			NOT = { has_government = communism }
+		}
+		x = 26
+		y = 0
+		cost = 10
+		completion_reward = {
+			330 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_national_unity = -0.05
+			army_experience = 5
+		}
+	}
+	focus = {
+		id = MON_white_officers
+		icon = GFX_goal_generic_improve_relations
+		available = {
+		}
+		x = 26
+		y = 1
+		cost = 10
+		prerequisite = { focus = MON_russian_colony }
+		completion_reward = {
+			hidden_effect = {
+				create_corps_commander = {
+					name = "Grigory Semyonov"
+					portrait_path = "gfx/leaders/MON/Portrait_Semyonov.dds"
+					traits = { commando hill_fighter old_guard }
+					skill = 4
+				}
+				create_corps_commander = {
+					name = "Vladimir Kislitsin"
+					portrait_path = "gfx/leaders/SOV/Portrait_Soviet_Generic_land_3.dds"
+					traits = { winter_specialist old_guard }
+					skill = 2
+				}
+				create_corps_commander = {
+					name = "Grigory Verzhbitsky"
+					portrait_path = "gfx/leaders/SOV/Portrait_Soviet_Generic_land_3.dds"
+					traits = { winter_specialist trait_mountaineer old_guard }
+					skill = 3
+				}
+			}
+			custom_effect_tooltip = SEMYONOV_COMMANDER
+			custom_effect_tooltip = KISLITSIN_COMMANDER
+			custom_effect_tooltip = VERZHBITSKY_COMMANDER
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = ivan_mikhailov
+			army_experience = 10
+		}
+	}
+	focus = {
+		id = MON_russian_mongolia
+		icon = GFX_goal_generic_improve_relations
+		available = {
+		}
+		x = 26
+		y = 3
+		cost = 10
+		prerequisite = { focus = MON_white_officers }
+		completion_reward = {
+			add_research_slot = 1
+			add_ideas = MON_neutrality_idea
+			add_tech_bonus = {
+				name = land_doc_bonus
+				bonus = 0.5
+				uses = 2
+				category = land_doctrine
+			}
+			set_politics = {
+				ruling_party = neutrality
+				elections_allowed = no
+			}
+			create_country_leader = {
+				name = "Grigory Semyonov"
+				desc = "POLITICS_SEMYONOC_DESC"
+				picture = "Portrait_Semyonov.dds"
+				expire = "1965.1.1"
+				ideology = despotism
+				traits = {
+				}
+			}
+			hidden_effect = {
+				create_country_leader = {
+					name = "Lev Okhotin"
+					desc = "POLITICS_OKHOTIN_DESC"
+					picture = "Portrait_Soviet_Generic_land_3.dds"
+					expire = "1965.1.1"
+					ideology = fascism_ideology
+					traits = {
+					}
+				}
+				set_party_name = { 
+					ideology = neutrality
+					long_name = MON_neutrality_party_russian
+					name = MON_neutrality_russian_short
+				}
+				set_party_name = { 
+					ideology = fascism 
+					long_name = MON_fascist_party_russian
+					name = MON_fascist_party_russian_short
+				}
+				if = {
+					limit = {
+						has_idea = fascist_influence
+					}
+					remove_ideas = fascist_influence
+				}
+				if = {
+					limit = {
+						has_idea = democratic_influence
+					}
+					remove_ideas = democratic_influence
+				}
+				if = {
+					limit = {
+						has_idea = true_to_revolution
+					}
+					remove_ideas = true_to_revolution
+				}
+			}
+		}
+	}
+	focus = {
+		id = MON_civil_aviation
+		icon = GFX_goal_generic_air_production
+		available = {
+		}
+		x = 9
+		y = 5
+		cost = 10
+		prerequisite = { focus = MON_mechanization }
+		completion_reward = {
+			air_experience = 5
+			330 = {
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = MON_air_doctrine
+		icon = GFX_goal_generic_build_airforce
+		available = {
+		}
+		x = 11
+		y = 6
+		cost = 10
+		prerequisite = { focus = MON_civil_aviation }
+		prerequisite = { focus = MON_mil_industry }
+		prerequisite = { focus = MON_support }
+		completion_reward = {
+			air_experience = 25
+			add_tech_bonus = {
+				name = air_doc_bonus
+				bonus = 0.5
+				uses = 2
+				category = air_doctrine
+			}
+		}
+	}
+	focus = {
+		id = MON_light_fighters
+		icon = GFX_goal_generic_air_fighter
+		mutually_exclusive = { focus = MON_heavy_fighters }
+		available = {
+		}
+		x = 10
+		y = 7
+		cost = 0
+		prerequisite = { focus = MON_air_doctrine }
+		completion_reward = {
+			add_tech_bonus = {
+				name = fighter_bonus
+				bonus = 0.5
+				uses = 2
+				category = light_fighter
+			}
+		}
+	}
+	focus = {
+		id = MON_heavy_fighters
+		icon = GFX_goal_generic_air_bomber
+		available = {
+		}
+		x = 12
+		y = 7
+		cost = 10
+		prerequisite = { focus = MON_air_doctrine }
+		completion_reward = {
+			add_tech_bonus = {
+				name = fighter_bonus
+				bonus = 0.5
+				uses = 2
+				category = cat_heavy_fighter
+			}
+		}
+	}
+	focus = {
+		id = MON_strat_bombers
+		icon = GFX_goal_poland_goal
+		available = {
+		}
+		x = 12
+		y = 8
+		cost = 10
+		prerequisite = { focus = MON_heavy_fighters }
+		completion_reward = {
+			add_tech_bonus = {
+				name = bomber_bonus
+				bonus = 0.5
+				uses = 2
+				category = cat_strategic_bomber
+			}
+		}
+	}
+	focus = {
+		id = MON_cas_bombers
+		icon = GFX_goal_generic_CAS
+		available = {
+		}
+		x = 10
+		y = 8
+		cost = 10
+		prerequisite = { focus = MON_light_fighters }
+		completion_reward = {
+			add_tech_bonus = {
+				name = CAS_bonus
+				bonus = 0.5
+				uses = 2
+				category = cas_bomber
+			}
+		}
+	}
+	focus = {
+		id = MON_military_academy
+		icon = GFX_goal_generic_army_doctrines
+		available = {
+		}
+		x = 17
+		y = 4
+		cost = 10
+		prerequisite = { focus = MON_exercises focus = MON_peoples_war_focus }
+		completion_reward = {
+			army_experience = 10
+			show_ideas_tooltip = MON_lodongijn_dandar
+			show_ideas_tooltip = MON_butochijn_tsog
+			add_tech_bonus = {
+				name = land_doc_bonus
+				bonus = 0.5
+				uses = 2
+				category = land_doctrine
+			}
+		}
+	}
+	focus = {
+		id = MON_standing_army_focus
+		icon = GFX_goal_generic_major_war
+		available = {
+		}
+		x = 17
+		y = 5
+		cost = 10
+		prerequisite = { focus = MON_military_academy }
+		completion_reward = {
+			add_ideas = MON_standing_army
+		}
+	}
+}

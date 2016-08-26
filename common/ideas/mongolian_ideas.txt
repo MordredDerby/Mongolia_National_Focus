@@ -1,0 +1,222 @@
+ideas = {
+	country = {
+		japanese_advisors_idea = {
+		
+			picture = state_shintoism
+
+			allowed_civil_war = {
+				NOT = {
+					has_government = communism
+				}
+			}
+
+			removal_cost = -1
+			
+			research_bonus = {
+				land_doctrine = 0.07
+			}
+		}
+		true_to_revolution = {
+		
+			picture = home_of_revolution
+			
+			allowed_civil_war = {
+				has_government = communism
+			}
+			
+			modifier = {
+				drift_defence_factor = 0.5
+			}
+		}
+		MON_mechanization_idea = {
+		
+			picture = generic_industrial_concern_1
+			
+			allowed_civil_war = {
+				always = yes
+			}
+			
+			removal_cost = -1
+			
+			modifier = {
+				production_speed_buildings_factor = 0.05
+			}
+		}
+		MON_cavalry = {
+			picture = generic_infantry_bonus
+			modifier = {
+				cavalry_attack_factor = 0.1
+			}
+		}
+		MON_defence = {		
+			allowed = {
+				always = no
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			picture = generic_production_bonus
+			modifier = {
+				production_speed_bunker_factor = 0.2
+				production_speed_anti_air_building_factor = 0.2
+			}
+		}
+		MON_desert_warfare = {		
+			allowed = {
+				always = no
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			picture = generic_infantry_bonus
+			modifier = {
+				attrition = -0.1
+			}
+		}
+		MON_peoples_war = {		
+			allowed = {
+				always = no
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			picture = generic_manpower_bonus
+			modifier = {
+				conscription = 0.015
+				army_core_defence_factor = 0.15
+				army_core_attack_factor = 0.15
+				partisan_effect = 0.15
+			}
+		}
+		MON_standing_army = {		
+			allowed = {
+				always = no
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			picture = generic_infantry_bonus
+			modifier = {
+				conscription = 0.02
+				army_morale_factor = 0.15
+			}
+		}
+		MON_national_education = {
+			removal_cost = -1
+			
+			picture = generic_research_bonus
+			
+			allowed = {
+				always = no
+			}
+			
+			modifier = {
+				research_time_factor = -0.04
+			}
+		}
+		MON_likbez = {
+			removal_cost = -1
+			
+			picture = generic_research_bonus
+			
+			allowed = {
+				always = no
+			}
+			
+			modifier = {
+				political_power_factor = 0.5
+			}
+		}
+		MON_neutrality_idea = {
+
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				NOT = { has_government = communism }
+			}
+		
+			removal_cost = -1
+
+			picture = generic_pp_unity_bonus
+
+			modifier = {
+				neutrality_drift = 0.1
+			}
+		}
+	}
+	political_advisor = {
+		ivan_mikhailov = {		
+			picture = generic_army_europe_2
+			
+			allowed = {
+				has_completed_focus = MON_white_officers
+			}
+			available = {
+				has_completed_focus = MON_white_officers
+			}
+
+			traits = { 
+				silent_workhorse 
+				popular_figurehead
+			}
+			
+			ai_will_do = {
+				factor = 1
+			}
+		}
+		
+		MON_horloogiyn_choybalsan_pol = {
+			
+			picture = generic_army_asia_2
+
+			allowed = {
+				original_tag = MON
+			}
+			
+			traits = { prince_of_terror }
+			
+			ai_will_do = {
+				factor = 1
+			}
+		}
+	}
+	high_command = {
+
+		MON_lodongijn_dandar = {
+
+			picture = generic_army_asia_2
+			
+			allowed = {
+				original_tag = MON
+				has_completed_focus = MON_military_academy
+			}
+			
+			traits = { army_cavalry_3 }
+			
+			ai_will_do = {
+				factor = 1
+			}
+		}
+		MON_butochijn_tsog = {
+
+			picture = generic_army_asia_1
+			
+			allowed = {
+				original_tag = MON
+				has_completed_focus = MON_military_academy
+			}
+			
+			traits = { army_artillery_3 }
+			
+			ai_will_do = {
+				factor = 1
+			}
+		}
+	}
+}
