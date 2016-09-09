@@ -32,12 +32,7 @@ focus_tree = {
 		available = {
 		}
 		cancel = {
-			OR = {
-				NOT = { country_exists = SOV }
-				NOT = { 
-					SOV = { has_government = communism }
-				}
-			}
+			soviets_no_more = yes
 		}
 		prerequisite = { focus = MON_political_effort }
 		x = 0
@@ -75,6 +70,12 @@ focus_tree = {
 			add_ideas = fascist_influence
 			fascism = {
 				banned = no
+			}
+			hidden_effect = {
+				if = {
+					limit = { is_ai = yes}
+					country_event = political.7
+				}
 			}
 		}
 	}
@@ -162,20 +163,9 @@ focus_tree = {
 						election_frequency = 48
 					}
 				}
-				set_party_name = { 
-					ideology = neutrality
-					long_name = MON_neutrality_party_d
-					name = MON_neutrality_d_short
-				}
-				set_party_name = { 
-					ideology = fascism
-					long_name = MON_fascist_party_d
-					name = MON_fascist_party_d_short
-				}
-				set_party_name = { 
-					ideology = democratic
-					long_name = MON_democratic_party_d
-					name = MON_democratic_party_d_short
+				if = {
+					limit = { is_ai = yes}
+					country_event = political.13
 				}
 			}
 		}
@@ -186,8 +176,7 @@ focus_tree = {
 		available = {
 			SOV = {
 				OR = {
-					has_government = democratic
-					has_government = fascism
+					soviets_no_more = yes
 					has_completed_focus = SOV_great_purge
 				}
 			}
@@ -206,8 +195,8 @@ focus_tree = {
 			}
 			set_rule = { can_create_factions = yes }
 			add_popularity = {
-					ideology = democratic
-					popularity = 0.2
+				ideology = democratic
+				popularity = 0.2
 			}
 		}
 	}
@@ -215,6 +204,9 @@ focus_tree = {
 		id = MON_repressions
 		icon = GFX_goal_generic_political_pressure
 		available = {
+		}
+		cancel = {
+			soviets_no_more = yes
 		}
 		prerequisite = { focus = MON_SOV_focus }
 		x = 0
@@ -231,6 +223,9 @@ focus_tree = {
 		available = {
 			country_exists = TAN
 		}
+		cancel = {
+			soviets_no_more = yes
+		}
 		bypass = {
 			NOT = { country_exists = TAN }
 		}
@@ -246,18 +241,6 @@ focus_tree = {
 		id = MON_claim_inner_mogolia
 		icon = GFX_goal_generic_more_territorial_claims
 		available = {
-			611 = {
-				NOT = { is_owned_by  = MON }
-			}
-			612 = {
-				NOT = { is_owned_by  = MON }
-			}
-			621 = {
-				NOT = { is_owned_by  = MON }
-			}
-			616 = {
-				NOT = { is_owned_by  = MON }
-			}
 		}
 		bypass = {
 			AND = {
@@ -282,15 +265,63 @@ focus_tree = {
 		completion_reward = {
 			611 = {
 				add_core_of = MON
+				owner = {
+					if = { 
+						limit = { 
+							NOT = { 
+								has_country_flag = inner_mongolia_demanded 
+								tag = MON
+							} 
+						}
+						set_country_flag = inner_mongolia_demanded
+						country_event = { id = MON.13 days = 7 }
+					}
+				}
 			}
 			612 = {
 				add_core_of = MON
+				owner = {
+					if = { 
+						limit = { 
+							NOT = { 
+								has_country_flag = inner_mongolia_demanded 
+								tag = MON
+							} 
+						}
+						set_country_flag = inner_mongolia_demanded
+						country_event = { id = MON.13 days = 7 }
+					}
+				}
 			}
 			621 = {
 				add_core_of = MON
+				owner = {
+					if = { 
+						limit = { 
+							NOT = { 
+								has_country_flag = inner_mongolia_demanded 
+								tag = MON
+							} 
+						}
+						set_country_flag = inner_mongolia_demanded
+						country_event = { id = MON.13 days = 7 }
+					}
+				}
 			}
 			616 = {
 				add_core_of = MON
+				owner = {
+					if = { 
+						limit = { 
+							NOT = { 
+								has_country_flag = inner_mongolia_demanded 
+								tag = MON
+							} 
+						}
+						set_country_flag = inner_mongolia_demanded
+						country_event = { id = MON.13 days = 7 }
+					}
+				}
 			}
 		}
 	}
@@ -317,6 +348,7 @@ focus_tree = {
 		cost = 10
 		completion_reward = {
 			611 = {
+				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = infrastructure
 					level = 2
@@ -329,6 +361,7 @@ focus_tree = {
 				}
 			}
 			612 = {
+				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = infrastructure
 					level = 2
@@ -341,6 +374,7 @@ focus_tree = {
 				}
 			}
 			621 = {
+				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = infrastructure
 					level = 2
@@ -353,6 +387,7 @@ focus_tree = {
 				}
 			}
 			616 = {
+				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = infrastructure
 					level = 2
@@ -386,6 +421,12 @@ focus_tree = {
 		completion_reward = {
 			618 = {
 				add_core_of = MON
+				owner = {
+					country_event = { 
+						id = MON.9
+						days = 7 
+					}
+				}
 			}
 		}
 	}
@@ -403,6 +444,7 @@ focus_tree = {
 		cost = 10
 		completion_reward = {
 			618 = {
+				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = infrastructure
 					level = 2
@@ -449,13 +491,20 @@ focus_tree = {
 		cost = 10
 		completion_reward = {
 			563 = {
-					add_core_of = MON
+				add_core_of = MON
+				owner = {
+					if = { 
+						limit = { NOT = { has_country_flag = buryatia_demanded } }
+						set_country_flag = buryatia_demanded
+						country_event = { id = MON.12 days = 7 }
+					}
+				}
 			}
 			564 = {
-					add_core_of = MON
+				add_core_of = MON
 			}
 			565 = {
-					add_core_of = MON
+				add_core_of = MON
 			}
 		}
 	}
@@ -479,6 +528,7 @@ focus_tree = {
 		cost = 10
 		completion_reward = {
 			563 = {
+				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = infrastructure
 					level = 5
@@ -486,6 +536,7 @@ focus_tree = {
 				}
 			}
 			564 = {
+				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = infrastructure
 					level = 5
@@ -493,6 +544,7 @@ focus_tree = {
 				}
 			}
 			565 = {
+				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = infrastructure
 					level = 5
@@ -510,6 +562,7 @@ focus_tree = {
 		cost = 10
 		completion_reward = {
 			330 = {
+				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = infrastructure
 					level = 5
@@ -523,11 +576,15 @@ focus_tree = {
 		icon = GFX_goal_generic_propaganda
 		available = {
 		}
+		cancel = {
+			soviets_no_more = yes
+		}
 		prerequisite = { focus = MON_ask_for_tuva }
 		x = 0
 		y = 4
 		cost = 10
 		completion_reward = {
+			set_rule = { can_send_volunteers = yes }
 			add_ideas = foreign_expeditions_focus
 		}
 	}
@@ -685,7 +742,6 @@ focus_tree = {
 		y = 2
 		cost = 10
 		completion_reward = {
-			#custom_effect_tooltip = mechanization_tooltip
 			add_ideas = MON_mechanization_idea
 			330 = {
 				add_extra_state_shared_building_slots = 1
@@ -1260,7 +1316,7 @@ focus_tree = {
 	}
 	focus = {
 		id = MON_russian_colony
-		icon = GFX_goal_generic_improve_relations
+		icon = GFX_goal_generic_more_territorial_claims
 		available = {
 			NOT = { has_government = communism }
 		}
@@ -1309,6 +1365,7 @@ focus_tree = {
 					traits = { winter_specialist trait_mountaineer old_guard }
 					skill = 3
 				}
+				add_manpower = 10800
 			}
 			custom_effect_tooltip = SEMYONOV_COMMANDER
 			custom_effect_tooltip = KISLITSIN_COMMANDER
@@ -1316,11 +1373,12 @@ focus_tree = {
 			custom_effect_tooltip = available_political_advisor
 			show_ideas_tooltip = ivan_mikhailov
 			army_experience = 10
+			load_oob = "MON_templates"
 		}
 	}
 	focus = {
 		id = MON_russian_mongolia
-		icon = GFX_goal_generic_improve_relations
+		icon = GFX_goal_generic_demand_territory
 		available = {
 		}
 		x = 26
@@ -1350,6 +1408,10 @@ focus_tree = {
 				}
 			}
 			hidden_effect = {
+				add_popularity = {
+					ideology = neutrality
+					popularity = 0.2
+				}
 				create_country_leader = {
 					name = "Lev Okhotin"
 					desc = "POLITICS_OKHOTIN_DESC"
@@ -1386,6 +1448,12 @@ focus_tree = {
 						has_idea = true_to_revolution
 					}
 					remove_ideas = true_to_revolution
+				}
+				if = {
+					limit = {
+						has_country_flag = bogd_khan_restored
+					}
+					add_ideas = MON_bogd_khan
 				}
 			}
 		}

@@ -8,12 +8,20 @@ country_event = {
 	picture = GFX_report_event_asian_politicians
 
 	is_triggered_only = yes
-	
-	fire_only_once = yes
-	
+	#отдать
 	option = {
 		name = MON.1.a
-		ai_chance = { factor = 10 }
+		ai_chance = { 
+			factor = 10 
+			modifier = {
+				factor = 5
+				MON = { is_in_faction_with = JAP }
+			}
+			modifier = {
+				factor = 2
+				MON = { has_government = fascism }
+			}
+		}
 		MEN = {
 			every_state = {
 				limit = {
@@ -25,7 +33,7 @@ country_event = {
 		MON = { 
 			annex_country = { target = MEN transfer_troops = yes } 
 			add_opinion_modifier = {
-					target = ROOT
+					target = JAP
 					modifier = transfered
 			}
 			add_popularity = {
@@ -33,17 +41,36 @@ country_event = {
 					popularity = 0.3
 			}
 		}
+		set_global_flag = mengkukuo_ceded
 	}
-	
+	#не отдавать
 	option = {
 		name = MON.1.b
 		ai_chance = { factor = 20 }
 		MON = { 
 			country_event = { id = MON.2 days = 1 } 
 			add_opinion_modifier = {
-					target = ROOT
+					target = JAP
 					modifier = refused_transfer 
 			}
+		}
+	}
+	#в обмен на союз
+	option = {
+		name = MON.1.c
+		ai_chance = { 
+			factor = 20 
+			modifier = { 
+				factor = 5
+				has_completed_focus = found_own_faction_focus
+			}
+			modifier = {
+				factor = 2
+				MON = { has_government = fascism }
+			}
+		}
+		MON = { 
+			country_event = { id = MON.15 days = 3 }
 		}
 	}
 }
@@ -57,12 +84,10 @@ country_event = {
 
 	is_triggered_only = yes
 	
-	fire_only_once = yes
-	
 	option = {
 		name = MON.2.a
 		add_popularity = {
-			deology = fascism
+			ideology = fascism
 			popularity = -0.15
 		}
 	}
@@ -76,8 +101,6 @@ country_event = {
 	picture = GFX_report_event_generic_sign_treaty1
 
 	is_triggered_only = yes
-	
-	fire_only_once = yes
 	
 	option = {
 		name = MON.3.a
@@ -197,22 +220,20 @@ country_event = {
 		}
 	}
 	mean_time_to_happen = {
-		days = 15
+		days = 7
 	}
 	option = {
 		name = MON.6.a
-		if = {
-			limit = {
-				NOT = { MON = { is_puppet_of = JAP } }
-			}
-			puppet = MON
-		}
-		MON = { 
-			annex_country = { target = MEN transfer_troops = yes } 
-		}
 		hidden_effect = {
 			MEN = { kill_country_leader = yes }
+			if = {
+				limit = {
+					NOT = { MON = { is_puppet_of = JAP } }
+				}
+				puppet = MON
+			}
 			MON = {
+				annex_country = { target = MEN transfer_troops = yes }
 				add_popularity = {
 					ideology = fascism
 					popularity = 0.3
@@ -246,36 +267,55 @@ country_event = {
 			}
 			if = {
 				limit = {
-					611 = { is_controlled_by = JAP }
-					611 = { controller = { is_puppet_of = JAP } }
+					OR = {
+						330 = { is_controlled_by = JAP }
+						330 = { controller = { is_puppet_of = JAP } }
+					}
+				}
+				MON = { transfer_state = 330 }
+			}
+			if = {
+				limit = {
+					OR = {
+						611 = { is_controlled_by = JAP }
+						611 = { controller = { is_puppet_of = JAP } }
+					}
 				}
 				MON = { transfer_state = 611 }
 			}
 			if = {
 				limit = {
-					612 = { is_controlled_by = JAP }
-					612 = { controller = { is_puppet_of = JAP } }
+					OR = {
+						612 = { is_controlled_by = JAP }
+						612 = { controller = { is_puppet_of = JAP } }
+					}
 				}
 				MON = { transfer_state = 612 }
 			}
 			if = {
 				limit = {
-					621 = { is_controlled_by = JAP }
-					621 = { controller = { is_puppet_of = JAP } }
+					OR = {
+						621 = { is_controlled_by = JAP }
+						621 = { controller = { is_puppet_of = JAP } }
+					}
 				}
 				MON = { transfer_state = 621 }
 			}
 			if = {
 				limit = {
-					616 = { is_controlled_by = JAP }
-					616 = { controller = { is_puppet_of = JAP } }
+					OR = {
+						616 = { is_controlled_by = JAP }
+						616 = { controller = { is_puppet_of = JAP } }
+					}
 				}
 				MON = { transfer_state = 616 }
 			}
 			if = {
 				limit = {
-					618 = { is_controlled_by = JAP }
-					618 = { controller = { is_puppet_of = JAP } }
+					OR = {
+						618 = { is_controlled_by = JAP }
+						618 = { controller = { is_puppet_of = JAP } }
+					}
 				}
 				MON = { transfer_state = 618 }
 			}
@@ -286,6 +326,7 @@ country_event = {
 	}
 }
 
+#Чойбалсан у власти
 country_event = {
 	id = MON.7
 	title = MON.7.t
@@ -330,3 +371,384 @@ country_event = {
 		}
 	}
 }
+
+#Реставрация монархии
+country_event = {
+	id = MON.8
+	title = MON.8.t
+	desc = MON.8.d
+	picture = GFX_report_event_asian_politicians
+	fire_only_once = yes
+	
+	trigger = {
+		tag = MON
+		has_government = democratic
+		
+	}
+	mean_time_to_happen = {
+		days = 60
+	}
+	option = {
+		name = MON.8.a
+		create_country_leader = {
+			name = "Bogd Khan IX"
+			desc = "POLITICS_BOGD_KHAN_DESC"
+			picture = "gfx/leaders/MON/Portrait_Bogd_Khan.dds"
+			expire = "1952.1.1"
+			ideology = moderatism
+			traits = {
+				popular_figurehead
+			}
+		}
+		set_politics = {
+			ruling_party = neutrality
+			#elections_allowed = no
+		}
+		add_ideas = MON_neutrality_idea
+		set_country_flag = bogd_khan_restored
+		hidden_effect = {
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.2
+			}
+			if = {
+				limit = {
+					has_idea = fascist_influence
+				}
+				remove_ideas = fascist_influence
+			}
+			if = {
+				limit = {
+					has_idea = democratic_influence
+				}
+				remove_ideas = democratic_influence
+			}
+			if = {
+				limit = {
+					has_idea = true_to_revolution
+				}
+				remove_ideas = true_to_revolution
+			}
+		}
+	}
+	option = {
+		name = MON.8.b
+	}
+}
+
+#Монголия требует Джунгарию
+country_event = {
+	id = MON.9
+	title = MON.9.t
+	desc = MON.9.d
+	picture = GFX_report_event_asian_politicians
+	
+	is_triggered_only = yes
+	#отдать
+	option = {
+		name = MON.9.a
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 1,5
+				is_in_faction = no
+			}
+			modifier = {
+				factor = 2
+				strength_ratio = { tag = MON ratio < 0,8 }
+			}
+		}
+		add_political_power = -100
+		MON = {
+			transfer_state = 618
+			country_event = { id = MON.11 }
+		}
+	}
+	#отказать
+	option = {
+		name = MON.9.b
+		ai_chance = {
+			factor = 2	
+			modifier = {
+				factor = 2
+				strength_ratio = { tag = MON ratio > 1 }
+			}
+		}
+		MON = {
+			country_event = { id = MON.10 }
+		}
+		set_global_flag = refused_dzungaria
+	}
+}
+#Земли не возвращены
+country_event = {
+	id = MON.10
+	title = MON.10.t
+	desc = MON.10.d
+	picture = GFX_report_event_asian_politicians
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = MON.10.a
+		if = {
+			limit = { has_global_flag = refused_dzungaria }
+			create_wargoal = {
+				type = take_state_focus
+				target = FROM
+				generator = { 618 }
+			}
+			clr_global_flag = refused_dzungaria
+		}
+		if = {
+			limit = { has_global_flag = refused_buryatia }
+			create_wargoal = {
+				type = take_state_focus
+				target = FROM
+				generator = { 563 564 565 }
+			}
+			clr_global_flag = refused_buryatia
+		}
+		if = {
+			limit = { has_global_flag = refused_611 }
+			create_wargoal = {
+				type = take_state_focus
+				target = FROM
+				generator = { 611 }
+			}
+			clr_global_flag = refused_611
+		}
+		if = {
+			limit = { has_global_flag = refused_612 }
+			create_wargoal = {
+				type = take_state_focus
+				target = FROM
+				generator = { 612 }
+			}
+			clr_global_flag = refused_612
+		}
+		if = {
+			limit = { has_global_flag = refused_616 }
+			create_wargoal = {
+				type = take_state_focus
+				target = FROM
+				generator = { 616 }
+			}
+			clr_global_flag = refused_616
+		}
+		if = {
+			limit = { has_global_flag = refused_621 }
+			create_wargoal = {
+				type = take_state_focus
+				target = FROM
+				generator = { 621 }
+			}
+			clr_global_flag = refused_621
+		}
+	}
+}
+
+#Земли возвращены
+country_event = {
+	id = MON.11
+	title = MON.11.t
+	desc = MON.11.d
+	picture = GFX_report_event_asian_politicians
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = MON.11.a
+		add_political_power = 100
+	}
+}
+#Монголия требует Бурятию
+country_event = {
+	id = MON.12
+	title = MON.12.t
+	desc = MON.12.d
+	picture = GFX_report_event_asian_politicians
+	
+	is_triggered_only = yes
+	#отдать
+	option = {
+		name = MON.12.a
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 75
+				219 = { NOT = { is_controlled_by = SOV } } 	
+			}
+		}
+		add_political_power = -150
+		MON = {
+			transfer_state = 563
+			transfer_state = 564
+			transfer_state = 565
+			country_event = { id = MON.11 }
+		}
+	}
+	#отказать
+	option = {
+		name = MON.12.b
+		ai_chance = {
+			factor = 25
+		}
+		MON = {
+			country_event = { id = MON.10 }
+		}
+		set_global_flag = refused_buryatia
+	}
+}
+#Монголия требует Внутренную Монголию
+country_event = {
+	id = MON.13
+	title = MON.13.t
+	desc = MON.13.d
+	picture = GFX_report_event_asian_politicians
+	
+	is_triggered_only = yes
+	#отдать
+	option = {
+		name = MON.13.a
+		ai_chance = {
+			factor = 5
+			modifier = {
+				factor = 1,5
+				is_in_faction = no
+			}
+			modifier = {
+				factor = 2
+				strength_ratio = { tag = MON ratio < 0,8 }
+			}
+			modifier = {
+				factor = 50
+				has_war = yes
+				any_enemy_country = {
+					strength_ratio = { 
+						tag = ROOT 
+						ratio < 0.4
+					}
+				}
+			}
+		}
+		MON = { country_event = { id = MON.11 } }
+		if = {
+			limit = { owns_state = 611 }
+			MON = { transfer_state = 611 }
+		}
+		if = {
+			limit = { owns_state = 612 }
+			MON = { transfer_state = 612 }
+		}
+		if = {
+			limit = { owns_state = 616 }
+			MON = { transfer_state = 616 }
+		}
+		if = {
+			limit = { owns_state = 621 }
+			MON = { transfer_state = 621 }
+		}
+	}
+	#отказать
+	option = {
+		name = MON.13.b
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 2
+				strength_ratio = { tag = MON ratio > 1 }
+			}
+		}
+		MON = {
+			country_event = { id = MON.10 }
+		}
+		if = {
+			limit = { owns_state = 611 }
+			set_global_flag = refused_611
+		}
+		if = {
+			limit = { owns_state = 612 }
+			set_global_flag = refused_612
+		}
+		if = {
+			limit = { owns_state = 616 }
+			set_global_flag = refused_616
+		}
+		if = {
+			limit = { owns_state = 621 }
+			set_global_flag = refused_621
+		}
+	}
+}
+#Падение коммунизма
+country_event = {
+	id = MON.14
+	title = MON.14.t
+	desc = MON.14.d
+	picture = GFX_report_event_asian_politicians
+	fire_only_once = yes
+	
+	trigger = {
+		tag = MON
+		has_government = communism
+		soviets_no_more = yes
+	}
+	mean_time_to_happen = {
+		days = 7
+	}
+	option = {
+		name = MON.14.a
+		add_popularity = {
+			ideology = communism
+			popularity = -0.3
+		}
+	}
+}
+#Мэнцзян в обмен на союз?
+country_event = {
+	id = MON.15
+	title = MON.15.t
+	desc = MON.15.d
+	picture = GFX_report_event_asian_politicians
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = MON.15.a
+		JAP = {
+			if = {
+				limit = { is_in_faction = no }
+				create_faction = "daitoa_kyoeiken" 
+				add_to_faction = MON
+			}
+			if = {
+				limit = { is_in_faction = yes }
+				add_to_faction = MON
+			}
+		}
+		MEN = {
+			every_state = {
+				limit = {
+					is_core_of = MEN
+				}
+				add_core_of = MON
+			}
+		}
+		MON = { 
+			annex_country = { target = MEN transfer_troops = yes } 
+			add_opinion_modifier = {
+					target = JAP
+					modifier = transfered
+			}
+			add_popularity = {
+					ideology = fascism
+					popularity = 0.3
+			}
+		}
+		set_global_flag = mengkukuo_ceded
+	}
+	option = {
+		name = MON.15.b
+	}
+}			

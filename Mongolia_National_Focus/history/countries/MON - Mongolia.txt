@@ -5,6 +5,7 @@ oob = "MON_1936"
 # Starting tech
 set_technology = {
 	infantry_weapons = 1
+	gw_artillery = 1
 }
 
 add_ideas = {
@@ -94,6 +95,13 @@ create_country_leader = {
 	}
 }
 
+create_field_marshal = {
+	name = "Khorloogiin Choibalsan"
+	portrait_path = "gfx/leaders/MON/Portrait_Choibalsan.dds"
+	traits = { offensive_doctrine }
+	skill = 3
+}
+
 1939.1.1 = {
 
 	add_ideas = {
@@ -128,7 +136,7 @@ create_country_leader = {
 	create_country_leader = {
 		name = "Khorloogiin Choibalsan"
 		desc = "POLITICS_KHORLOOGIIN_CHOIBALSAN_DESC"
-		picture = "gfx/leaders/MON/Choibalsan.dds"
+		picture = "gfx/leaders/MON/Portrait_Choibalsan"
 		expire = "1952.1.1"
 		ideology = stalinism
 		traits = {

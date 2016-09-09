@@ -1,0 +1,7 @@
+soviets_no_more = {
+	OR = {
+		NOT = { country_exists = SOV }
+		NOT = { SOV = { has_government = communism } }
+		SOV = is_puppet = yes
+	}
+}

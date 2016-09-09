@@ -1,0 +1,67 @@
+MON_JAP_alliance = {
+	enable = {
+		tag = MON
+		has_global_flag = mengkukuo_ceded
+		country_exists = JAP
+	}
+	abort = {
+		NOT = {
+			country_exists = JAP
+		}
+	}
+	ai_strategy = {
+		type = befriend
+		id = "JAP"			
+		value = 200
+	}
+	ai_strategy = {
+		type = alliance
+		id = "JAP"			
+		value = 200
+	}	
+}
+JAP_MON_alliance = {
+	enable = {
+		tag = JAP
+		has_global_flag = mengkukuo_ceded
+		country_exists = MON
+	}
+	abort = {
+		NOT = {
+			country_exists = MON
+		}
+	}
+	ai_strategy = {
+		type = befriend
+		id = "MON"			
+		value = 200
+	}
+	ai_strategy = {
+		type = alliance
+		id = "MON"		
+		value = 200
+	}	
+}
+
+MON_prefer_JAP = {
+	enable = {
+		tag = MON
+		has_government = fascism
+		is_in_faction = no
+	}
+	abort = {
+		OR = {
+			AND = {
+				has_completed_focus = MON_ask_for_mengkukuo
+				NOT = { has_global_flag = mengkukuo_ceded }
+			}
+			JAP = { is_in_faction_with = GER }
+			is_in_faction = yes
+		}
+	}
+	ai_strategy = {
+		type = alliance
+		id = "GER"		
+		value = -200
+	}
+}

@@ -1,5 +1,21 @@
 ideas = {
 	country = {
+		MON_bogd_khan = {
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = no
+			}
+			
+			#picture = bogd_khan
+			
+			removal_cost = -1
+			
+			traits = { popular_figurehead }
+		}
+		
 		japanese_advisors_idea = {
 		
 			picture = state_shintoism
