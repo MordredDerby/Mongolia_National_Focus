@@ -15,7 +15,7 @@ focus_tree = {
 	focus = {
 		id = MON_political_effort
 		icon = GFX_goal_generic_propaganda
-		x = 2
+		x = 3
 		y = 0
 		cost = 10
 		
@@ -29,6 +29,7 @@ focus_tree = {
 		icon = GFX_goal_support_communism
 		mutually_exclusive = { focus = MON_JAP_focus }
 		mutually_exclusive = { focus = MON_decollectivization }
+		mutually_exclusive = { focus = MON_monasteries }
 		available = {
 		}
 		cancel = {
@@ -39,7 +40,14 @@ focus_tree = {
 		y = 1
 		cost = 10
 		completion_reward = {
-			add_ideas = true_to_revolution
+			if = {
+				limit = { has_government = communism }
+				add_ideas = true_to_revolution
+			}
+			if = {
+				limit = { NOT = { has_government = communism } }
+				add_ideas = MON_communism_idea
+			}
 		}
 	}
 	focus = {
@@ -47,6 +55,7 @@ focus_tree = {
 		icon = GFX_goal_support_fascism
 		mutually_exclusive = { focus = MON_SOV_focus }
 		mutually_exclusive = { focus = MON_decollectivization }
+		mutually_exclusive = { focus = MON_monasteries }
 		available = {
 		}
 		prerequisite = { focus = MON_political_effort }
@@ -54,11 +63,17 @@ focus_tree = {
 		y = 1
 		cost = 10
 		completion_reward = {
-			SOV = { 
+			SOV = {
 				remove_from_faction = MON 
 				add_opinion_modifier = {
+					modifier = faction_traitor
 					target = ROOT
-					modifier = drifted_from
+					days = 365
+				}
+				add_opinion_modifier = {
+					modifier = faction_traitor_trade
+					target = ROOT
+					days = 365
 				}
 			}
 			JAP = {
@@ -67,7 +82,7 @@ focus_tree = {
 					modifier = drifted_to
 				}
 			}
-			add_ideas = fascist_influence
+			add_ideas = MON_fascism_idea
 			fascism = {
 				banned = no
 			}
@@ -113,8 +128,9 @@ focus_tree = {
 	focus = {
 		id = MON_decollectivization
 		icon = GFX_goal_generic_national_unity
-		mutually_exclusive = { focus = MON_JAP_focus }
 		mutually_exclusive = { focus = MON_SOV_focus }
+		mutually_exclusive = { focus = MON_JAP_focus }
+		mutually_exclusive = { focus = MON_monasteries }
 		available = {
 		}
 		prerequisite = { focus = MON_political_effort }
@@ -136,7 +152,7 @@ focus_tree = {
 		y = 2
 		cost = 10
 		completion_reward = {
-			add_ideas = democratic_influence
+			add_ideas = MON_democracy_idea 
 			custom_effect_tooltip = voting_rights_tt
 			hidden_effect = {
 				if = {
@@ -174,23 +190,28 @@ focus_tree = {
 		id = MON_SOV_break
 		icon = GFX_goal_generic_war_with_comintern
 		available = {
-			SOV = {
-				OR = {
-					soviets_no_more = yes
-					has_completed_focus = SOV_great_purge
-				}
+			OR = {
+				soviets_no_more = yes
+				SOV = { has_completed_focus = SOV_great_purge }
 			}
+			communism < 0.7
 		}
 		prerequisite = { focus = MON_elected_khural }
 		x = 4
 		y = 3
 		cost = 10
 		completion_reward = {
-			SOV = { 
+			SOV = {
 				remove_from_faction = MON 
 				add_opinion_modifier = {
+					modifier = faction_traitor
 					target = ROOT
-					modifier = drifted_from
+					days = 365
+				}
+				add_opinion_modifier = {
+					modifier = faction_traitor_trade
+					target = ROOT
+					days = 365
 				}
 			}
 			set_rule = { can_create_factions = yes }
@@ -214,7 +235,7 @@ focus_tree = {
 		cost = 10
 		completion_reward = {
 			add_political_power = 120
-			add_timed_idea = { idea = reign_of_terror days = 365 }
+			add_timed_idea = { idea = reign_of_terror days = 730 }
 		}
 	}
 	focus = {
@@ -258,9 +279,9 @@ focus_tree = {
 				}
 			}
 		}
-		prerequisite = { focus = MON_SOV_break focus = MON_ask_for_tuva focus = MON_ask_for_mengkukuo }
-		x = 2
-		y = 4
+		prerequisite = { focus = MON_SOV_break focus = MON_ask_for_tuva focus = MON_ask_for_mengkukuo focus = MON_restore_monarchy }
+		x = 1
+		y = 5
 		cost = 10
 		completion_reward = {
 			611 = {
@@ -343,7 +364,7 @@ focus_tree = {
 			}
 		}
 		prerequisite = { focus = MON_claim_inner_mogolia }
-		x = 0
+		x = 1
 		y = 6
 		cost = 10
 		completion_reward = {
@@ -414,8 +435,8 @@ focus_tree = {
 				is_owned_by  = MON
 			}
 		}
-		prerequisite = { focus = MON_claim_inner_mogolia }
-		x = 2
+		prerequisite = { focus = MON_SOV_break focus = MON_ask_for_tuva focus = MON_ask_for_mengkukuo focus = MON_restore_monarchy }
+		x = 3
 		y = 5
 		cost = 10
 		completion_reward = {
@@ -439,7 +460,7 @@ focus_tree = {
 			}
 		}
 		prerequisite = { focus = MON_claim_dzungaria }
-		x = 2
+		x = 3
 		y = 6
 		cost = 10
 		completion_reward = {
@@ -462,15 +483,6 @@ focus_tree = {
 		id = MON_claim_buryatia
 		icon = GFX_goal_generic_more_territorial_claims
 		available = {
-			563 = {
-				NOT = { is_owned_by  = MON }
-			}
-			564 = {
-				NOT = { is_owned_by  = MON }
-			}
-			565 = {
-				NOT = { is_owned_by  = MON }
-			}
 		}
 		bypass = {
 			AND = {
@@ -485,9 +497,9 @@ focus_tree = {
 				}
 			}
 		}
-		prerequisite = { focus = MON_SOV_break focus = MON_ask_for_mengkukuo }
-		x = 4
-		y = 4
+		prerequisite = { focus = MON_SOV_break focus = MON_ask_for_mengkukuo focus = MON_restore_monarchy }
+		x = 5
+		y = 5
 		cost = 10
 		completion_reward = {
 			563 = {
@@ -523,8 +535,8 @@ focus_tree = {
 			}
 		}
 		prerequisite = { focus = MON_claim_buryatia }
-		x = 4
-		y = 5
+		x = 5
+		y = 6
 		cost = 10
 		completion_reward = {
 			563 = {
@@ -556,9 +568,9 @@ focus_tree = {
 	focus = {
 		id = MON_transmongolian_railroad
 		icon = GFX_goal_generic_construct_infrastructure
-		prerequisite = { focus = MON_develop_transsib }
-		x = 4
-		y = 6
+		prerequisite = { focus = MON_develop_transsib focus = MON_infrastructure_effort }
+		x = 7
+		y = 7
 		cost = 10
 		completion_reward = {
 			330 = {
@@ -568,6 +580,50 @@ focus_tree = {
 					level = 5
 					instant_build = yes
 				}
+			}
+			if = {
+				limit = { owns_state = 611 }
+				611 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = infrastructure
+						level = 5
+						instant_build = yes
+					}
+				}					
+			}
+			if = {
+				limit = { owns_state = 612 }
+				612 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = infrastructure
+						level = 5
+						instant_build = yes
+					}
+				}					
+			}
+			if = {
+				limit = { owns_state = 616 }
+				616 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = infrastructure
+						level = 5
+						instant_build = yes
+					}
+				}					
+			}
+			if = {
+				limit = { owns_state = 621 }
+				621 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = infrastructure
+						level = 5
+						instant_build = yes
+					}
+				}					
 			}
 		}
 	}
@@ -593,7 +649,7 @@ focus_tree = {
 		icon = GFX_goal_generic_production
 		available = {
 		}
-		x = 9
+		x = 10
 		y = 0
 		cost = 10
 		completion_reward = {
@@ -606,12 +662,12 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = MON_resouce_effort
+		id = MON_resource_effort
 		icon = GFX_goal_generic_construction2
 		available = {
 		}
 		prerequisite = { focus = MON_industry_effort }
-		x = 7
+		x = 9
 		y = 1
 		cost = 10
 		completion_reward = {
@@ -632,8 +688,8 @@ focus_tree = {
 		icon = GFX_goal_generic_construct_civilian
 		available = {
 		}
-		prerequisite = { focus = MON_resouce_effort }
-		x = 6
+		prerequisite = { focus = MON_resource_effort }
+		x = 10
 		y = 2
 		cost = 10
 		completion_reward = {
@@ -646,8 +702,8 @@ focus_tree = {
 		available = {
 		}
 		prerequisite = { focus = MON_oil_effort }
-		x = 6
-		y = 3
+		x = 10
+		y = 4
 		cost = 10
 		completion_reward = {
 			add_tech_bonus = {
@@ -663,7 +719,7 @@ focus_tree = {
 		icon = GFX_goal_generic_production
 		available = {
 		}
-		prerequisite = { focus = MON_resouce_effort }
+		prerequisite = { focus = MON_resource_effort }
 		x = 8
 		y = 2
 		cost = 10
@@ -679,7 +735,7 @@ focus_tree = {
 		}
 		prerequisite = { focus = MON_metals_effort }
 		x = 8
-		y = 3
+		y = 4
 		cost = 10
 		complete_tooltip = {
 			add_building_construction = {
@@ -704,7 +760,7 @@ focus_tree = {
 		available = {
 		}
 		prerequisite = { focus = MON_industry_effort }
-		x = 10
+		x = 12
 		y = 1
 		cost = 10
 		complete_tooltip = {
@@ -738,7 +794,7 @@ focus_tree = {
 		available = {
 		}
 		prerequisite = { focus = MON_electrification }
-		x = 10
+		x = 13
 		y = 2
 		cost = 10
 		completion_reward = {
@@ -759,7 +815,7 @@ focus_tree = {
 		available = {
 		}
 		prerequisite = { focus = MON_mechanization }
-		x = 10
+		x = 12
 		y = 3
 		cost = 10
 		completion_reward = {
@@ -820,7 +876,7 @@ focus_tree = {
 		available = {
 		}
 		prerequisite = { focus = MON_industry_effort2 }
-		x = 10
+		x = 13
 		y = 4
 		cost = 10
 		completion_reward = {
@@ -839,7 +895,7 @@ focus_tree = {
 		icon = GFX_goal_generic_major_war
 		available = {
 		}
-		x = 15
+		x = 17
 		y = 0
 		cost = 10
 		completion_reward = {
@@ -855,10 +911,10 @@ focus_tree = {
 	}
 	focus = {
 		id = MON_cavalry_modernization
-		icon = GFX_goal_generic_military_deal
+		icon = GFX_goal_generic_cavalry
 		available = {
 		}
-		x = 12
+		x = 14
 		y = 1
 		cost = 10
 		prerequisite = { focus = MON_revolutions_experience }
@@ -872,7 +928,7 @@ focus_tree = {
 		available = {
 		}
 		bypass = { has_tech = motorised_infantry }
-		x = 12
+		x = 14
 		y = 3
 		cost = 10
 		prerequisite = { focus = MON_cavalry_modernization }
@@ -890,11 +946,11 @@ focus_tree = {
 		icon = GFX_goal_generic_army_tanks
 		available = {
 		}
-		x = 12
-		y = 4
+		x = 14
+		y = 5
 		cost = 10
 		prerequisite = { focus = MON_motorization }
-		prerequisite = { focus = MON_industry_effort2 }
+		prerequisite = { focus = MON_mil_industry }
 		completion_reward = {
 			add_tech_bonus = {
 				name = armor_bonus
@@ -910,7 +966,7 @@ focus_tree = {
 		icon = GFX_goal_generic_small_arms
 		available = {
 		}
-		x = 14
+		x = 16
 		y = 1
 		cost = 10
 		prerequisite = { focus = MON_revolutions_experience }
@@ -928,7 +984,7 @@ focus_tree = {
 		icon = GFX_goal_generic_army_artillery2
 		available = {
 		}
-		x = 14
+		x = 16
 		y = 2
 		cost = 10
 		prerequisite = { focus = MON_small_arms }
@@ -946,7 +1002,7 @@ focus_tree = {
 		icon = GFX_goal_generic_special_forces
 		available = {
 		}
-		x = 14
+		x = 16
 		y = 3
 		cost = 10
 		prerequisite = { focus = MON_artillery }
@@ -967,7 +1023,7 @@ focus_tree = {
 		mutually_exclusive = { focus = MON_fortify_capital }
 		available = {
 		}
-		x = 16
+		x = 18
 		y = 1
 		cost = 10
 		prerequisite = { focus = MON_revolutions_experience }
@@ -1056,7 +1112,7 @@ focus_tree = {
 		icon = GFX_goal_generic_construct_military
 		available = {
 		}
-		x = 18
+		x = 20
 		y = 1
 		cost = 10
 		prerequisite = { focus = MON_revolutions_experience }
@@ -1115,7 +1171,7 @@ focus_tree = {
 		icon = GFX_goal_generic_fortify_city
 		available = {
 		}
-		x = 16
+		x = 18
 		y = 2
 		cost = 10
 		prerequisite = { focus = MON_fortify_border }
@@ -1128,7 +1184,7 @@ focus_tree = {
 		icon = GFX_goal_generic_army_doctrines
 		available = {
 		}
-		x = 16
+		x = 18
 		y = 3
 		cost = 10
 		prerequisite = { focus = MON_quick_fort }
@@ -1147,7 +1203,7 @@ focus_tree = {
 		icon = GFX_goal_generic_attack_allies
 		available = {
 		}
-		x = 18
+		x = 20
 		y = 2
 		cost = 10
 		prerequisite = { focus = MON_fortify_capital }
@@ -1160,7 +1216,7 @@ focus_tree = {
 		icon = GFX_goal_generic_demand_territory
 		available = {
 		}
-		x = 18
+		x = 20
 		y = 3
 		cost = 10
 		prerequisite = { focus = MON_desert_warfare }
@@ -1173,11 +1229,11 @@ focus_tree = {
 		icon = GFX_focus_research
 		available = {
 		}
-		x = 22
+		x = 24
 		y = 0
 		cost = 10
 		completion_reward = {
-			add_timed_idea = { idea = MON_likbez days = 146 }
+			add_timed_idea = { idea = MON_likbez days = 150 }
 			add_national_unity = 0.05			
 		}
 	}
@@ -1186,7 +1242,7 @@ focus_tree = {
 		icon = GFX_focus_research
 		available = {
 		}
-		x = 22
+		x = 24
 		y = 1
 		cost = 10
 		prerequisite = { focus = MON_likbez_focus focus = MON_russian_colony }
@@ -1199,7 +1255,7 @@ focus_tree = {
 		icon = GFX_focus_research
 		available = {
 		}
-		x = 22
+		x = 24
 		y = 2
 		cost = 10
 		prerequisite = { focus = MON_national_education }
@@ -1212,7 +1268,7 @@ focus_tree = {
 		icon = GFX_goal_generic_secret_weapon
 		available = {
 		}
-		x = 20
+		x = 22
 		y = 3
 		cost = 10
 		prerequisite = { focus = MON_academy }
@@ -1236,7 +1292,7 @@ focus_tree = {
 		icon = GFX_focus_wonderweapons
 		available = {
 		}
-		x = 20
+		x = 22
 		y = 4
 		cost = 10
 		prerequisite = { focus = MON_soviet_secrets }
@@ -1263,7 +1319,7 @@ focus_tree = {
 		available = {
 			has_government = fascism
 		}
-		x = 22
+		x = 24
 		y = 3
 		cost = 10
 		prerequisite = { focus = MON_academy }
@@ -1297,7 +1353,7 @@ focus_tree = {
 				has_government = democratic
 			}
 		}
-		x = 24
+		x = 26
 		y = 3
 		cost = 10
 		prerequisite = { focus = MON_academy }
@@ -1320,7 +1376,7 @@ focus_tree = {
 		available = {
 			NOT = { has_government = communism }
 		}
-		x = 26
+		x = 28
 		y = 0
 		cost = 10
 		completion_reward = {
@@ -1341,7 +1397,7 @@ focus_tree = {
 		icon = GFX_goal_generic_improve_relations
 		available = {
 		}
-		x = 26
+		x = 28
 		y = 1
 		cost = 10
 		prerequisite = { focus = MON_russian_colony }
@@ -1355,13 +1411,13 @@ focus_tree = {
 				}
 				create_corps_commander = {
 					name = "Vladimir Kislitsin"
-					portrait_path = "gfx/leaders/SOV/Portrait_Soviet_Generic_land_3.dds"
+					portrait_path = "gfx/leaders/MON/Portrait_Whie_Russian_1.dds"
 					traits = { winter_specialist old_guard }
 					skill = 2
 				}
 				create_corps_commander = {
 					name = "Grigory Verzhbitsky"
-					portrait_path = "gfx/leaders/SOV/Portrait_Soviet_Generic_land_3.dds"
+					portrait_path = "gfx/leaders/MON/Portrait_Whie_Russian_2.dds"
 					traits = { winter_specialist trait_mountaineer old_guard }
 					skill = 3
 				}
@@ -1381,7 +1437,7 @@ focus_tree = {
 		icon = GFX_goal_generic_demand_territory
 		available = {
 		}
-		x = 26
+		x = 28
 		y = 3
 		cost = 10
 		prerequisite = { focus = MON_white_officers }
@@ -1431,24 +1487,10 @@ focus_tree = {
 					long_name = MON_fascist_party_russian
 					name = MON_fascist_party_russian_short
 				}
-				if = {
-					limit = {
-						has_idea = fascist_influence
-					}
-					remove_ideas = fascist_influence
-				}
-				if = {
-					limit = {
-						has_idea = democratic_influence
-					}
-					remove_ideas = democratic_influence
-				}
-				if = {
-					limit = {
-						has_idea = true_to_revolution
-					}
-					remove_ideas = true_to_revolution
-				}
+				remove_ideas = MON_democracy_idea
+				remove_ideas = MON_fascism_idea
+				remove_ideas = true_to_revolution
+				remove_ideas = MON_communism_idea
 				if = {
 					limit = {
 						has_country_flag = bogd_khan_restored
@@ -1463,7 +1505,7 @@ focus_tree = {
 		icon = GFX_goal_generic_air_production
 		available = {
 		}
-		x = 9
+		x = 11
 		y = 5
 		cost = 10
 		prerequisite = { focus = MON_mechanization }
@@ -1483,12 +1525,12 @@ focus_tree = {
 		icon = GFX_goal_generic_build_airforce
 		available = {
 		}
-		x = 11
+		x = 13
 		y = 6
 		cost = 10
 		prerequisite = { focus = MON_civil_aviation }
 		prerequisite = { focus = MON_mil_industry }
-		prerequisite = { focus = MON_support }
+		#prerequisite = { focus = MON_support }
 		completion_reward = {
 			air_experience = 25
 			add_tech_bonus = {
@@ -1505,7 +1547,7 @@ focus_tree = {
 		mutually_exclusive = { focus = MON_heavy_fighters }
 		available = {
 		}
-		x = 10
+		x = 12
 		y = 7
 		cost = 0
 		prerequisite = { focus = MON_air_doctrine }
@@ -1523,7 +1565,7 @@ focus_tree = {
 		icon = GFX_goal_generic_air_bomber
 		available = {
 		}
-		x = 12
+		x = 14
 		y = 7
 		cost = 10
 		prerequisite = { focus = MON_air_doctrine }
@@ -1541,7 +1583,7 @@ focus_tree = {
 		icon = GFX_goal_poland_goal
 		available = {
 		}
-		x = 12
+		x = 14
 		y = 8
 		cost = 10
 		prerequisite = { focus = MON_heavy_fighters }
@@ -1559,7 +1601,7 @@ focus_tree = {
 		icon = GFX_goal_generic_CAS
 		available = {
 		}
-		x = 10
+		x = 12
 		y = 8
 		cost = 10
 		prerequisite = { focus = MON_light_fighters }
@@ -1577,7 +1619,7 @@ focus_tree = {
 		icon = GFX_goal_generic_army_doctrines
 		available = {
 		}
-		x = 17
+		x = 19
 		y = 4
 		cost = 10
 		prerequisite = { focus = MON_exercises focus = MON_peoples_war_focus }
@@ -1598,12 +1640,157 @@ focus_tree = {
 		icon = GFX_goal_generic_major_war
 		available = {
 		}
-		x = 17
+		x = 19
 		y = 5
 		cost = 10
 		prerequisite = { focus = MON_military_academy }
 		completion_reward = {
 			add_ideas = MON_standing_army
+		}
+	}
+	focus = {
+		id = MON_monasteries
+		icon = GFX_goal_generic_improve_relations
+		mutually_exclusive = { focus = MON_SOV_focus }
+		mutually_exclusive = { focus = MON_decollectivization }
+		mutually_exclusive = { focus = MON_JAP_focus }
+		available = {
+		}
+		prerequisite = { focus = MON_political_effort }
+		x = 6
+		y = 1
+		cost = 10
+		completion_reward = {
+			add_ideas = MON_neutrality_idea_religious
+		}
+	}
+	focus = {
+		id = MON_religious_education
+		icon = GFX_goal_generic_national_unity
+		available = {
+		}
+		prerequisite = { focus = MON_monasteries }
+		x = 6
+		y = 2
+		cost = 10
+		completion_reward = {
+			add_ideas = MON_religious_education_idea
+		}
+	}
+	focus = {
+		id = MON_restore_monarchy
+		icon = GFX_goal_anschluss
+		available = {
+			neutrality > 0.3
+		}
+		prerequisite = { focus = MON_religious_education }
+		x = 6
+		y = 3
+		cost = 10
+		completion_reward = {
+			custom_effect_tooltip = MON_restore_monarchy_tt
+			set_rule = { can_create_factions = yes }
+			SOV = {
+				remove_from_faction = MON 
+				add_opinion_modifier = {
+					modifier = faction_traitor
+					target = ROOT
+					days = 365
+				}
+				add_opinion_modifier = {
+					modifier = faction_traitor_trade
+					target = ROOT
+					days = 365
+				}
+			}
+			add_ideas = MON_khanate_idea
+			set_country_flag = bogd_khan_restored
+			hidden_effect = {
+				set_politics = {
+					ruling_party = neutrality
+					elections_allowed = no
+				}
+				create_country_leader = {
+					name = "Bogd Khan IX"
+					desc = "POLITICS_BOGD_KHAN_DESC"
+					picture = "gfx/leaders/MON/Portrait_Bogd_Khan.dds"
+					expire = "2012.1.1"
+					ideology = moderatism
+					traits = {
+						popular_figurehead
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = MON_tibet_friendship
+		icon = GFX_goal_generic_major_alliance
+		available = {
+			country_exists = TIB
+			NOT = { has_war_with = TIB }
+		}
+		bypass = {
+			TIB = { is_in_faction_with = CHI }
+		}
+		prerequisite = { focus = MON_restore_monarchy }
+		x = 6
+		y = 4
+		cost = 10
+		completion_reward = {
+			TIB = { country_event = { id = MON.16 days = 7 } }
+		}
+	}
+	focus = {
+		id = MON_develop_agriculture
+		icon = GFX_goal_generic_construction2
+		available = {
+		}
+		prerequisite = { focus = MON_resource_effort }
+		x = 9
+		y = 3
+		cost = 10
+		completion_reward = {
+			add_ideas = MON_agriculture_idea
+		}
+	}
+	#focus = {
+	#	id = MON_chinese_migrants
+	#	icon = GFX_goal_generic_major_alliance
+	#	available = {
+	#	}
+	#	prerequisite = { focus = MON_develop_agriculture }
+	#	x = 9
+	#	y = 5
+	#	cost = 10
+	#	completion_reward = {
+	#		add_ideas = MON_agriculture_idea
+	#	}
+	#}
+	focus = {
+		id = MON_militant_buddhism
+		icon = GFX_goal_generic_political_pressure
+		available = {
+		}
+		prerequisite = { focus = MON_ask_for_mengkukuo }
+		x = 2
+		y = 4
+		cost = 10
+		completion_reward = {
+			add_ideas = MON_militant_buddhism_idea
+		}
+	}
+	focus = {
+		id = MON_deterrence
+		icon = GFX_goal_generic_defence
+		available = {
+		}
+		prerequisite = { focus = MON_SOV_break }
+		x = 4
+		y = 4
+		cost = 10
+		completion_reward = {
+			add_ideas = deterrence
 		}
 	}
 }

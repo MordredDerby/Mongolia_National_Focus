@@ -179,7 +179,7 @@ country_event = {
 		create_country_leader = {
 			name = "Demchugdongrub"
 			desc = "POLITICS_DEMCHUGDONGRUB_DESC"
-			picture = "gfx/leaders/Asia/Portrait_Asia_Generic_land_3.dds"
+			picture = "gfx/leaders/MON/Portrait_Demchugdongrub.dds"
 			expire = "1965.1.1"
 			ideology = fascism_ideology
 			traits = {
@@ -241,7 +241,7 @@ country_event = {
 				create_country_leader = {
 					name = "Demchugdongrub"
 					desc = "POLITICS_DEMCHUGDONGRUB_DESC"
-					picture = "gfx/leaders/Asia/Portrait_Asia_Generic_land_3.dds"
+					picture = "gfx/leaders/MON/Portrait_Demchugdongrub.dds"
 					expire = "1965.1.1"
 					ideology = fascism_ideology
 					traits = {
@@ -362,12 +362,6 @@ country_event = {
 			traits = {
 				dictator
 			}
-		}
-		create_field_marshal = {
-			name = "Khorloogiin Choibalsan"
-			portrait_path = "gfx/leaders/MON/Portrait_Choibalsan.dds"
-			traits = { organisational_leader }
-			skill = 2
 		}
 	}
 }
@@ -510,40 +504,40 @@ country_event = {
 			clr_global_flag = refused_buryatia
 		}
 		if = {
-			limit = { has_global_flag = refused_611 }
+			limit = { FROM = { has_country_flag  = refused_611 } }
 			create_wargoal = {
 				type = take_state_focus
 				target = FROM
 				generator = { 611 }
 			}
-			clr_global_flag = refused_611
+			FROM = { clr_country_flag = refused_611 }
 		}
 		if = {
-			limit = { has_global_flag = refused_612 }
+			limit = { FROM = { has_country_flag = refused_612 } }
 			create_wargoal = {
 				type = take_state_focus
 				target = FROM
 				generator = { 612 }
 			}
-			clr_global_flag = refused_612
+			FROM = { clr_country_flag = refused_612 }
 		}
 		if = {
-			limit = { has_global_flag = refused_616 }
+			limit = { FROM = { has_country_flag = refused_616 } }
 			create_wargoal = {
 				type = take_state_focus
 				target = FROM
 				generator = { 616 }
 			}
-			clr_global_flag = refused_616
+			FROM = { clr_country_flag = refused_616 }
 		}
 		if = {
-			limit = { has_global_flag = refused_621 }
+			limit = { FROM = { has_country_flag = refused_621 } }
 			create_wargoal = {
 				type = take_state_focus
 				target = FROM
 				generator = { 621 }
 			}
-			clr_global_flag = refused_621
+			FROM = { clr_country_flag = refused_621 }
 		}
 	}
 }
@@ -669,15 +663,15 @@ country_event = {
 		}
 		if = {
 			limit = { owns_state = 612 }
-			set_global_flag = refused_612
+			set_country_flag_flag = refused_612
 		}
 		if = {
 			limit = { owns_state = 616 }
-			set_global_flag = refused_616
+			set_country_flag_flag = refused_616
 		}
 		if = {
 			limit = { owns_state = 621 }
-			set_global_flag = refused_621
+			set_country_flag_flag = refused_621
 		}
 	}
 }
@@ -702,6 +696,20 @@ country_event = {
 		add_popularity = {
 			ideology = communism
 			popularity = -0.3
+		}
+		hidden_effect = {
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.01
+			}
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.01
+			}
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.01
+			}
 		}
 	}
 }
@@ -751,4 +759,67 @@ country_event = {
 	option = {
 		name = MON.15.b
 	}
-}			
+}
+
+#Тибет получил приглашение
+country_event = {
+	id = MON.16
+	title = MON.16.t
+	desc = MON.16.d
+	picture = GFX_report_event_asian_politicians
+	
+	is_triggered_only = yes		
+	
+	option = {
+		name = MON.16.a
+		ai_chance = { 
+			factor = 10 
+		}
+		MON = {
+			create_faction = "buddhist_faction"
+			add_to_faction = TIB
+		}
+		hidden_effect = {
+			MON = { country_event = { id = MON.17 } }
+		}
+	}
+	option = {
+		name = MON.16.a
+		hidden_effect = {
+			MON = { country_event = { id = MON.18 } }
+		}
+		ai_chance = { 
+			factor = 5
+			modifier = {
+				factor = 2
+				CHI = { has_completed_focus = KMT_tibet_friend }
+			}
+		}
+	}
+}
+#Тибет согласен
+country_event = {
+	id = MON.17
+	title = MON.17.t
+	desc = MON.17.d
+	picture = GFX_report_event_asian_politicians
+	
+	is_triggered_only = yes		
+	
+	option = {
+		name = MON.17.a
+	}
+}
+#Тибет отказался
+country_event = {
+	id = MON.18
+	title = MON.18.t
+	desc = MON.18.d
+	picture = GFX_report_event_asian_politicians
+	
+	is_triggered_only = yes		
+	
+	option = {
+		name = MON.18.a
+	}
+}
