@@ -63,18 +63,22 @@ focus_tree = {
 		y = 1
 		cost = 10
 		completion_reward = {
+			hidden_effect = {
+				SOV = {
+					add_opinion_modifier = {
+						modifier = faction_traitor
+						target = ROOT
+						days = 365
+					}
+					add_opinion_modifier = {
+						modifier = faction_traitor_trade
+						target = ROOT
+						days = 365
+					}
+				}
+			}	
 			SOV = {
 				remove_from_faction = MON 
-				add_opinion_modifier = {
-					modifier = faction_traitor
-					target = ROOT
-					days = 365
-				}
-				add_opinion_modifier = {
-					modifier = faction_traitor_trade
-					target = ROOT
-					days = 365
-				}
 			}
 			JAP = {
 				add_opinion_modifier = {
@@ -124,6 +128,13 @@ focus_tree = {
 		completion_reward = {
 			JAP = { country_event = { id = MON.1 days = 7 } }
 		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_government = fascism }
+			}
+		}
 	}
 	focus = {
 		id = MON_decollectivization
@@ -154,6 +165,16 @@ focus_tree = {
 		completion_reward = {
 			add_ideas = MON_democracy_idea 
 			custom_effect_tooltip = voting_rights_tt
+			set_politics = {
+				parties = {
+					democratic = { 
+						banned = no
+					}
+					fascism = {
+						banned = no
+					}
+				}
+			}
 			hidden_effect = {
 				if = {
 					limit = { has_government = democratic }
@@ -201,18 +222,22 @@ focus_tree = {
 		y = 3
 		cost = 10
 		completion_reward = {
+			hidden_effect = {
+				SOV = {
+					add_opinion_modifier = {
+						modifier = faction_traitor
+						target = ROOT
+						days = 365
+					}
+					add_opinion_modifier = {
+						modifier = faction_traitor_trade
+						target = ROOT
+						days = 365
+					}
+				}
+			}
 			SOV = {
 				remove_from_faction = MON 
-				add_opinion_modifier = {
-					modifier = faction_traitor
-					target = ROOT
-					days = 365
-				}
-				add_opinion_modifier = {
-					modifier = faction_traitor_trade
-					target = ROOT
-					days = 365
-				}
 			}
 			set_rule = { can_create_factions = yes }
 			add_popularity = {
@@ -292,7 +317,8 @@ focus_tree = {
 							NOT = { 
 								has_country_flag = inner_mongolia_demanded 
 								tag = MON
-							} 
+								is_puppet = yes
+							}
 						}
 						set_country_flag = inner_mongolia_demanded
 						country_event = { id = MON.13 days = 7 }
@@ -307,6 +333,7 @@ focus_tree = {
 							NOT = { 
 								has_country_flag = inner_mongolia_demanded 
 								tag = MON
+								is_puppet = yes
 							} 
 						}
 						set_country_flag = inner_mongolia_demanded
@@ -322,6 +349,7 @@ focus_tree = {
 							NOT = { 
 								has_country_flag = inner_mongolia_demanded 
 								tag = MON
+								is_puppet = yes
 							} 
 						}
 						set_country_flag = inner_mongolia_demanded
@@ -337,6 +365,7 @@ focus_tree = {
 							NOT = { 
 								has_country_flag = inner_mongolia_demanded 
 								tag = MON
+								is_puppet = yes
 							} 
 						}
 						set_country_flag = inner_mongolia_demanded
@@ -517,6 +546,13 @@ focus_tree = {
 			}
 			565 = {
 				add_core_of = MON
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				SOV = { has_war = no }
 			}
 		}
 	}
@@ -1421,6 +1457,7 @@ focus_tree = {
 					traits = { winter_specialist trait_mountaineer old_guard }
 					skill = 3
 				}
+				load_oob = "MON_templates"
 				add_manpower = 10800
 			}
 			custom_effect_tooltip = SEMYONOV_COMMANDER
@@ -1428,8 +1465,8 @@ focus_tree = {
 			custom_effect_tooltip = VERZHBITSKY_COMMANDER
 			custom_effect_tooltip = available_political_advisor
 			show_ideas_tooltip = ivan_mikhailov
+			custom_effect_tooltip = spawn_whites
 			army_experience = 10
-			load_oob = "MON_templates"
 		}
 	}
 	focus = {
@@ -1471,7 +1508,7 @@ focus_tree = {
 				create_country_leader = {
 					name = "Lev Okhotin"
 					desc = "POLITICS_OKHOTIN_DESC"
-					picture = "Portrait_Soviet_Generic_land_3.dds"
+					picture = "Portrait_Whie_Russian_3.dds"
 					expire = "1965.1.1"
 					ideology = fascism_ideology
 					traits = {
@@ -1497,6 +1534,13 @@ focus_tree = {
 					}
 					add_ideas = MON_bogd_khan
 				}
+			}
+		}
+		ai_will_do = {
+			factor = 0.25
+			modifier = {
+				factor = 0.25
+				has_government = neutrality
 			}
 		}
 	}
@@ -1739,6 +1783,13 @@ focus_tree = {
 		cost = 10
 		completion_reward = {
 			TIB = { country_event = { id = MON.16 days = 7 } }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.25
+				TIB = { has_war yes }
+			}
 		}
 	}
 	focus = {

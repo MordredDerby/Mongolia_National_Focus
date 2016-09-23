@@ -68,13 +68,17 @@ set_politics = {
 		}
 
 		fascism = {
-			popularity = 0
+			popularity = 5
 			banned = yes
 		}
-		
+			
 		communism = {
-			popularity = 100
+			popularity = 75
 			#banned = no #default is no
+		}
+			
+		neutrality = {
+			popularity = 10
 		}
 	}
 	
@@ -109,7 +113,6 @@ create_field_marshal = {
 	}	
 
 	set_politics = {
-
 		parties = {
 			democratic = { 
 				popularity = 0
@@ -120,7 +123,7 @@ create_field_marshal = {
 				popularity = 0
 				banned = yes
 			}
-			
+		
 			communism = {
 				popularity = 100
 				#banned = no #default is no
