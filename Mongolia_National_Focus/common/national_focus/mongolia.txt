@@ -87,9 +87,6 @@ focus_tree = {
 				}
 			}
 			add_ideas = MON_fascism_idea
-			fascism = {
-				banned = no
-			}
 			hidden_effect = {
 				if = {
 					limit = { is_ai = yes}
@@ -165,16 +162,6 @@ focus_tree = {
 		completion_reward = {
 			add_ideas = MON_democracy_idea 
 			custom_effect_tooltip = voting_rights_tt
-			set_politics = {
-				parties = {
-					democratic = { 
-						banned = no
-					}
-					fascism = {
-						banned = no
-					}
-				}
-			}
 			hidden_effect = {
 				if = {
 					limit = { has_government = democratic }
@@ -1434,7 +1421,7 @@ focus_tree = {
 		available = {
 		}
 		x = 28
-		y = 1
+		y = 2
 		cost = 10
 		prerequisite = { focus = MON_russian_colony }
 		completion_reward = {
@@ -1736,15 +1723,19 @@ focus_tree = {
 			set_rule = { can_create_factions = yes }
 			SOV = {
 				remove_from_faction = MON 
-				add_opinion_modifier = {
-					modifier = faction_traitor
-					target = ROOT
-					days = 365
-				}
-				add_opinion_modifier = {
-					modifier = faction_traitor_trade
-					target = ROOT
-					days = 365
+			}
+			hidden_effect = {
+				SOV = {
+					add_opinion_modifier = {
+						modifier = faction_traitor
+						target = ROOT
+						days = 365
+					}
+					add_opinion_modifier = {
+						modifier = faction_traitor_trade
+						target = ROOT
+						days = 365
+					}
 				}
 			}
 			add_ideas = MON_khanate_idea

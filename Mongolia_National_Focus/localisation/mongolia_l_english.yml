@@ -37,7 +37,8 @@
  transfered:0 "Ceded lands"
  soviets_no_more:0 "USSR doesn't exist\n"
  MON_restore_monarchy_tt:0 "Restore theocratic monarchy\n"
- spawn_whites:0 "Form infantsry divion of White immigrants"
+ spawn_whites:0 "Form §Y infantsry division§! of White immigrants\n"
+ neutrality_drift:0 "Daily Non-Aligned Support"
  #IDEAS
  MON_militant_buddhism_idea:0 "Militant Buddhism"
  MON_agriculture_idea:0 "Agriculture Development"
@@ -216,7 +217,7 @@
  MON_artillery:0 "Artillery Effort"
  MON_artillery_desc:0 "Even well-equipped soldier can fight efficiently only with artillery behind his back."
  MON_support:0 "Spec Ops"
- MON_support_desc:0 "One can't just march through Eurasian steppes and mountains - we need to acquire special troops, which are capable of solving hardest combat missions."
+ MON_support_desc:0 "One can't simply march through Eurasian steppes and mountains - we need to acquire special troops, which are capable of solving hardest combat missions."
  MON_fortify_border:0 "East Wall"
  MON_fortify_border_desc:0 "Our greatest threat now is Japan and we must secure our border with their puppets in order to be ready for war."
  MON_fortify_capital:0 "Fortify Capital"
