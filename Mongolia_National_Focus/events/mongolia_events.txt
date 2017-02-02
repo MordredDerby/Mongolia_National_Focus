@@ -48,7 +48,7 @@ country_event = {
 		name = MON.1.b
 		ai_chance = { factor = 20 }
 		MON = { 
-			country_event = { id = MON.2 days = 1 } 
+			country_event = { id = MON.2 } 
 			add_opinion_modifier = {
 					target = JAP
 					modifier = refused_transfer 
@@ -70,7 +70,7 @@ country_event = {
 			}
 		}
 		MON = { 
-			country_event = { id = MON.15 days = 3 }
+			country_event = { id = MON.15 }
 		}
 	}
 }
@@ -93,7 +93,7 @@ country_event = {
 	}
 }
 
-#Просьба о передаче Тувы
+#Союз с Монголией? (Япония)
 country_event = {
 	id = MON.3
 	title = MON.3.t
@@ -104,38 +104,28 @@ country_event = {
 	
 	option = {
 		name = MON.3.a
-		ai_chance = { factor = 10 }
-		TAN = {
-			every_state = {
-				limit = {
-					is_core_of = TAN
-				}
-				add_core_of = MON
-			}
+		ai_chance = { factor = 20 }
+		if = {
+			limit = { is_in_faction = no }
+			create_faction = "daitoa_kyoeiken" 
+			add_to_faction = MON
 		}
-		MON = { 
-			annex_country = { target = TAN transfer_troops = yes } 
-			add_opinion_modifier = {
-					target = ROOT
-					modifier = transfered
-			}
+		if = {
+			limit = { is_faction_leader = yes }
+			add_to_faction = MON
 		}
 	}
 	
 	option = {
 		name = MON.3.b
-		ai_chance = { factor = 20 }
+		ai_chance = { factor = 10 }
 		MON = { 
-			country_event = { id = MON.4 days = 1 } 
-			add_opinion_modifier = {
-					target = ROOT
-					modifier = refused_transfer
-			}
+			country_event = { id = MON.4 } 
 		}
 	}
 }
 
-#Советы отказались передать Туву
+#Япония отказалась от союза
 country_event = {
 	id = MON.4
 	title = MON.4.t
@@ -143,37 +133,20 @@ country_event = {
 	picture = GFX_report_event_generic_sign_treaty2
 
 	is_triggered_only = yes
-	
-	fire_only_once = yes
-	
+		
 	option = {
 		name = MON.4.a
-		add_popularity = {
-			deology = communism
-			popularity = -0.15
-		}
 	}
 }
 
-#Дэмчигдонрова на трон?
+#Выбор монарха
 country_event = {
 	id = MON.5
 	title = MON.5.t
 	desc = MON.5.d
 	picture = GFX_report_event_japan_europe_pact
-	fire_only_once = yes
-	
-	trigger = {
-		tag = MON
-		has_government = fascism
-		NOT = { is_puppet_of = JAP }
-		owns_state = 611
-		owns_state = 612
-		NOT = { country_exists = MEN }
-	}
-	mean_time_to_happen = {
-		days = 7
-	}
+	is_triggered_only = yes
+
 	option = {
 		name = MON.5.a
 		create_country_leader = {
@@ -184,10 +157,21 @@ country_event = {
 			ideology = fascism_ideology
 			traits = {
 				spirit_of_genghis
+				cooperative_leader
 			}
 		}
 		hidden_effect = {
-			MEN = { kill_country_leader = yes }
+			MEN = { 
+				create_country_leader = {
+					name = "Buyandelger"
+					desc = "POLITICS_LI_SHOUXIN_DESC"
+					picture = "gfx/leaders/MON/Portrait_Shouxin.dds"
+					expire = "1970.1.1"
+					ideology = fascism_ideology
+					traits = {
+					}
+				}
+			}
 			set_party_name = { 
 				ideology = fascism 
 				long_name = MON_fascist_party_royal
@@ -197,132 +181,59 @@ country_event = {
 	}
 	option = {
 		name = MON.5.b
+		create_country_leader = {
+			name = "Tserendondovyn Navaanneren"
+			desc = "POLITICS_DEMCHUGDONGRUB_DESC"
+			picture = "gfx/leaders/MON/Portrait_Navaanneren.dds"
+			expire = "1965.1.1"
+			ideology = fascism_ideology
+			traits = {
+				spirit_of_genghis
+				intellectual
+			}
+		}
+		hidden_effect = {
+			set_party_name = { 
+				ideology = fascism 
+				long_name = MON_fascist_party_royal
+				name = MON_fascist_party_royal_short
+			}
+		}
 	}
 }
 
-#Японская Монголия
+#Конституционная монархия или республика?
 country_event = {
 	id = MON.6
 	title = MON.6.t
 	desc = MON.6.d
-	picture = GFX_report_event_japan_europe_pact
+	picture = GFX_report_event_asian_politicians
 	fire_only_once = yes
 	
 	trigger = {
-		tag = JAP
-		MEN = { is_puppet_of = JAP }
-		OR = {
-			MON = { is_puppet_of = JAP }
-			330 = { is_controlled_by = JAP }
-			330 = {
-				controller = { is_puppet_of = JAP }
-			}
-		}
+		tag = MON 
+		has_government = democratic
 	}
 	mean_time_to_happen = {
-		days = 7
+		days = 30
 	}
 	option = {
 		name = MON.6.a
-		hidden_effect = {
-			MEN = { kill_country_leader = yes }
-			if = {
-				limit = {
-					NOT = { MON = { is_puppet_of = JAP } }
-				}
-				puppet = MON
-			}
-			MON = {
-				annex_country = { target = MEN transfer_troops = yes }
-				add_popularity = {
-					ideology = fascism
-					popularity = 0.3
-				}
-				create_country_leader = {
-					name = "Demchugdongrub"
-					desc = "POLITICS_DEMCHUGDONGRUB_DESC"
-					picture = "gfx/leaders/MON/Portrait_Demchugdongrub.dds"
-					expire = "1965.1.1"
-					ideology = fascism_ideology
-					traits = {
-						spirit_of_genghis
-					}
-				}
-				add_state_core = 611
-				add_state_core = 612
-				add_state_core = 621
-				add_state_core = 616
-				add_state_core = 618
-				every_state = {
-					limit = {
-						is_core_of = MEN
-					}
-					add_core_of = MON
-				}
-				set_party_name = { 
-					ideology = fascism 
-					long_name = MON_fascist_party_royal
-					name = MON_fascist_party_royal_short
-				}
-			}
-			if = {
-				limit = {
-					OR = {
-						330 = { is_controlled_by = JAP }
-						330 = { controller = { is_puppet_of = JAP } }
-					}
-				}
-				MON = { transfer_state = 330 }
-			}
-			if = {
-				limit = {
-					OR = {
-						611 = { is_controlled_by = JAP }
-						611 = { controller = { is_puppet_of = JAP } }
-					}
-				}
-				MON = { transfer_state = 611 }
-			}
-			if = {
-				limit = {
-					OR = {
-						612 = { is_controlled_by = JAP }
-						612 = { controller = { is_puppet_of = JAP } }
-					}
-				}
-				MON = { transfer_state = 612 }
-			}
-			if = {
-				limit = {
-					OR = {
-						621 = { is_controlled_by = JAP }
-						621 = { controller = { is_puppet_of = JAP } }
-					}
-				}
-				MON = { transfer_state = 621 }
-			}
-			if = {
-				limit = {
-					OR = {
-						616 = { is_controlled_by = JAP }
-						616 = { controller = { is_puppet_of = JAP } }
-					}
-				}
-				MON = { transfer_state = 616 }
-			}
-			if = {
-				limit = {
-					OR = {
-						618 = { is_controlled_by = JAP }
-						618 = { controller = { is_puppet_of = JAP } }
-					}
-				}
-				MON = { transfer_state = 618 }
-			}
+		set_cosmetic_tag = MON_const
+		add_ideas = MON_bogd_khan
+		set_country_flag = bogd_khan
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.1
 		}
 	}
 	option = {
-		name = MON.6.b
+		name = MON.6.a
+		add_political_power = 100
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.1
+		}
 	}
 }
 
@@ -366,65 +277,30 @@ country_event = {
 	}
 }
 
-#Реставрация монархии
+#Глава совета или совет?
 country_event = {
 	id = MON.8
 	title = MON.8.t
 	desc = MON.8.d
 	picture = GFX_report_event_asian_politicians
-	fire_only_once = yes
+	is_triggered_only = yes
 	
-	trigger = {
-		always = no #заменено фокусами		
-	}
-	mean_time_to_happen = {
-		days = 60
-	}
 	option = {
 		name = MON.8.a
 		create_country_leader = {
-			name = "Bogd Khan IX"
+			name = "Lama Council"
 			desc = "POLITICS_BOGD_KHAN_DESC"
 			picture = "gfx/leaders/MON/Portrait_Bogd_Khan.dds"
 			expire = "1952.1.1"
-			ideology = moderatism
+			ideology = oligarchism
 			traits = {
-				popular_figurehead
-			}
-		}
-		set_politics = {
-			ruling_party = neutrality
-			#elections_allowed = no
-		}
-		add_ideas = MON_neutrality_idea
-		set_country_flag = bogd_khan_restored
-		hidden_effect = {
-			add_popularity = {
-				ideology = neutrality
-				popularity = 0.2
-			}
-			if = {
-				limit = {
-					has_idea = fascist_influence
-				}
-				remove_ideas = fascist_influence
-			}
-			if = {
-				limit = {
-					has_idea = democratic_influence
-				}
-				remove_ideas = democratic_influence
-			}
-			if = {
-				limit = {
-					has_idea = true_to_revolution
-				}
-				remove_ideas = true_to_revolution
+				staunch_traditionalist
 			}
 		}
 	}
 	option = {
 		name = MON.8.b
+		add_political_power = 200
 	}
 }
 
@@ -663,15 +539,15 @@ country_event = {
 		}
 		if = {
 			limit = { owns_state = 612 }
-			set_country_flag_flag = refused_612
+			set_country_flag = refused_612
 		}
 		if = {
 			limit = { owns_state = 616 }
-			set_country_flag_flag = refused_616
+			set_country_flag = refused_616
 		}
 		if = {
 			limit = { owns_state = 621 }
-			set_country_flag_flag = refused_621
+			set_country_flag = refused_621
 		}
 	}
 }
@@ -695,7 +571,7 @@ country_event = {
 		name = MON.14.a
 		add_popularity = {
 			ideology = communism
-			popularity = -0.3
+			popularity = -0.5
 		}
 		hidden_effect = {
 			add_popularity = {
@@ -731,7 +607,7 @@ country_event = {
 				add_to_faction = MON
 			}
 			if = {
-				limit = { is_in_faction = yes }
+				limit = { is_faction_leader = yes }
 				add_to_faction = MON
 			}
 		}
@@ -823,3 +699,996 @@ country_event = {
 		name = MON.18.a
 	}
 }
+#Монголия просит признания
+country_event = {
+	id = MON.19
+	title = MON.19.t
+	picture = GFX_report_event_chinese_japanese_handshake
+	is_triggered_only = yes
+	desc = MON.19.d
+	option = {
+		name = MON.19.a
+		MON = { country_event = { id = MON.20 } }
+		remove_state_core = 330
+		MON = {
+			create_faction = peoples_front_faction
+			add_to_faction = PRC
+		}
+	}
+	option = {
+		name = MON.19.b
+		MON = { country_event = { id = MON.21 } }
+		add_political_power = 50
+	}
+}
+
+#Китай согласен
+country_event = {
+	id = MON.20
+	title = MON.20.t
+	picture = GFX_report_event_chinese_japanese_handshake
+	is_triggered_only = yes
+	desc = MON.20.d
+	option = {
+		name = MON.20.a
+	}
+}
+#Китай отказался
+country_event = {
+	id = MON.21
+	title = MON.21.t
+	picture = GFX_report_event_chinese_japanese_handshake
+	is_triggered_only = yes
+	desc = MON.21.d
+	option = {
+		name = MON.21.a
+	}
+}
+#Монголия предлагает раздел милитаристов
+country_event = {
+	id = MON.22
+	title = MON.22.t
+	picture = GFX_report_event_chinese_japanese_handshake
+	is_triggered_only = yes
+	desc = MON.22.d
+	option = {
+		name = MON.22.a
+		MON = { country_event = { id = MON.23 days = 5 } }
+		SHX = { country_event = { id = MON.25 days = 5 } }
+		XSM = { country_event = { id = MON.26 days = 5 } }
+		MON = {
+			add_state_core = 621
+			add_state_core = 616
+		}
+		remove_state_core = 621
+		remove_state_core = 616
+	}
+	option = {
+		name = MON.22.и
+		MON = { country_event = { id = MON.24 days = 5 } }
+	}
+}
+#Китай согласен на раздел
+country_event = {
+	id = MON.23
+	title = MON.23.t
+	picture = GFX_report_event_chinese_japanese_handshake
+	is_triggered_only = yes
+	desc = MON.23.d
+	option = {
+		name = MON.23.a
+	}
+}
+#Китай отказался от раздела
+country_event = {
+	id = MON.24
+	title = MON.24.t
+	picture = GFX_report_event_chinese_japanese_handshake
+	is_triggered_only = yes
+	desc = MON.24.d
+	option = {
+		name = MON.24.a
+	}
+}
+#Требования к Шаньси
+country_event = {
+	id = MON.25
+	title = MON.25.t
+	picture = GFX_report_event_chinese_japanese_handshake
+	is_triggered_only = yes
+	desc = MON.25.d
+	option = {
+		name = MON.25.a
+		PRC = { 
+			country_event = { id = MON.28 }
+			transfer_state = 615
+		}
+		MON = { 
+			country_event = { id = MON.28 } 
+			if = {
+				limit = {
+					SHX = { owns_state = 621 }
+				}
+				annex_country = { target = SHX transfer_troops = yes }
+			}
+		}
+	}
+	option = {
+		name = MON.25.b
+		MON = { country_event = { id = MON.27 } }
+		PRC = { country_event = { id = MON.27 } }
+	}
+}
+#Требования к Ма
+country_event = {
+	id = MON.26
+	title = MON.26.t
+	picture = GFX_report_event_chinese_japanese_handshake
+	is_triggered_only = yes
+	desc = MON.26.d
+	option = {
+		name = MON.26.a
+		MON = { 
+			country_event = { id = MON.28 } 
+			transfer_state = 616
+		}
+		PRC = { 
+			country_event = { id = MON.28 } 
+ 			transfer_state = 283 
+ 			puppet = XSM
+ 		}
+ 		hidden_effect = {
+ 			create_country_leader = {
+				name = "Ma Hongbin"
+				desc = "POLITICS_Hongbin_DESC"
+				picture = "gfx/leaders/MON/Portrait_Ma_Hongbin.dds"
+				expire = "1965.1.1"
+				ideology = marxism
+				traits = {
+				}
+			}
+			create_corps_commander = {
+				name = "Ma Hongbin"
+				portrait_path = "gfx/leaders/MON/Portrait_Ma_Hongbin.dds"
+				traits = {
+				}
+				skill = 2
+			}
+			set_cosmetic_tag = XSM_prov
+ 		}
+ 	}
+ 	option = {
+		name = MON.26.b
+		MON = { country_event = { id = MON.27 } }
+		PRC = { country_event = { id = MON.27 } }
+	}
+ }
+ #Ультиматум отклонен
+ country_event = {
+	id = MON.27
+	title = MON.27.t
+	picture = GFX_report_event_chinese_japanese_handshake
+	is_triggered_only = yes
+	desc = MON.27.d
+	option = {
+		name = MON.27.a
+		if = {
+			limit = {
+				tag = PRC
+				FROM = { tag = SHX }
+			}
+			declare_war_on = {
+				target = SHX
+				type = take_state_focus
+				generator = { 615 }
+			}
+		}
+		if = {
+			limit = {
+				tag = MON
+				FROM = { tag = SHX }
+			}
+			declare_war_on = {
+				target = SHX
+				type = take_state_focus
+				generator = { 621 }
+			}
+		}
+		if = {
+			limit = {
+				tag = PRC
+				FROM = { tag = XSM }
+			}
+			declare_war_on = {
+				target = XSM
+				type = take_state_focus
+				generator = { 283 604 }
+			}
+		}
+		if = {
+			limit = {
+				tag = MON
+				FROM = { tag = XSM }
+			}
+			declare_war_on = {
+				target = XSM
+				type = take_state_focus
+				generator = { 616 }
+			}
+		}
+	}
+}
+#Ультиматум принят
+country_event = {
+	id = MON.28
+	title = MON.28.t
+	picture = GFX_report_event_chinese_japanese_handshake
+	is_triggered_only = yes
+	desc = MON.28.d
+	option = {
+		name = MON.28.a
+	}
+}
+#Седентаризация?
+country_event = {
+	id = MON.29
+	title = MON.29.t
+	picture = GFX_report_event_chinese_japanese_handshake
+	fire_only_once = yes
+	trigger = {
+		tag = MON
+		NOT = {
+			has_government = democratic
+			has_completed_focus = MON_compromise_feudals
+		}
+		has_idea = MON_agriculture_idea
+	}
+	mean_time_to_happen = {
+		days = 210
+	}
+	desc = MON.29.d
+	option = {
+		name = MON.29.a
+		swap_ideas = {
+			remove_idea = MON_agriculture_idea
+			add_idea = MON_agriculture_idea_sedentarization
+		}
+		remove_ideas = MON_nomadic
+		add_political_power = -100
+	}
+	option = {
+		name = MON.29.b
+	}
+}
+#Продолжение ресурсной программы
+country_event = {
+	id = MON.30
+	title = MON.30.t
+	picture = GFX_report_event_chinese_japanese_handshake
+	fire_only_once = yes
+	trigger = {
+		tag = MON
+		has_idea = MON_resource_effort
+	}
+	mean_time_to_happen = {
+		days = 100
+	}
+	desc = MON.30.d
+	option = {
+		name = MON.30.a
+		hidden_effect = {
+			country_event = { id = MON.31 days = 100 } 
+		}
+	}
+	option = {
+		name = MON.30.b
+		trigger = { NOT = { has_government = democratic } }
+		add_manpower = -3000
+		add_national_unity = -0.05
+		hidden_effect = {
+			country_event = { id = MON.31 days = 65 } 
+		}
+	}
+	option = {
+		name = MON.30.c
+		trigger = { has_idea = MON_chinese_migrants }
+		remove_ideas = MON_chinese_migrants
+		add_timed_idea = { idea = MON_chinese_migrants_opressed days = 150 }
+		hidden_effect = {
+			country_event = { id = MON.31 days = 65 }
+		}
+	}
+	option = {
+		name = MON.30.dd
+		trigger = { NOT = { has_government = communism } }
+		swap_ideas = {
+			remove_idea = MON_resource_effort
+			add_idea = MON_resource_effort_capitalist
+		}
+		hidden_effect = {
+			country_event = { id = MON.31 days = 65 }
+		}
+	}
+}
+#Ресурсная программа окончена
+country_event = {
+	id = MON.31
+	title = MON.31.t
+	picture = GFX_report_event_chinese_japanese_handshake
+	is_triggered_only = yes
+	desc = MON.31.d
+	option = {
+		name = MON.31.a
+		remove_ideas = MON_resource_effort
+		remove_ideas = MON_resource_effort_capitalist
+		add_resource = {
+			type = steel
+			amount = 16
+			state = 330
+		}
+		add_resource = {
+			type = tungsten
+			amount = 16
+			state = 330
+		}
+	}
+}
+#Приглашение в беломанчжурский союз
+country_event = {
+	id = MON.32
+	title = MON.32.t
+	picture = GFX_report_event_chinese_japanese_handshake
+	trigger = {
+		tag = MON
+		has_government = neutrality
+		has_completed_focus = MON_russian_mongolia
+		is_in_faction = no
+		any_country = {
+			original_tag = SOV
+			has_government = fascism
+			has_war_with = SOV
+			is_in_faction_with = MCK
+		}
+	}
+	mean_time_to_happen = {
+		days = 7
+	}
+	desc = MON.32.d
+	option = {
+		name = MON.32.a
+		random_country = {
+			limit = {
+				original_tag = SOV
+				has_government = fascism
+			}
+			add_to_faction = MON
+			MCK = {
+				add_to_war = {
+					targeted_alliance = PREV
+					enemy = SOV
+				}
+			}
+		}
+	}
+	option = {
+		name = MON.32.b
+		add_political_power = -300
+		add_national_unity = -0.15
+	}
+}
+#Мигранты приносят демократию
+country_event = {
+	id = MON.33
+	title = MON.33.t
+	picture = GFX_report_event_chinese_japanese_handshake
+	trigger = {
+		tag = MON
+		OR = {
+			has_idea = MON_chinese_migrants
+			has_idea = MON_chinese_migrants_opressed
+		}
+		NOT = {
+			has_government = democratic
+		}
+	}
+	mean_time_to_happen = {
+		days = 100
+	}
+	desc = MON.33.d
+	option = {
+		name = MON.33.a
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.05
+		}
+	}
+	option = {
+		name = MON.33.b
+		add_manpower = -500
+		add_political_power = -40
+	}
+}
+#Мигранты приносят коммунизм
+country_event = {
+	id = MON.34
+	title = MON.34.t
+	picture = GFX_report_event_chinese_japanese_handshake
+	trigger = {
+		tag = MON
+		OR = {
+			has_idea = MON_chinese_migrants
+			has_idea = MON_chinese_migrants_opressed
+		}
+		NOT = {
+			has_government = communism
+		}
+	}
+	mean_time_to_happen = {
+		days = 100
+	}
+	desc = MON.34.d
+	option = {
+		name = MON.34.a
+		add_popularity = {
+			ideology = communism
+			popularity = 0.05
+		}
+	}
+	option = {
+		name = MON.34.b
+		add_manpower = -500
+		add_political_power = -40
+	}
+}
+#Вместе с мигрантами приходят японские агенты
+country_event = {
+	id = MON.35
+	title = MON.35.t
+	picture = GFX_report_event_chinese_japanese_handshake
+	trigger = {
+		tag = MON
+		OR = {
+			has_idea = MON_chinese_migrants
+			has_idea = MON_chinese_migrants_opressed
+		}
+		NOT = {
+			has_government = fascism
+		}
+	}
+	mean_time_to_happen = {
+		days = 100
+	}
+	desc = MON.35.d
+	option = {
+		name = MON.35.a
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.05
+		}
+	}
+	option = {
+		name = MON.35.b
+		add_manpower = -500
+		add_political_power = -40
+	}
+}
+#Китайкцы поднимают промышленность
+country_event = {
+	id = MON.36
+	title = MON.36.t
+	picture = GFX_report_event_chinese_japanese_handshake
+	trigger = {
+		tag = MON
+		OR = {
+			has_idea = MON_chinese_migrants
+			has_idea = MON_chinese_migrants_opressed
+		}
+		NOT = {
+			has_government = communism
+		}
+	}
+	mean_time_to_happen = {
+		days = 150
+	}
+	desc = MON.36.d
+	option = {
+		name = MON.36.a
+		add_timed_idea = { idea = MON_chinese_buff days = 90 }
+	}
+}
+#Суйюаньское наступление
+country_event = {
+	id = MON.37
+	title = MON.37.t
+	picture = GFX_report_event_chinese_japanese_handshake
+	fire_only_once = yes
+	trigger = {
+		tag = MEN
+		date > 1936.8.1
+		SHX = { 
+			exists = yes
+			has_war = no 
+		}
+	}
+	mean_time_to_happen = {
+		days = 1
+	}
+	desc = MON.37.d
+	option = {
+		name = MON.37.a
+		ai_chance = { factor = 7 }
+		set_country_flag = suiyuan_campaign
+		add_ideas = MEN_japanese_aid
+		add_state_core = 621
+		declare_war_on = {
+			target = SHX
+			type = take_state_focus
+			generator = { 621 }
+		}
+		hidden_effect = {
+		country_event = { days = 5 id = MON_news.3 }
+		}
+	}
+	option = {
+		name = MON.37.b
+		ai_chance = { factor = 3 }
+		add_political_power = -50
+	}
+}
+#Победа Мэньцзяна
+country_event = {
+	id = MON.38
+	title = MON.38.t
+	picture = GFX_report_event_chinese_japanese_handshake
+	fire_only_once = yes
+	trigger = {
+		tag = MEN
+		has_country_flag = suiyuan_campaign
+		controls_state = 621
+	}
+	mean_time_to_happen = {
+		days = 7
+	}
+	desc = MON.38.d
+	option = {
+		name = MON.38.a
+		transfer_state = 621
+		white_peace = SHX
+		clr_country_flag = suiyuan_campaign
+		remove_ideas = MEN_japanese_aid
+	}
+}
+#Провал наступления
+country_event = {
+	id = MON.39
+	title = MON.39.t
+	picture = GFX_report_event_chinese_japanese_handshake
+	fire_only_once = yes
+	trigger = {
+		tag = MEN
+		has_country_flag = suiyuan_campaign
+		OR = {
+			SHX = { controls_state = 611 }
+			date > 1937.1.1
+		}
+	}
+	mean_time_to_happen = {
+		days = 7
+	}
+	desc = MON.39.d
+	option = {
+		name = MON.39.a
+		white_peace = SHX
+		clr_country_flag = suiyuan_campaign
+		remove_ideas = MEN_japanese_aid
+		add_political_power = -50
+	}
+}
+#Аннексия Суйюаня в случае войны с Гоминьданом
+#Временное правительство!
+country_event = {
+	id = MON.40
+	title = MON.40.t
+	picture = GFX_report_event_chinese_japanese_handshake
+	is_triggered_only = yes
+	desc = MON.40.d
+	option = {
+		name = MON.40.a
+		add_ideas = MON_provisional_government
+	}
+}
+#Аншлюс Тувы:выбор 
+country_event = {
+	id = MON.41
+	title = MON.41.t
+	picture = GFX_report_event_chinese_japanese_handshake
+	is_triggered_only = yes
+	desc = MON.41.d
+	option = {
+		name = MON.41.a
+		ai_chance = { 
+			factor = 9
+		}
+		MON = { 
+			annex_country = { target = TAN transfer_troops = yes }
+			country_event = { id = MON.42 }
+		}
+	}
+	option = {
+		name = MON.41.b
+		MON = { country_event = { id = MON.43 } }
+		ai_chance = { 
+			factor = 1
+		}
+	}
+}
+#Тува согласна
+country_event = {
+	id = MON.42
+	title = MON.42.t
+	picture = GFX_report_event_chinese_japanese_handshake
+	is_triggered_only = yes
+	desc = MON.42.d
+	option = {
+		name = MON.42.a
+	}
+}
+#Тува не согласна
+country_event = {
+	id = MON.43
+	title = MON.43.t
+	picture = GFX_report_event_chinese_japanese_handshake
+	is_triggered_only = yes
+	desc = MON.43.d
+	option = {
+		name = MON.43.a
+	}
+	option = {
+		name = MON.43.b
+		declare_war_on = {
+			target = TAN
+			type = annex_everything
+		}
+	}
+}
+#Переворот в Синцзяне
+country_event = {
+	id = MON.44
+	title = MON.44.t
+	picture = GFX_report_event_chinese_japanese_handshake
+	is_triggered_only = yes
+	desc = MON.44.d
+	option = {
+		name = MON.44.a
+		create_country_leader = {
+			name = "Alexander Ionov"
+			desc = "POLITICS_IONOV_DESC"
+			picture = "gfx/leaders/MON/Portrait_Ionov.dds"
+			expire = "1965.1.1"
+			ideology = despotism
+			traits = {
+			}
+		}
+		MON = { puppet = SIK }
+		set_party_name = {
+			ideology = neutrality
+			long_name = MON_neutrality_party_russian
+			name = MON_neutrality_russian_short
+		}
+		set_cosmetic_tag = SIK_sem
+		hidden_effect = {
+			country_event = { days = 5 id = MON_news.1 }
+		}
+	}
+}
+#Провал переворота в Синцзяне
+country_event = {
+	id = MON.45
+	title = MON.45.t
+	picture = GFX_report_event_chinese_japanese_handshake
+	is_triggered_only = yes
+	desc = MON.45.d
+	option = {
+		name = MON.45.a
+		add_national_unity = -0.15
+		add_manpower = -5000
+		hidden_effect = {
+			country_event = { days = 5 id = MON_news.2 }
+		}
+	}
+}
+#Монголия предлагает союз (Гоминьдан)
+country_event = {
+	id = MON.46
+	title = MON.46.t
+	picture = GFX_report_event_chinese_japanese_handshake
+	is_triggered_only = yes
+	desc = MON.46.d
+	option = {
+		ai_chance = { factor = 2 }
+		name = MON.46.a
+		remove_state_core = 330
+		create_faction = MON_united_front
+		add_to_faction = MON
+	}
+	option = {
+		ai_chance = { factor = 1 }
+		name = MON.46.b
+	}
+}
+#Китай согласен
+country_event = {
+	id = MON.47
+	title = MON.47.t
+	picture = GFX_report_event_chinese_japanese_handshake
+	is_triggered_only = yes
+	desc = MON.47.d
+	option = {
+		name = MON.47.a
+	}
+}
+#Китай отказался
+country_event = {
+	id = MON.48
+	title = MON.48.t
+	picture = GFX_report_event_chinese_japanese_handshake
+	is_triggered_only = yes
+	desc = MON.48.d
+	option = {
+		name = MON.48.a
+	}
+}
+#Воссоздание союза при распаде Объединенного Фронта
+country_event = {
+	id = MON.49
+	fire_only_once = yes
+	hidden = yes
+	trigger = {
+		tag = CHI
+		OR = {
+			has_government = neutrality
+			has_government = democratic
+		}
+		has_global_flag = PRC_restart_CHI_war_pre
+		is_in_faction = no
+		MON = { has_completed_focus = KMT_ties }
+	}
+	immediate = {
+		country_event = { id = MON.46 }
+	}
+}
+#Совместные предприятия: военные или гражданские?
+country_event = {
+	id = MON.50
+	title = MON.50.t
+	picture = GFX_report_event_chinese_japanese_handshake
+	is_triggered_only = yes
+	desc = MON.50.d
+	option = {
+		name = MON.50.a
+		add_ideas = MON_joint_ventures_military
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+		CHI = {
+			add_ideas =	MON_joint_ventures_military
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+	option = {
+		name = MON.50.b
+		add_ideas = MON_joint_ventures_civillian
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+		CHI = {
+			add_ideas =	MON_joint_ventures_civillian
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+}
+#ГВ в России
+country_event = {
+	id = MON.51
+	title = MON.51.t
+	picture = GFX_report_event_chinese_japanese_handshake
+	is_triggered_only = yes
+	desc = MON.51.d
+	option = {
+		name = MON.51.a
+		start_civil_war = {
+			ideology = neutrality
+			capital = 566
+			states = { 563 564 566 654 588 732 742 }
+		}
+		hidden_effect = {
+			SIK = {
+				add_ideas = MON_rovs_support
+				if = {
+					limit = {
+						is_puppet_of = MON
+						NOT = { owns_state = 586 }
+					}
+					transfer_state = 589
+					transfer_state = 586
+					set_capital = 586
+				}
+			}
+			random_country = {
+				limit = {
+					original_tag = SOV
+					has_government = neutrality
+				}
+				create_faction = MON_white_movement
+				add_to_faction = MON
+				MON = {
+					add_to_war = {
+						targeted_alliance = THIS
+						enemy = SOV
+					}
+					add_ideas = MON_rovs_support
+				}
+				create_country_leader = {
+					name = "Alexander Kerensky"
+					desc = "POLITICS_KERENSKY_DESC"
+					picture = "gfx/leaders/MON/Portrait_Soviet_Alexander_Kerensky.tga"
+					expire = "1970.1.1"
+					ideology = centrism
+					traits = {
+					}
+				}
+				add_ideas = {
+					service_by_requirement
+					war_economy
+					closed_economy
+					MON_rovs_support
+				}
+				if = {
+					limit = { 
+						NOT = {
+							SIK = { is_puppet_of = MON }
+						}
+					}
+					transfer_state = 589 
+					transfer_state = 586
+				}
+				if = {
+					limit = { 
+						MON = {
+							owns_state = 564 
+							owns_state = 563
+							owns_state = 565
+						}
+					}
+					transfer_state = 575
+					transfer_state = 574
+					transfer_state = 561
+				}
+				if = {
+					limit = {
+						SIK = { owns_state = 586 }
+					}
+					transfer_state = 590
+					transfer_state = 404
+				}
+				load_oob = "MON_RUS_civil_war"
+				add_equipment_to_stockpile = { type = support_equipment_1 amount = 12000 producer = MON }
+				add_equipment_to_stockpile = { type = infantry_equipment_0 amount = 15500 producer = MON }
+				add_equipment_to_stockpile = { type = artillery_equipment_1 amount = 9000 producer = MON }
+			}
+		}
+	}
+}
+#Памятник Унгерну

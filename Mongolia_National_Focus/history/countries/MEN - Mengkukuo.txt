@@ -4,7 +4,9 @@ oob = "MEN_1936"
 
 set_technology = {
 	infantry_weapons = 1
-	
+}
+add_ideas = {
+	MON_nomadic
 }
 
 1939.1.1 = {
@@ -86,6 +88,12 @@ create_country_leader = {
 	traits = {
 		spirit_of_genghis
 	}
+}
+create_corps_commander = {
+	name = "Buyandelger"
+	portrait_path = "gfx/leaders/MON/Portrait_Shouxin.dds"
+	traits = { }
+	skill = 2
 }
 
 1939.1.1 = {

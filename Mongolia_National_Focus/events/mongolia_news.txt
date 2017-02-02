@@ -1,4 +1,70 @@
-#���������� ����
-#������� � ������
-#������� � �����
-#
+add_namespace = MON_news
+#Создание Сангхи
+#Создание Народного Фронта
+#Создание Гражданского Фронта
+#Восхождение Монголии (100 фабрик или еще что-то)
+#Монголы в Японии
+#Монголы в Пекине
+#Монголы в Сеуле
+#Монголы в Маньчжурии
+
+#Переворот в Синзяне
+news_event = {
+	id = MON_news.1
+	title = MON_news.1.t
+	picture = GFX_news_event_sinkiang_white
+	major = yes
+	is_triggered_only = yes
+	desc = MON_news.1.d
+	option = {
+		name = MON_news.1.a
+	}
+}
+#Провал переворота в Синцзяне
+news_event = {
+	id = MON_news.2
+	title = MON_news.2.t
+	picture = GFX_news_event_033
+	major = yes
+	is_triggered_only = yes
+	desc = MON_news.2.d
+	option = {
+		name = MON_news.2.a
+	}
+}
+#Суйюаньская кампания
+news_event = {
+	id = MON_news.3
+	title = MON_news.3.t
+	picture = GFX_news_event_mengjiang_cavalry
+	major = yes
+	is_triggered_only = yes
+	desc = MON_news.3.d
+	option = {
+		name = MON_news.3.a
+	}
+}
+#Успех Суйюаньской кампании
+news_event = {
+	id = MON_news.4
+	title = MON_news.4.t
+	picture = GFX_news_event_mengjiang_politicians
+	major = yes
+	is_triggered_only = yes
+	desc = MON_news.4.d
+	option = {
+		name = MON_news.4.a
+	}
+}
+#Провал Суйюаньской кампании
+news_event = {
+	id = MON_news.5
+	title = MON_news.5.t
+	picture = GFX_news_event_033
+	major = yes
+	is_triggered_only = yes
+	desc = MON_news.5.d
+	option = {
+		name = MON_news.5.a
+	}
+}

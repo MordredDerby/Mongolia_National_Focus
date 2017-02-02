@@ -91,9 +91,17 @@ units = {
 	#}
 }
 
-assign_all_forces_to = "Khorloogiin Choibalsan"
+#assign_all_forces_to = "Khorloogiin Choibalsan"
 
 ##### No notable air force (only about 6 aircraft in 1936) #####
+air_wings = {
+	330 = { 
+		fighter_equipment_0 = {
+			owner = "SOV" 
+			amount = 6
+		}
+	}
+}
 
 instant_effect = {
 	add_equipment_production = {
