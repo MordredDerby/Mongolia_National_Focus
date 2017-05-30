@@ -25,46 +25,15 @@ country_event = {
 	option = {
 		name = MONCLN.1.a
 		hidden_effect = {
-			MEN = { kill_country_leader = yes }
-			if = {
-				limit = {
-					NOT = { MON = { is_puppet_of = JAP } }
-				}
-				puppet = MON
-			}
-			MON = {
-				annex_country = { target = MEN transfer_troops = yes }
-				add_popularity = {
-					ideology = fascism
-					popularity = 0.3
-				}
-				create_country_leader = {
-					name = "Demchugdongrub"
-					desc = "POLITICS_DEMCHUGDONGRUB_DESC"
-					picture = "gfx/leaders/MON/Portrait_Demchugdongrub.dds"
-					expire = "1965.1.1"
-					ideology = fascism_ideology
-					traits = {
-						spirit_of_genghis
-						cooperative_leader
-					}
-				}
-				add_state_core = 611
-				add_state_core = 612
+			MEN = {
+				set_cosmetic_tag = MEN_MON
+				set_capital = 330
+				annex_country = { target = MON transfer_troops = yes }
+				add_country_leader_trait = cooperative_leader
+				add_state_core = 330
 				add_state_core = 621
 				add_state_core = 616
 				add_state_core = 618
-				every_state = {
-					limit = {
-						is_core_of = MEN
-					}
-					add_core_of = MON
-				}
-				set_party_name = { 
-					ideology = fascism 
-					long_name = MON_fascist_party_royal
-					name = MON_fascist_party_royal_short
-				}
 			}
 			if = {
 				limit = {
@@ -120,6 +89,7 @@ country_event = {
 				}
 				MON = { transfer_state = 618 }
 			}
+			set_province_name = { id = 4801 name = "Urga" }
 		}
 	}
 	option = {

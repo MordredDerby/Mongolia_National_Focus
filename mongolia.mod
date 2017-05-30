@@ -1,6 +1,11 @@
 name="Mongolia National Focus"
-path="mod/Mongolia_National_Focus"
+path="mod/Mongolia National Focus"
 tags={
 	"National Focuses"
+	"Events"
+	"Historical"
 }
-supported_version="1.1.*"
+dependencies = { "China National Focus" }
+picture="MON.jpg"
+remote_file_id="766149258"
+supported_version="1.3.*"

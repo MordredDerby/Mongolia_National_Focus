@@ -12,9 +12,15 @@ spriteTypes = {
 		texturefile = "gfx/interface/ideas/idea_rovs_support.dds"
 	}
 	spriteType = {
-		name = "GFX_idea_choibalsan"
-		texturefile = "gfx/interface/ideas/idea_choibalsan.dds"
+		name = "GFX_idea_MON_buddhism"
+		texturefile = "gfx/interface/ideas/idea_buddhism.dds"
 	}
+	spriteType = {
+		name = "GFX_idea_MEN_currency"
+		texturefile = "gfx/interface/ideas/idea_reformed_currency.dds"
+	}
+
+	
 	spriteType = {
 		name = "GFX_news_event_mengjiang_cavalry"
 		texturefile = "gfx/event_pictures/news_mengjiang_cavalry.dds"
@@ -26,13 +32,5 @@ spriteTypes = {
 	spriteType = {
 		name = "GFX_news_event_sinkiang_white"
 		texturefile = "gfx/event_pictures/news_sinkiang_white.dds"
-	}
-	spriteType = {
-		name = "GFX_goal_tfv_smiling_buddha"
-		texturefile = "gfx/interface/goals/goal_tfv_smiling_buddha.dds"
-	}
-	spriteType = {
-		name = "GFX_focus_SAF_colonialist_crusade"
-		texturefile = "gfx/interface/goals/focus_SAF_colonialist_crusade.dds"
 	}
 }

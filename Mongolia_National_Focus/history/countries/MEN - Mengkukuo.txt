@@ -8,9 +8,13 @@ set_technology = {
 add_ideas = {
 	MON_nomadic
 }
+set_national_unity = 0.5
 
 1939.1.1 = {
-
+	add_to_war = {
+		targeted_alliance = JAP
+		enemy = CHI
+	}
 	add_political_power = 1198
 	
 	#generic focuses
@@ -90,11 +94,8 @@ create_country_leader = {
 	}
 }
 create_corps_commander = {
-	name = "Buyandelger"
-	portrait_path = "gfx/leaders/MON/Portrait_Shouxin.dds"
+	name = "Demchugdongrub"
+	portrait_path = "gfx/leaders/MON/Portrait_Demchugdongrub.dds"
 	traits = { }
-	skill = 2
-}
-
-1939.1.1 = {
+	skill = 1
 }

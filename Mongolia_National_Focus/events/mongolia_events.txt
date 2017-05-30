@@ -1,6 +1,6 @@
-add_namespace = MON
+п»їadd_namespace = MON
 
-#Просьба о передаче Мэньцзяна
+#Mongolia asks for Mengjiang
 country_event = {
 	id = MON.1
 	title = MON.1.t
@@ -8,18 +8,22 @@ country_event = {
 	picture = GFX_report_event_asian_politicians
 
 	is_triggered_only = yes
-	#отдать
+	#Agree
 	option = {
 		name = MON.1.a
 		ai_chance = { 
 			factor = 10 
 			modifier = {
-				factor = 5
+				factor = 2
 				MON = { is_in_faction_with = JAP }
 			}
 			modifier = {
 				factor = 2
 				MON = { has_government = fascism }
+			}
+			modifier = {
+				factor = 2
+				has_country_flag = demchugdongrub_khan
 			}
 		}
 		MEN = {
@@ -43,7 +47,7 @@ country_event = {
 		}
 		set_global_flag = mengkukuo_ceded
 	}
-	#не отдавать
+	#Refuse
 	option = {
 		name = MON.1.b
 		ai_chance = { factor = 20 }
@@ -55,32 +59,13 @@ country_event = {
 			}
 		}
 	}
-	#в обмен на союз
-	option = {
-		name = MON.1.c
-		ai_chance = { 
-			factor = 15
-			modifier = {
-				factor = 5
-				has_completed_focus = found_own_faction_focus
-			}
-			modifier = {
-				factor = 2
-				MON = { has_government = fascism }
-			}
-		}
-		MON = { 
-			country_event = { id = MON.15 }
-		}
-	}
 }
 
-#Япония отказалась передать Мэньцзян
+#ГџГЇГ®Г­ГЁГї Г®ГІГЄГ Г§Г Г«Г Г±Гј ГЇГҐГ°ГҐГ¤Г ГІГј ГЊГЅГ­ГјГ¶Г§ГїГ­
 country_event = {
 	id = MON.2
 	title = MON.2.t
 	desc = MON.2.d
-	picture = GFX_report_event_china_politicians_captured
 
 	is_triggered_only = yes
 	
@@ -93,7 +78,7 @@ country_event = {
 	}
 }
 
-#Союз с Монголией? (Япония)
+#Mongolia proposes alliance
 country_event = {
 	id = MON.3
 	title = MON.3.t
@@ -104,7 +89,13 @@ country_event = {
 	
 	option = {
 		name = MON.3.a
-		ai_chance = { factor = 20 }
+		ai_chance = { 
+			factor = 12 
+			modifier = {
+				factor = 2
+				has_country_flag = demchugdongrub_khan
+			}
+		}
 		if = {
 			limit = { is_in_faction = no }
 			create_faction = "daitoa_kyoeiken" 
@@ -125,12 +116,11 @@ country_event = {
 	}
 }
 
-#Япония отказалась от союза
+#ГџГЇГ®Г­ГЁГї Г®ГІГЄГ Г§Г Г«Г Г±Гј Г®ГІ Г±Г®ГѕГ§Г 
 country_event = {
 	id = MON.4
 	title = MON.4.t
 	desc = MON.4.d
-	picture = GFX_report_event_generic_sign_treaty2
 
 	is_triggered_only = yes
 		
@@ -139,7 +129,7 @@ country_event = {
 	}
 }
 
-#Выбор монарха
+#Elect monarch
 country_event = {
 	id = MON.5
 	title = MON.5.t
@@ -149,41 +139,22 @@ country_event = {
 
 	option = {
 		name = MON.5.a
-		create_country_leader = {
-			name = "Demchugdongrub"
-			desc = "POLITICS_DEMCHUGDONGRUB_DESC"
-			picture = "gfx/leaders/MON/Portrait_Demchugdongrub.dds"
-			expire = "1965.1.1"
-			ideology = fascism_ideology
-			traits = {
-				spirit_of_genghis
-				cooperative_leader
+		ai_chance = { 
+			factor = 1 
+			modifier = {
+				factor = 10
+				MEN = { is_ai = no }
 			}
 		}
-		hidden_effect = {
-			MEN = { 
-				create_country_leader = {
-					name = "Buyandelger"
-					desc = "POLITICS_LI_SHOUXIN_DESC"
-					picture = "gfx/leaders/MON/Portrait_Shouxin.dds"
-					expire = "1970.1.1"
-					ideology = fascism_ideology
-					traits = {
-					}
-				}
-			}
-			set_party_name = { 
-				ideology = fascism 
-				long_name = MON_fascist_party_royal
-				name = MON_fascist_party_royal_short
-			}
-		}
+		MEN = { country_event = { id = MEN.14 } }
 	}
 	option = {
 		name = MON.5.b
+		ai_chance = { 
+			factor = 1 
+		}
 		create_country_leader = {
 			name = "Tserendondovyn Navaanneren"
-			desc = "POLITICS_DEMCHUGDONGRUB_DESC"
 			picture = "gfx/leaders/MON/Portrait_Navaanneren.dds"
 			expire = "1965.1.1"
 			ideology = fascism_ideology
@@ -192,17 +163,10 @@ country_event = {
 				intellectual
 			}
 		}
-		hidden_effect = {
-			set_party_name = { 
-				ideology = fascism 
-				long_name = MON_fascist_party_royal
-				name = MON_fascist_party_royal_short
-			}
-		}
 	}
 }
 
-#Конституционная монархия или республика?
+#ГЉГ®Г­Г±ГІГЁГІГіГ¶ГЁГ®Г­Г­Г Гї Г¬Г®Г­Г Г°ГµГЁГї ГЁГ«ГЁ Г°ГҐГ±ГЇГіГЎГ«ГЁГЄГ ?
 country_event = {
 	id = MON.6
 	title = MON.6.t
@@ -237,12 +201,11 @@ country_event = {
 	}
 }
 
-#Чойбалсан у власти
+#Г—Г®Г©ГЎГ Г«Г±Г Г­ Гі ГўГ«Г Г±ГІГЁ
 country_event = {
 	id = MON.7
 	title = MON.7.t
 	desc = MON.7.d
-	picture = GFX_report_event_asian_politicians
 	fire_only_once = yes
 	
 	trigger = {
@@ -277,20 +240,18 @@ country_event = {
 	}
 }
 
-#Глава совета или совет?
+#ГѓГ«Г ГўГ  Г±Г®ГўГҐГІГ  ГЁГ«ГЁ Г±Г®ГўГҐГІ?
 country_event = {
 	id = MON.8
 	title = MON.8.t
 	desc = MON.8.d
-	picture = GFX_report_event_asian_politicians
 	is_triggered_only = yes
 	
 	option = {
 		name = MON.8.a
 		create_country_leader = {
 			name = "Lama Council"
-			desc = "POLITICS_BOGD_KHAN_DESC"
-			picture = "gfx/leaders/MON/Portrait_Bogd_Khan.dds"
+			picture = "gfx/leaders/MON/Portrait_Lama_Council.dds"
 			expire = "1952.1.1"
 			ideology = oligarchism
 			traits = {
@@ -300,19 +261,19 @@ country_event = {
 	}
 	option = {
 		name = MON.8.b
+		remove_country_leader_trait = pillar_of_nation
 		add_political_power = 200
 	}
 }
 
-#Монголия требует Джунгарию
+#ГЊГ®Г­ГЈГ®Г«ГЁГї ГІГ°ГҐГЎГіГҐГІ Г„Г¦ГіГ­ГЈГ Г°ГЁГѕ
 country_event = {
 	id = MON.9
 	title = MON.9.t
 	desc = MON.9.d
-	picture = GFX_report_event_asian_politicians
 	
 	is_triggered_only = yes
-	#отдать
+	#Г®ГІГ¤Г ГІГј
 	option = {
 		name = MON.9.a
 		ai_chance = {
@@ -332,7 +293,7 @@ country_event = {
 			country_event = { id = MON.11 }
 		}
 	}
-	#отказать
+	#Г®ГІГЄГ Г§Г ГІГј
 	option = {
 		name = MON.9.b
 		ai_chance = {
@@ -348,12 +309,11 @@ country_event = {
 		set_global_flag = refused_dzungaria
 	}
 }
-#Земли не возвращены
+#Г‡ГҐГ¬Г«ГЁ Г­ГҐ ГўГ®Г§ГўГ°Г Г№ГҐГ­Г»
 country_event = {
 	id = MON.10
 	title = MON.10.t
 	desc = MON.10.d
-	picture = GFX_report_event_asian_politicians
 	
 	is_triggered_only = yes
 	
@@ -416,12 +376,11 @@ country_event = {
 	}
 }
 
-#Земли возвращены
+#Г‡ГҐГ¬Г«ГЁ ГўГ®Г§ГўГ°Г Г№ГҐГ­Г»
 country_event = {
 	id = MON.11
 	title = MON.11.t
 	desc = MON.11.d
-	picture = GFX_report_event_asian_politicians
 	
 	is_triggered_only = yes
 	
@@ -430,15 +389,14 @@ country_event = {
 		add_political_power = 100
 	}
 }
-#Монголия требует Бурятию
+#ГЊГ®Г­ГЈГ®Г«ГЁГї ГІГ°ГҐГЎГіГҐГІ ГЃГіГ°ГїГІГЁГѕ
 country_event = {
 	id = MON.12
 	title = MON.12.t
 	desc = MON.12.d
-	picture = GFX_report_event_asian_politicians
-	
+
 	is_triggered_only = yes
-	#отдать
+	#Г®ГІГ¤Г ГІГј
 	option = {
 		name = MON.12.a
 		ai_chance = {
@@ -456,7 +414,7 @@ country_event = {
 			country_event = { id = MON.11 }
 		}
 	}
-	#отказать
+	#Г®ГІГЄГ Г§Г ГІГј
 	option = {
 		name = MON.12.b
 		ai_chance = {
@@ -468,15 +426,14 @@ country_event = {
 		set_global_flag = refused_buryatia
 	}
 }
-#Монголия требует Внутренную Монголию
+#ГЊГ®Г­ГЈГ®Г«ГЁГї ГІГ°ГҐГЎГіГҐГІ Г‚Г­ГіГІГ°ГҐГ­Г­ГіГѕ ГЊГ®Г­ГЈГ®Г«ГЁГѕ
 country_event = {
 	id = MON.13
 	title = MON.13.t
 	desc = MON.13.d
-	picture = GFX_report_event_asian_politicians
 	
 	is_triggered_only = yes
-	#отдать
+	#Г®ГІГ¤Г ГІГј
 	option = {
 		name = MON.13.a
 		ai_chance = {
@@ -520,7 +477,7 @@ country_event = {
 			MON = { transfer_state = 621 }
 		}
 	}
-	#отказать
+	#Г®ГІГЄГ Г§Г ГІГј
 	option = {
 		name = MON.13.b
 		ai_chance = {
@@ -551,12 +508,11 @@ country_event = {
 		}
 	}
 }
-#Падение коммунизма
+#ГЏГ Г¤ГҐГ­ГЁГҐ ГЄГ®Г¬Г¬ГіГ­ГЁГ§Г¬Г 
 country_event = {
 	id = MON.14
 	title = MON.14.t
 	desc = MON.14.d
-	picture = GFX_report_event_asian_politicians
 	fire_only_once = yes
 	
 	trigger = {
@@ -589,12 +545,11 @@ country_event = {
 		}
 	}
 }
-#Мэнцзян в обмен на союз?
+#ГЊГЅГ­Г¶Г§ГїГ­ Гў Г®ГЎГ¬ГҐГ­ Г­Г  Г±Г®ГѕГ§?
 country_event = {
 	id = MON.15
 	title = MON.15.t
 	desc = MON.15.d
-	picture = GFX_report_event_asian_politicians
 	
 	is_triggered_only = yes
 	
@@ -637,12 +592,11 @@ country_event = {
 	}
 }
 
-#Тибет получил приглашение
+#Г’ГЁГЎГҐГІ ГЇГ®Г«ГіГ·ГЁГ« ГЇГ°ГЁГЈГ«Г ГёГҐГ­ГЁГҐ
 country_event = {
 	id = MON.16
 	title = MON.16.t
 	desc = MON.16.d
-	picture = GFX_report_event_asian_politicians
 	
 	is_triggered_only = yes		
 	
@@ -673,12 +627,11 @@ country_event = {
 		}
 	}
 }
-#Тибет согласен
+#Г’ГЁГЎГҐГІ Г±Г®ГЈГ«Г Г±ГҐГ­
 country_event = {
 	id = MON.17
 	title = MON.17.t
 	desc = MON.17.d
-	picture = GFX_report_event_asian_politicians
 	
 	is_triggered_only = yes		
 	
@@ -686,12 +639,11 @@ country_event = {
 		name = MON.17.a
 	}
 }
-#Тибет отказался
+#Г’ГЁГЎГҐГІ Г®ГІГЄГ Г§Г Г«Г±Гї
 country_event = {
 	id = MON.18
 	title = MON.18.t
 	desc = MON.18.d
-	picture = GFX_report_event_asian_politicians
 	
 	is_triggered_only = yes		
 	
@@ -699,7 +651,7 @@ country_event = {
 		name = MON.18.a
 	}
 }
-#Монголия просит признания
+#ГЊГ®Г­ГЈГ®Г«ГЁГї ГЇГ°Г®Г±ГЁГІ ГЇГ°ГЁГ§Г­Г Г­ГЁГї
 country_event = {
 	id = MON.19
 	title = MON.19.t
@@ -722,33 +674,30 @@ country_event = {
 	}
 }
 
-#Китай согласен
+#ГЉГЁГІГ Г© Г±Г®ГЈГ«Г Г±ГҐГ­
 country_event = {
 	id = MON.20
 	title = MON.20.t
-	picture = GFX_report_event_chinese_japanese_handshake
 	is_triggered_only = yes
 	desc = MON.20.d
 	option = {
 		name = MON.20.a
 	}
 }
-#Китай отказался
+#ГЉГЁГІГ Г© Г®ГІГЄГ Г§Г Г«Г±Гї
 country_event = {
 	id = MON.21
 	title = MON.21.t
-	picture = GFX_report_event_chinese_japanese_handshake
 	is_triggered_only = yes
 	desc = MON.21.d
 	option = {
 		name = MON.21.a
 	}
 }
-#Монголия предлагает раздел милитаристов
+#ГЊГ®Г­ГЈГ®Г«ГЁГї ГЇГ°ГҐГ¤Г«Г ГЈГ ГҐГІ Г°Г Г§Г¤ГҐГ« Г¬ГЁГ«ГЁГІГ Г°ГЁГ±ГІГ®Гў
 country_event = {
 	id = MON.22
 	title = MON.22.t
-	picture = GFX_report_event_chinese_japanese_handshake
 	is_triggered_only = yes
 	desc = MON.22.d
 	option = {
@@ -764,37 +713,34 @@ country_event = {
 		remove_state_core = 616
 	}
 	option = {
-		name = MON.22.и
+		name = MON.22.ГЁ
 		MON = { country_event = { id = MON.24 days = 5 } }
 	}
 }
-#Китай согласен на раздел
+#ГЉГЁГІГ Г© Г±Г®ГЈГ«Г Г±ГҐГ­ Г­Г  Г°Г Г§Г¤ГҐГ«
 country_event = {
 	id = MON.23
 	title = MON.23.t
-	picture = GFX_report_event_chinese_japanese_handshake
 	is_triggered_only = yes
 	desc = MON.23.d
 	option = {
 		name = MON.23.a
 	}
 }
-#Китай отказался от раздела
+#ГЉГЁГІГ Г© Г®ГІГЄГ Г§Г Г«Г±Гї Г®ГІ Г°Г Г§Г¤ГҐГ«Г 
 country_event = {
 	id = MON.24
 	title = MON.24.t
-	picture = GFX_report_event_chinese_japanese_handshake
 	is_triggered_only = yes
 	desc = MON.24.d
 	option = {
 		name = MON.24.a
 	}
 }
-#Требования к Шаньси
+#Г’Г°ГҐГЎГ®ГўГ Г­ГЁГї ГЄ ГГ Г­ГјГ±ГЁ
 country_event = {
 	id = MON.25
 	title = MON.25.t
-	picture = GFX_report_event_chinese_japanese_handshake
 	is_triggered_only = yes
 	desc = MON.25.d
 	option = {
@@ -819,11 +765,10 @@ country_event = {
 		PRC = { country_event = { id = MON.27 } }
 	}
 }
-#Требования к Ма
+#Г’Г°ГҐГЎГ®ГўГ Г­ГЁГї ГЄ ГЊГ 
 country_event = {
 	id = MON.26
 	title = MON.26.t
-	picture = GFX_report_event_chinese_japanese_handshake
 	is_triggered_only = yes
 	desc = MON.26.d
 	option = {
@@ -863,11 +808,10 @@ country_event = {
 		PRC = { country_event = { id = MON.27 } }
 	}
  }
- #Ультиматум отклонен
+ #Г“Г«ГјГІГЁГ¬Г ГІГіГ¬ Г®ГІГЄГ«Г®Г­ГҐГ­
  country_event = {
 	id = MON.27
 	title = MON.27.t
-	picture = GFX_report_event_chinese_japanese_handshake
 	is_triggered_only = yes
 	desc = MON.27.d
 	option = {
@@ -918,7 +862,7 @@ country_event = {
 		}
 	}
 }
-#Ультиматум принят
+#Г“Г«ГјГІГЁГ¬Г ГІГіГ¬ ГЇГ°ГЁГ­ГїГІ
 country_event = {
 	id = MON.28
 	title = MON.28.t
@@ -929,7 +873,7 @@ country_event = {
 		name = MON.28.a
 	}
 }
-#Седентаризация?
+#Г‘ГҐГ¤ГҐГ­ГІГ Г°ГЁГ§Г Г¶ГЁГї?
 country_event = {
 	id = MON.29
 	title = MON.29.t
@@ -960,7 +904,7 @@ country_event = {
 		name = MON.29.b
 	}
 }
-#Продолжение ресурсной программы
+#ГЏГ°Г®Г¤Г®Г«Г¦ГҐГ­ГЁГҐ Г°ГҐГ±ГіГ°Г±Г­Г®Г© ГЇГ°Г®ГЈГ°Г Г¬Г¬Г»
 country_event = {
 	id = MON.30
 	title = MON.30.t
@@ -1010,7 +954,7 @@ country_event = {
 		}
 	}
 }
-#Ресурсная программа окончена
+#ГђГҐГ±ГіГ°Г±Г­Г Гї ГЇГ°Г®ГЈГ°Г Г¬Г¬Г  Г®ГЄГ®Г­Г·ГҐГ­Г 
 country_event = {
 	id = MON.31
 	title = MON.31.t
@@ -1033,7 +977,7 @@ country_event = {
 		}
 	}
 }
-#Приглашение в беломанчжурский союз
+#ГЏГ°ГЁГЈГ«Г ГёГҐГ­ГЁГҐ Гў ГЎГҐГ«Г®Г¬Г Г­Г·Г¦ГіГ°Г±ГЄГЁГ© Г±Г®ГѕГ§
 country_event = {
 	id = MON.32
 	title = MON.32.t
@@ -1076,7 +1020,7 @@ country_event = {
 		add_national_unity = -0.15
 	}
 }
-#Мигранты приносят демократию
+#ГЊГЁГЈГ°Г Г­ГІГ» ГЇГ°ГЁГ­Г®Г±ГїГІ Г¤ГҐГ¬Г®ГЄГ°Г ГІГЁГѕ
 country_event = {
 	id = MON.33
 	title = MON.33.t
@@ -1108,7 +1052,7 @@ country_event = {
 		add_political_power = -40
 	}
 }
-#Мигранты приносят коммунизм
+#ГЊГЁГЈГ°Г Г­ГІГ» ГЇГ°ГЁГ­Г®Г±ГїГІ ГЄГ®Г¬Г¬ГіГ­ГЁГ§Г¬
 country_event = {
 	id = MON.34
 	title = MON.34.t
@@ -1140,7 +1084,7 @@ country_event = {
 		add_political_power = -40
 	}
 }
-#Вместе с мигрантами приходят японские агенты
+#Г‚Г¬ГҐГ±ГІГҐ Г± Г¬ГЁГЈГ°Г Г­ГІГ Г¬ГЁ ГЇГ°ГЁГµГ®Г¤ГїГІ ГїГЇГ®Г­Г±ГЄГЁГҐ Г ГЈГҐГ­ГІГ»
 country_event = {
 	id = MON.35
 	title = MON.35.t
@@ -1172,7 +1116,7 @@ country_event = {
 		add_political_power = -40
 	}
 }
-#Китайкцы поднимают промышленность
+#ГЉГЁГІГ Г©ГЄГ¶Г» ГЇГ®Г¤Г­ГЁГ¬Г ГѕГІ ГЇГ°Г®Г¬Г»ГёГ«ГҐГ­Г­Г®Г±ГІГј
 country_event = {
 	id = MON.36
 	title = MON.36.t
@@ -1196,96 +1140,10 @@ country_event = {
 		add_timed_idea = { idea = MON_chinese_buff days = 90 }
 	}
 }
-#Суйюаньское наступление
-country_event = {
-	id = MON.37
-	title = MON.37.t
-	picture = GFX_report_event_chinese_japanese_handshake
-	fire_only_once = yes
-	trigger = {
-		tag = MEN
-		date > 1936.8.1
-		SHX = { 
-			exists = yes
-			has_war = no 
-		}
-	}
-	mean_time_to_happen = {
-		days = 1
-	}
-	desc = MON.37.d
-	option = {
-		name = MON.37.a
-		ai_chance = { factor = 7 }
-		set_country_flag = suiyuan_campaign
-		add_ideas = MEN_japanese_aid
-		add_state_core = 621
-		declare_war_on = {
-			target = SHX
-			type = take_state_focus
-			generator = { 621 }
-		}
-		hidden_effect = {
-		country_event = { days = 5 id = MON_news.3 }
-		}
-	}
-	option = {
-		name = MON.37.b
-		ai_chance = { factor = 3 }
-		add_political_power = -50
-	}
-}
-#Победа Мэньцзяна
-country_event = {
-	id = MON.38
-	title = MON.38.t
-	picture = GFX_report_event_chinese_japanese_handshake
-	fire_only_once = yes
-	trigger = {
-		tag = MEN
-		has_country_flag = suiyuan_campaign
-		controls_state = 621
-	}
-	mean_time_to_happen = {
-		days = 7
-	}
-	desc = MON.38.d
-	option = {
-		name = MON.38.a
-		transfer_state = 621
-		white_peace = SHX
-		clr_country_flag = suiyuan_campaign
-		remove_ideas = MEN_japanese_aid
-	}
-}
-#Провал наступления
-country_event = {
-	id = MON.39
-	title = MON.39.t
-	picture = GFX_report_event_chinese_japanese_handshake
-	fire_only_once = yes
-	trigger = {
-		tag = MEN
-		has_country_flag = suiyuan_campaign
-		OR = {
-			SHX = { controls_state = 611 }
-			date > 1937.1.1
-		}
-	}
-	mean_time_to_happen = {
-		days = 7
-	}
-	desc = MON.39.d
-	option = {
-		name = MON.39.a
-		white_peace = SHX
-		clr_country_flag = suiyuan_campaign
-		remove_ideas = MEN_japanese_aid
-		add_political_power = -50
-	}
-}
-#Аннексия Суйюаня в случае войны с Гоминьданом
-#Временное правительство!
+
+#37-39
+
+#Г‚Г°ГҐГ¬ГҐГ­Г­Г®ГҐ ГЇГ°Г ГўГЁГІГҐГ«ГјГ±ГІГўГ®!
 country_event = {
 	id = MON.40
 	title = MON.40.t
@@ -1297,7 +1155,7 @@ country_event = {
 		add_ideas = MON_provisional_government
 	}
 }
-#Аншлюс Тувы:выбор 
+#ГЂГ­ГёГ«ГѕГ± Г’ГіГўГ»:ГўГ»ГЎГ®Г° 
 country_event = {
 	id = MON.41
 	title = MON.41.t
@@ -1322,7 +1180,7 @@ country_event = {
 		}
 	}
 }
-#Тува согласна
+#Г’ГіГўГ  Г±Г®ГЈГ«Г Г±Г­Г 
 country_event = {
 	id = MON.42
 	title = MON.42.t
@@ -1333,7 +1191,7 @@ country_event = {
 		name = MON.42.a
 	}
 }
-#Тува не согласна
+#Г’ГіГўГ  Г­ГҐ Г±Г®ГЈГ«Г Г±Г­Г 
 country_event = {
 	id = MON.43
 	title = MON.43.t
@@ -1351,7 +1209,7 @@ country_event = {
 		}
 	}
 }
-#Переворот в Синцзяне
+#ГЏГҐГ°ГҐГўГ®Г°Г®ГІ Гў Г‘ГЁГ­Г¶Г§ГїГ­ГҐ
 country_event = {
 	id = MON.44
 	title = MON.44.t
@@ -1381,7 +1239,7 @@ country_event = {
 		}
 	}
 }
-#Провал переворота в Синцзяне
+#ГЏГ°Г®ГўГ Г« ГЇГҐГ°ГҐГўГ®Г°Г®ГІГ  Гў Г‘ГЁГ­Г¶Г§ГїГ­ГҐ
 country_event = {
 	id = MON.45
 	title = MON.45.t
@@ -1397,7 +1255,7 @@ country_event = {
 		}
 	}
 }
-#Монголия предлагает союз (Гоминьдан)
+#ГЊГ®Г­ГЈГ®Г«ГЁГї ГЇГ°ГҐГ¤Г«Г ГЈГ ГҐГІ Г±Г®ГѕГ§ (ГѓГ®Г¬ГЁГ­ГјГ¤Г Г­)
 country_event = {
 	id = MON.46
 	title = MON.46.t
@@ -1416,7 +1274,7 @@ country_event = {
 		name = MON.46.b
 	}
 }
-#Китай согласен
+#ГЉГЁГІГ Г© Г±Г®ГЈГ«Г Г±ГҐГ­
 country_event = {
 	id = MON.47
 	title = MON.47.t
@@ -1427,7 +1285,7 @@ country_event = {
 		name = MON.47.a
 	}
 }
-#Китай отказался
+#ГЉГЁГІГ Г© Г®ГІГЄГ Г§Г Г«Г±Гї
 country_event = {
 	id = MON.48
 	title = MON.48.t
@@ -1438,7 +1296,7 @@ country_event = {
 		name = MON.48.a
 	}
 }
-#Воссоздание союза при распаде Объединенного Фронта
+#Г‚Г®Г±Г±Г®Г§Г¤Г Г­ГЁГҐ Г±Г®ГѕГ§Г  ГЇГ°ГЁ Г°Г Г±ГЇГ Г¤ГҐ ГЋГЎГєГҐГ¤ГЁГ­ГҐГ­Г­Г®ГЈГ® Г”Г°Г®Г­ГІГ 
 country_event = {
 	id = MON.49
 	fire_only_once = yes
@@ -1457,7 +1315,7 @@ country_event = {
 		country_event = { id = MON.46 }
 	}
 }
-#Совместные предприятия: военные или гражданские?
+#Г‘Г®ГўГ¬ГҐГ±ГІГ­Г»ГҐ ГЇГ°ГҐГ¤ГЇГ°ГЁГїГІГЁГї: ГўГ®ГҐГ­Г­Г»ГҐ ГЁГ«ГЁ ГЈГ°Г Г¦Г¤Г Г­Г±ГЄГЁГҐ?
 country_event = {
 	id = MON.50
 	title = MON.50.t
@@ -1599,11 +1457,10 @@ country_event = {
 		}
 	}
 }
-#ГВ в России
+#ГѓГ‚ Гў ГђГ®Г±Г±ГЁГЁ
 country_event = {
 	id = MON.51
 	title = MON.51.t
-	picture = GFX_report_event_chinese_japanese_handshake
 	is_triggered_only = yes
 	desc = MON.51.d
 	option = {
@@ -1691,4 +1548,7 @@ country_event = {
 		}
 	}
 }
-#Памятник Унгерну
+#Rename Ulaanbaatar
+#Ungern monument
+#Ally with revolting Rodzayevsky
+#Counter-revolution success: Semyonov, Kerensky or Tsar?
