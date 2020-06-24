@@ -27,22 +27,19 @@ country_event = {
 			}
 		}
 		MEN = {
-			every_state = {
-				limit = {
-					is_core_of = MEN
-				}
-				add_core_of = MON
+			every_unit_leader = {
+				set_nationality = MON
 			}
 		}
 		MON = { 
-			annex_country = { target = MEN transfer_troops = yes } 
+			annex_country = { target = MEN transfer_troops = yes }
 			add_opinion_modifier = {
 					target = JAP
 					modifier = transfered
 			}
 			add_popularity = {
 					ideology = fascism
-					popularity = 0.3
+					popularity = 0.15
 			}
 		}
 		set_global_flag = mengkukuo_ceded
@@ -50,18 +47,18 @@ country_event = {
 	#Refuse
 	option = {
 		name = MON.1.b
-		ai_chance = { factor = 20 }
+		ai_chance = { factor = 15 }
 		MON = { 
 			country_event = { id = MON.2 } 
 			add_opinion_modifier = {
-					target = JAP
-					modifier = refused_transfer 
+				target = JAP
+				modifier = refused_transfer 
 			}
 		}
 	}
 }
 
-#ßïîíèÿ îòêàçàëàñü ïåðåäàòü Ìýíüöçÿí
+#Japan refuses to cede Mengjiang
 country_event = {
 	id = MON.2
 	title = MON.2.t
@@ -116,7 +113,7 @@ country_event = {
 	}
 }
 
-#ßïîíèÿ îòêàçàëàñü îò ñîþçà
+#Japan refuses alliance proposal
 country_event = {
 	id = MON.4
 	title = MON.4.t
@@ -166,34 +163,28 @@ country_event = {
 	}
 }
 
-#Êîíñòèòóöèîííàÿ ìîíàðõèÿ èëè ðåñïóáëèêà?
+#Constitutional monarchy?
 country_event = {
 	id = MON.6
 	title = MON.6.t
 	desc = MON.6.d
 	picture = GFX_report_event_asian_politicians
-	fire_only_once = yes
-	
-	trigger = {
-		tag = MON 
-		has_government = democratic
-	}
-	mean_time_to_happen = {
-		days = 30
-	}
+	is_triggered_only = yes
+
 	option = {
 		name = MON.6.a
 		set_cosmetic_tag = MON_const
 		add_ideas = MON_bogd_khan
 		set_country_flag = bogd_khan
+		set_country_flag = constitutinal_monarchy
 		add_popularity = {
 			ideology = neutrality
 			popularity = 0.1
 		}
 	}
 	option = {
-		name = MON.6.a
-		add_political_power = 100
+		name = MON.6.b
+		add_political_power = 50
 		add_popularity = {
 			ideology = democratic
 			popularity = 0.1
@@ -201,7 +192,7 @@ country_event = {
 	}
 }
 
-#×îéáàëñàí ó âëàñòè
+#Amar purged
 country_event = {
 	id = MON.7
 	title = MON.7.t
@@ -234,7 +225,7 @@ country_event = {
 			expire = "1952.1.1"
 			ideology = stalinism
 			traits = {
-				dictator
+				staunch_stalinist
 			}
 		}
 	}
@@ -262,7 +253,7 @@ country_event = {
 	option = {
 		name = MON.8.b
 		remove_country_leader_trait = pillar_of_nation
-		add_political_power = 200
+		#add_political_power = 200
 	}
 }
 
@@ -279,12 +270,12 @@ country_event = {
 		ai_chance = {
 			factor = 1
 			modifier = {
-				factor = 1,5
+				factor = 1.5
 				is_in_faction = no
 			}
 			modifier = {
 				factor = 2
-				strength_ratio = { tag = MON ratio < 0,8 }
+				strength_ratio = { tag = MON ratio < 0.8 }
 			}
 		}
 		add_political_power = -100
@@ -333,7 +324,7 @@ country_event = {
 			create_wargoal = {
 				type = take_state_focus
 				target = FROM
-				generator = { 563 564 565 }
+				generator = { 563 564 }
 			}
 			clr_global_flag = refused_buryatia
 		}
@@ -389,7 +380,7 @@ country_event = {
 		add_political_power = 100
 	}
 }
-#Ìîíãîëèÿ òðåáóåò Áóðÿòèþ
+#Mongolia demands Buryatia
 country_event = {
 	id = MON.12
 	title = MON.12.t
@@ -407,10 +398,10 @@ country_event = {
 			}
 		}
 		add_political_power = -150
+		add_stability = -0.1
 		MON = {
 			transfer_state = 563
 			transfer_state = 564
-			transfer_state = 565
 			country_event = { id = MON.11 }
 		}
 	}
@@ -439,12 +430,12 @@ country_event = {
 		ai_chance = {
 			factor = 5
 			modifier = {
-				factor = 1,5
+				factor = 2
 				is_in_faction = no
 			}
 			modifier = {
 				factor = 2
-				strength_ratio = { tag = MON ratio < 0,8 }
+				strength_ratio = { tag = MON ratio < 0.8 }
 			}
 			modifier = {
 				factor = 50
@@ -508,7 +499,7 @@ country_event = {
 		}
 	}
 }
-#Ïàäåíèå êîììóíèçìà
+#Fall of communism
 country_event = {
 	id = MON.14
 	title = MON.14.t
@@ -525,10 +516,6 @@ country_event = {
 	}
 	option = {
 		name = MON.14.a
-		add_popularity = {
-			ideology = communism
-			popularity = -0.5
-		}
 		hidden_effect = {
 			add_popularity = {
 				ideology = fascism
@@ -542,6 +529,10 @@ country_event = {
 				ideology = neutrality
 				popularity = 0.01
 			}
+		}
+		add_popularity = {
+			ideology = communism
+			popularity = -0.5
 		}
 	}
 }
@@ -564,14 +555,6 @@ country_event = {
 			if = {
 				limit = { is_faction_leader = yes }
 				add_to_faction = MON
-			}
-		}
-		MEN = {
-			every_state = {
-				limit = {
-					is_core_of = MEN
-				}
-				add_core_of = MON
 			}
 		}
 		MON = { 
@@ -651,7 +634,7 @@ country_event = {
 		name = MON.18.a
 	}
 }
-#Ìîíãîëèÿ ïðîñèò ïðèçíàíèÿ
+#Mongolia asks for recognition/alliance
 country_event = {
 	id = MON.19
 	title = MON.19.t
@@ -669,6 +652,13 @@ country_event = {
 	}
 	option = {
 		name = MON.19.b
+		ai_chance = { 
+			factor = 1
+			modifier = {
+				factor = 0
+				MON = { is_ai = no }
+			}
+		}
 		MON = { country_event = { id = MON.21 } }
 		add_political_power = 50
 	}
@@ -694,7 +684,7 @@ country_event = {
 		name = MON.21.a
 	}
 }
-#Ìîíãîëèÿ ïðåäëàãàåò ðàçäåë ìèëèòàðèñòîâ
+#Mongolia proposes partition of warlords
 country_event = {
 	id = MON.22
 	title = MON.22.t
@@ -704,16 +694,19 @@ country_event = {
 		name = MON.22.a
 		MON = { country_event = { id = MON.23 days = 5 } }
 		SHX = { country_event = { id = MON.25 days = 5 } }
-		XSM = { country_event = { id = MON.26 days = 5 } }
-		MON = {
-			add_state_core = 621
-			add_state_core = 616
-		}
+		XSM = { country_event = { id = MON.26 days = 5 } }	
 		remove_state_core = 621
 		remove_state_core = 616
 	}
 	option = {
-		name = MON.22.è
+		name = MON.22.b
+		ai_chance = { 
+			factor = 1
+			modifier = {
+				factor = 0
+				MON = { is_ai = no }
+			}
+		}
 		MON = { country_event = { id = MON.24 days = 5 } }
 	}
 }
@@ -873,23 +866,13 @@ country_event = {
 		name = MON.28.a
 	}
 }
-#Ñåäåíòàðèçàöèÿ?
+#Sedentarization?
 country_event = {
 	id = MON.29
 	title = MON.29.t
 	picture = GFX_report_event_chinese_japanese_handshake
-	fire_only_once = yes
-	trigger = {
-		tag = MON
-		NOT = {
-			has_government = democratic
-			has_completed_focus = MON_compromise_feudals
-		}
-		has_idea = MON_agriculture_idea
-	}
-	mean_time_to_happen = {
-		days = 210
-	}
+	is_triggered_only = yes
+
 	desc = MON.29.d
 	option = {
 		name = MON.29.a
@@ -910,10 +893,11 @@ country_event = {
 	title = MON.30.t
 	picture = GFX_report_event_chinese_japanese_handshake
 	fire_only_once = yes
-	trigger = {
-		tag = MON
-		has_idea = MON_resource_effort
-	}
+	is_triggered_only = yes
+	#trigger = {
+		#tag = MON
+		#has_idea = MON_resource_effort
+	#}
 	mean_time_to_happen = {
 		days = 100
 	}
@@ -928,7 +912,7 @@ country_event = {
 		name = MON.30.b
 		trigger = { NOT = { has_government = democratic } }
 		add_manpower = -3000
-		add_national_unity = -0.05
+		add_stability = -0.05
 		hidden_effect = {
 			country_event = { id = MON.31 days = 65 } 
 		}
@@ -1006,18 +990,18 @@ country_event = {
 				has_government = fascism
 			}
 			add_to_faction = MON
-			MCK = {
-				add_to_war = {
-					targeted_alliance = PREV
-					enemy = SOV
-				}
+		}
+		MCK = {
+			add_to_war = {
+				targeted_alliance = PREV
+				enemy = SOV
 			}
 		}
 	}
 	option = {
 		name = MON.32.b
 		add_political_power = -300
-		add_national_unity = -0.15
+		add_stability = -0.15
 	}
 }
 #Ìèãðàíòû ïðèíîñÿò äåìîêðàòèþ
@@ -1248,14 +1232,14 @@ country_event = {
 	desc = MON.45.d
 	option = {
 		name = MON.45.a
-		add_national_unity = -0.15
+		add_stability = -0.15
 		add_manpower = -5000
 		hidden_effect = {
 			country_event = { days = 5 id = MON_news.2 }
 		}
 	}
 }
-#Ìîíãîëèÿ ïðåäëàãàåò ñîþç (Ãîìèíüäàí)
+#Mongolia proposes an Alliance (Kuomintang)
 country_event = {
 	id = MON.46
 	title = MON.46.t
@@ -1315,7 +1299,7 @@ country_event = {
 		country_event = { id = MON.46 }
 	}
 }
-#Ñîâìåñòíûå ïðåäïðèÿòèÿ: âîåííûå èëè ãðàæäàíñêèå?
+#Joint ventures - militay or civillian?
 country_event = {
 	id = MON.50
 	title = MON.50.t
@@ -1457,7 +1441,7 @@ country_event = {
 		}
 	}
 }
-#ÃÂ â Ðîññèè
+#Russian civil war
 country_event = {
 	id = MON.51
 	title = MON.51.t
@@ -1526,7 +1510,6 @@ country_event = {
 						MON = {
 							owns_state = 564 
 							owns_state = 563
-							owns_state = 565
 						}
 					}
 					transfer_state = 575
@@ -1548,7 +1531,338 @@ country_event = {
 		}
 	}
 }
+#First elections
+country_event = {
+	id = MON.52
+	title = MON.52.t
+	desc = MON.52.d
+	is_triggered_only = yes
+
+	trigger = {
+		tag = MON
+		#has_government = communism
+		NOT = { has_country_flag = khural_elections_1 }
+	}
+
+	immediate = {
+		hidden_effect = {
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.3
+			}
+			set_party_name = { 
+				ideology = communism 
+				long_name = MON_authoritarian_MAN
+				name = MON_authoritarian_MAN_short
+			}
+			create_country_leader = {
+				name = "Khorloogiin Choibalsan"
+				desc = "POLITICS_KHORLOOGIIN_CHOIBALSAN_DESC"
+				picture = "gfx/leaders/MON/Portrait_Choibalsan.dds"
+				expire = "1952.1.1"
+				ideology = stalinism
+				traits = {
+					staunch_stalinist
+				}
+			}
+			set_country_flag = khural_elections_1
+		}
+	}
+
+	#Democratic opposition
+	option = {
+		name = MON.52.a
+		create_country_leader = {
+			name = "Jamsrangiin Tseveen"
+			desc = "POLITICS_TSEVEEN_DESC"
+			picture = "gfx/leaders/MON/Portrait_Tseveen.dds"
+			expire = "1965.1.1"
+			ideology = liberalism
+			traits = { }
+		}
+		add_ideas = MON_liberals_idea
+	}
+
+	#MAN liberalization
+	option = {
+		name = MON.52.b
+		set_country_flag = MAN_split
+		set_party_name = { 
+			ideology = democratic 
+			long_name = MON_liberal_MAN
+			name = MON_liberal_MAN_short
+		}
+		create_country_leader = {
+			name = "Anandyn Amar"
+			desc = "POLITICS_ANANDYN_AMAR_DESC"
+			picture = "gfx/leaders/MON/Portrait_Anandyn_Amar.dds"
+			expire = "1965.1.1"
+			ideology = socialism
+			traits = { }
+		}
+		add_ideas = MON_socdems_idea
+	}
+}
+
+#Second elections - Post-Tseveen DUC breakup
+country_event = {
+	id = MON.53
+	title = MON.53.t
+	desc = MON.53.d
+	is_triggered_only = yes
+
+	trigger = {
+		tag = MON
+		has_country_flag = khural_elections_1
+		NOT = { has_country_flag = khural_elections_2 }
+	}
+
+	immediate = {
+		set_country_flag = khural_elections_2
+		remove_ideas = {
+			MON_liberals_idea
+			MON_socdems_idea
+		}
+	}
+
+	#Rinchen wins
+	option = {
+		name = MON.53.a
+		set_party_name = { 
+			ideology = democratic 
+			long_name = MON_conservative
+			name = MON_conservative_short
+		}
+		create_country_leader = {
+			name = "Byambyn Rinchen"
+			desc = "POLITICS_RINCHEN_DESC"
+			picture = "gfx/leaders/MON/Portrait_Rinchen.dds"
+			expire = "1965.1.1"
+			ideology = conservatism
+			traits = { }
+		}
+		add_ideas = MON_conservatives_idea
+	}
+	#Natsagdorj wins
+	option = {
+		name = MON.53.b
+		set_party_name = { 
+			ideology = democratic 
+			long_name = MON_liberal
+			name = MON_liberal_short
+		}
+		create_country_leader = {
+			name = "Dashdorjiin Natsagdorj"
+			desc = "POLITICS_RINCHEN_DESC"
+			picture = "gfx/leaders/MON/Portrait_Natsagdorj.dds"
+			expire = "1965.1.1"
+			ideology = liberalism
+			traits = { }
+		}
+	}
+	#Choibalsan coup!
+	#option = {
+	#	name = MON.53.c
+	#	trigger = {
+	#		communism > 0.15
+	#	}
+	#	set_politics = {
+	#		ruling_party = communism
+	#		elections_allowed = no
+	#	}
+	#	hidden_effect = {
+	#		MON_reset_pilitics = yes
+	#		#complete_national_focus = MON_republicanism
+	#		#complete_national_focus = MON_communism_focus
+	#		#complete_national_focus = MON_SOV_focus
+	#	}
+	#}
+}
+
+#Mongolia demands Hinggan
+country_event = {
+	id = MON.54
+	title = MON.54.t
+	desc = MON.54.d
+	is_triggered_only = yes
+
+	option = { #Accept
+		name = MON.54.a
+		ai_chance = { 
+			factor = 1
+			modifier = {
+				factor = 3
+				any_war_score < 39
+			}
+		}
+		MON = { country_event = { id = MON.56 } }
+	}
+	option = { #Refuse
+		name = MON.54.b
+		ai_chance = { 
+			factor = 5
+		}
+		MON = { country_event = { id = MON.55 } }
+	}
+}
+
+#Hinggan refusal
+country_event = {
+	id = MON.55
+	title = MON.55.t
+	desc = MON.55.d
+	is_triggered_only = yes
+
+	#War
+	option = {
+		name = MON.55.a
+	}
+	#Ignore
+	option = {
+		name = MON.55.b
+	}
+}
+#Hinggan acceptance
+country_event = {
+	id = MON.56
+	title = MON.56.t
+	desc = MON.56.d
+	is_triggered_only = yes
+
+	option = {
+		name = MON.56.a
+	}
+}
+
+#Mongolia asks for expansion permission
+country_event = {
+	id = MON.57
+	title = MON.57.t
+	desc = MON.57.d
+	is_triggered_only = yes
+
+	option = {
+		name = MON.57.a
+		ai_chance = { 
+			factor = 1
+			modifier = {
+				factor = 10
+				SOV = {
+					has_country_leader = {
+						ruling_only = yes
+						name = "Leon Trotsky" 
+					}
+				}
+			}
+		}
+		MON = { set_country_flag = MON_expansion_allowed }
+	}
+	option = {
+		name = MON.57.b
+		ai_chance = { 
+			factor = 3
+		}
+	}
+}
+#USSR permits expansion
+country_event = {
+	id = MON.58
+	title = MON.58.t
+	desc = MON.58.d
+	is_triggered_only = yes
+
+	option = {
+		name = MON.58.a
+
+	}
+}
+#USSR forbids expansion
+country_event = {
+	id = MON.59
+	title = MON.59.t
+	desc = MON.59.d
+	is_triggered_only = yes
+
+	option = {
+		name = MON.59.a
+	}
+}
+
 #Rename Ulaanbaatar
+country_event = {
+	id = MON.60
+	title = MON.60.t
+	desc = MON.60.d
+	is_triggered_only = yes
+
+	option = {
+		name = MON.60.a
+		trigger = {
+			has_completed_focus = MON_monasteries
+		}
+		set_province_name = { id = 4801 name = "Niĭslel Khüree" }
+		set_country_flag = mon_capital_khuree
+	}
+	option = {
+		name = MON.60.b
+		set_province_name = { id = 4801 name = "Urga" }
+		set_country_flag = mon_capital_urga
+	}
+	option = {
+		name = MON.60.c
+		set_province_name = { id = 4801 name = "Baatar Khot" }
+		set_country_flag = mon_capital_baatar_khot
+	}
+	option = {
+		name = MON.60.dd
+	}
+}
+
+#Second elections - Amar challenged again
+country_event = {
+	id = MON.61
+	title = MON.61.t
+	desc = MON.61.d
+	is_triggered_only = yes
+
+	trigger = {
+		tag = MON
+		has_country_flag = khural_elections_1
+		has_country_flag = MAN_split
+		NOT = { has_country_flag = khural_elections_2 }
+	}
+
+	immediate = {
+		set_country_flag = khural_elections_2
+	}
+
+	#Amar 2nd term
+	option = {
+		name = MON.61.a
+		#add_political_power = 40
+	}
+	#Rinchen leads opposition
+	option = {
+		name = MON.61.b
+		set_party_name = { 
+			ideology = democratic 
+			long_name = MON_democratic_party_long
+			name = MON_democratic_party
+		}
+		create_country_leader = {
+			name = "Byambyn Rinchen"
+			desc = "POLITICS_RINCHEN_DESC"
+			picture = "gfx/leaders/MON/Portrait_Rinchen.dds"
+			expire = "1965.1.1"
+			ideology = conservatism
+			traits = { }
+		}
+	}
+}
+
 #Ungern monument
+#Bend to China
 #Ally with revolting Rodzayevsky
+#Neutral or Fascist whites?
+#Japanese advisors and new government
 #Counter-revolution success: Semyonov, Kerensky or Tsar?

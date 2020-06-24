@@ -1,0 +1,56 @@
+focus_tree = {
+	id = mengjiang_tree
+	country = {
+		factor = 0
+		modifier = {
+			add = 10
+			original_tag = MEN
+		}
+	}
+	default = no
+	shared_focus = MEN_industrial_effort
+	shared_focus = MEN_army_effort
+	shared_focus = MEN_aviation_effort
+	shared_focus = MEN_naval_effort
+	shared_focus = MEN_assembly
+	shared_focus = MEN_three_year_plan
+}
+
+focus_tree = {
+	id = mengjiang_tree_japanese
+	country = {
+		factor = 0
+		modifier = {
+			add = 10
+			original_tag = MEN
+			is_subject_of = JAP
+		}
+	}
+	default = no
+	shared_focus = MEN_industrial_effort
+	shared_focus = MEN_army_effort
+	shared_focus = MEN_aviation_effort
+	shared_focus = MEN_naval_effort
+	shared_focus = MEN_reassure_claims
+	shared_focus = MEN_assembly
+	shared_focus = MEN_three_year_plan
+}
+focus_tree = {
+	id = mengjiang_tree_chinese
+	country = {
+		factor = 0
+		modifier = {
+			add = 10
+			original_tag = MEN
+			is_subject_of = CHI
+		}
+	}
+	default = no
+	shared_focus = MEN_industrial_effort
+	shared_focus = MEN_army_effort
+	shared_focus = MEN_aviation_effort
+	shared_focus = MEN_naval_effort
+	shared_focus = MEN_pailingmiao_conference
+	shared_focus = MEN_assembly
+	shared_focus = MEN_three_year_plan
+}

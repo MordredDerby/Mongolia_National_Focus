@@ -1,15 +1,4 @@
 ﻿division_template = {
-	name = "Juntuán"				# Represents a corps of 3 NRA divisions (2 brigades of 2 regiments each)
-									# Militia-level training and equipment
-	regiments = {
-		infantry = { x = 0 y = 0 }
-		infantry = { x = 0 y = 1 }
-		infantry = { x = 1 y = 0 }
-		infantry = { x = 1 y = 1 }
-	}
-}
-
-division_template = {
 	name = "Morit Diviziin"			# Cavalry Division
 
 	regiments = {
@@ -22,25 +11,26 @@ division_template = {
 
 units = {
 	division = {
-		name = "1 Juntuán"
-		location = 828
-		division_template = "Juntuán"
-		start_experience_factor = 0.1
+		name = "1. Militia"
+		location = 4525
+		division_template = "Morit Diviziin"
+		start_experience_factor = 0
 		start_equipment_factor = 0.3
 	}
 	division = {
-		name = "1 Morit Diviziin"
-		location = 1590
+		name = "2. Militia"
+		location = 828
 		division_template = "Morit Diviziin"
-		start_experience_factor = 0.1
+		start_experience_factor = 0
 		start_equipment_factor = 0.3
 	}
 	division = {
-		name = "2 Morit Diviziin"
-		location = 828
+		name = "Demchugdongrub Guard"
+		location = 10397
 		division_template = "Morit Diviziin"
 		start_experience_factor = 0.1
-		start_equipment_factor = 0.3
+		start_equipment_factor = 0.5
+		force_equipment_variants = { infantry_equipment_0 = { owner = "MAN" } }
 	}
 }
 instant_effect = {

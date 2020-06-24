@@ -1,0 +1,104 @@
+add_namespace = CHIMON
+
+#Menggu asks for governorship
+country_event = {
+	id = CHIMON.1
+	title = CHIMON.1.t
+	desc = CHIMON.1.d
+	picture = GFX_report_event_asian_politicians
+
+	is_triggered_only = yes
+
+	option = { #Full authority
+		name = CHIMON.1.a
+		set_autonomy = {
+    		target = MON
+   			autonomy_state = autonomy_free
+		}
+		MON = {
+			country_event = { id = CHIMON.2 }
+			overlord = {
+				country_event = { id = CHIMON.5 }
+			}
+		}
+	}
+	option = { #Limited authority
+		name = CHIMON.1.b
+		set_autonomy = {
+    		target = MON
+   			autonomy_state = autonomy_dominion
+		}
+		MON = {
+			country_event = { id = CHIMON.3 }
+			overlord = {
+				country_event = { id = CHIMON.6 }
+			}
+		}
+	}
+	option = { #Refuse
+		name = CHIMON.1.c
+		MON = {
+			country_event = { id = CHIMON.4 }
+		}
+	}
+}
+#Menggu - Central government agreed
+country_event = {
+	id = CHIMON.2
+	title = CHIMON.2.t
+	desc = CHIMON.2.d
+	picture = GFX_report_event_asian_politicians
+
+	is_triggered_only = yes
+	option = {
+		name = CHIMON.2.a
+	}
+}
+#Menggu - Central government partially agreed
+country_event = {
+	id = CHIMON.3
+	title = CHIMON.3.t
+	desc = CHIMON.3.d
+	picture = GFX_report_event_asian_politicians
+
+	is_triggered_only = yes
+	option = {
+		name = CHIMON.3.a
+	}
+}
+#Menggu - Central government refused
+country_event = {
+	id = CHIMON.4
+	title = CHIMON.4.t
+	desc = CHIMON.4.d
+	picture = GFX_report_event_asian_politicians
+
+	is_triggered_only = yes
+	option = {
+		name = CHIMON.4.a
+	}
+}
+#Overlord - Menggu released
+country_event = {
+	id = CHIMON.5
+	title = CHIMON.5.t
+	desc = CHIMON.5.d
+	picture = GFX_report_event_asian_politicians
+
+	is_triggered_only = yes
+	option = {
+		name = CHIMON.5.a
+	}
+}
+#Overlord - Menggu given autonomy
+country_event = {
+	id = CHIMON.6
+	title = CHIMON.6.t
+	desc = CHIMON.6.d
+	picture = GFX_report_event_asian_politicians
+
+	is_triggered_only = yes
+	option = {
+		name = CHIMON.6.a
+	}
+}

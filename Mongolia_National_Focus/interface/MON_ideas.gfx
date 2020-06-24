@@ -4,6 +4,40 @@ spriteTypes = {
 		texturefile = "gfx/interface/ideas/idea_bogd_khan.dds"
 	}
 	spriteType = {
+		name = "GFX_idea_choibalsan"
+		texturefile = "gfx/interface/ideas/idea_choibalsan.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_choibalsan_blue"
+		texturefile = "gfx/interface/ideas/idea_choibalsan_blue.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_aprelev"
+		texturefile = "gfx/interface/ideas/idea_aprelev.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_yanjmaa"
+		texturefile = "gfx/interface/ideas/idea_yanjmaa.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_bumtsend"
+		texturefile = "gfx/interface/ideas/idea_bumtsend.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_isakov"
+		texturefile = "gfx/interface/ideas/idea_isakov.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_tserendorj"
+		texturefile = "gfx/interface/ideas/idea_tserendorj.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_zaisanov"
+		texturefile = "gfx/interface/ideas/idea_zaisanov.dds"
+	}
+
+
+	spriteType = {
 		name = "GFX_idea_nomadic"
 		texturefile = "gfx/interface/ideas/idea_nomadic.dds"
 	}
@@ -13,13 +47,44 @@ spriteTypes = {
 	}
 	spriteType = {
 		name = "GFX_idea_MON_buddhism"
-		texturefile = "gfx/interface/ideas/idea_buddhism.dds"
+		texturefile = "gfx/interface/ideas/idea_buddhism_alt.dds"
 	}
 	spriteType = {
 		name = "GFX_idea_MEN_currency"
 		texturefile = "gfx/interface/ideas/idea_reformed_currency.dds"
 	}
-
+	spriteType = {
+		name = "GFX_idea_mongolia_academy"
+		texturefile = "gfx/interface/ideas/mongolia_academy.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_mengjiang_staff"
+		texturefile = "gfx/interface/ideas/mengjiang_staff.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_prince_de_defect"
+		texturefile = "gfx/interface/ideas/idea_prince_de_defect.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_darijaya_defect"
+		texturefile = "gfx/interface/ideas/idea_darijaya_defect.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_MEN_limited_war"
+		texturefile = "gfx/interface/ideas/MEN_limited_war.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_harmonic_diplomacy"
+		texturefile = "gfx/interface/ideas/idea_harmonic_diplomacy.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_chinese_colonisation"
+		texturefile = "gfx/interface/ideas/idea_chinese_colonization.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_MON_local_elites"
+		texturefile = "gfx/interface/ideas/idea_MON_local_elites.dds"
+	}
 	
 	spriteType = {
 		name = "GFX_news_event_mengjiang_cavalry"
@@ -32,5 +97,10 @@ spriteTypes = {
 	spriteType = {
 		name = "GFX_news_event_sinkiang_white"
 		texturefile = "gfx/event_pictures/news_sinkiang_white.dds"
+	}
+
+	spriteType = {
+		name = "GFX_idea_remington"
+		texturefile = "gfx/interface/ideas/remington.tga"
 	}
 }

@@ -1,6 +1,32 @@
 ideas = {
 	country = {
+		MEN_prepare_SHX = {
+			allowed = { always = no }
+			picture = prc_the_long_march
+
+				targeted_modifier = {
+					tag = SHX
+					attack_bonus_against = 0.15
+					defense_bonus_against = 0.15
+				}	
+			modifier = {
+				decryption = 0.5
+			}
+		}
+		MEN_prepare_XSM = {
+			allowed = { always = no }
+			picture = prc_the_long_march
+			targeted_modifier = {
+				tag = XSM
+				attack_bonus_against = 0.15
+				defense_bonus_against = 0.15
+			}	
+			modifier = {
+				decryption = 0.5
+			}
+		}
 		MEN_japanese_aid = {
+			allowed = { always = no }
 			picture = warrior_traditions_idea
 			allowed_civil_war = { always = no }
 			modifier = {
@@ -9,6 +35,7 @@ ideas = {
 				cavalry_attack_factor = 0.05
 				cavalry_defence_factor = 0.05
 				decryption = 0.5
+				ai_focus_aggressive_factor = 0.5
 			}
 			available = { 
 				OR = {
@@ -18,6 +45,7 @@ ideas = {
 			}
 		}
 		MEN_standing_advisors = {
+			allowed = { always = no }
 			picture = warrior_traditions_idea
 			research_bonus = {
 				land_doctrine = 0.07
@@ -35,17 +63,22 @@ ideas = {
 			}
 		}
 		MEN_limited_war = {
+			allowed = { always = no }
+			picture = MEN_limited_war
 			modifier = {
-				ai_call_ally_desire_factor = -100
+				ai_call_ally_desire_factor = -10000
 			}
 			available = {
 				OR = {
 					has_war_with = MEN
 					has_war_with = MON
+					has_war_with = XSM
+					has_war_with = SHX
 				}
 			}
 		}
 		MEN_reformed_currency = {
+			allowed = { always = no }
 			picture = MEN_currency
 			modifier = {
 				consumer_goods_factor = -0.05
@@ -53,6 +86,7 @@ ideas = {
 			}
 		}
 		MEN_reformed_currency_tfv = {
+			allowed = { always = no }
 			picture = MEN_currency
 			modifier = {
 				consumer_goods_factor = -0.05
@@ -60,6 +94,7 @@ ideas = {
 			}
 		}
 		MEN_central_academy = {
+			allowed = { always = no }
 			picture = generic_spy_intel
 			modifier = {
 				decryption = 0.5
@@ -67,14 +102,16 @@ ideas = {
 			}
 		}
 		MEN_general_staff = {
-			picture = idea_ast_volunteer_defence_corps
+			allowed = { always = no }
+			picture = mengjiang_staff
 			modifier = {
 				army_org_factor = 0.05
 				planning_speed = 0.1
 			}
 		}
 		MEN_general_staff_tfv = {
-			picture = idea_ast_volunteer_defence_corps
+			allowed = { always = no }
+			picture = mengjiang_staff
 			modifier = {
 				army_org_factor = 0.05
 				planning_speed = 0.1
@@ -82,14 +119,16 @@ ideas = {
 			}
 		}
 		MEN_logistics = {
-			picture = generic_goods_red_bonus
+			allowed = { always = no }
+			picture = generic_build_infrastructure
 			modifier = {
 				supply_consumption_factor = -0.10
 				production_speed_infrastructure_factor = 0.1
 			}
 		}
 		MEN_JAP_partnership = {
-			picture = warrior_traditions_idea
+			allowed = { always = no }
+			picture = prince_de_defect
 			available = {
 				is_puppet_of = JAP
 			}
@@ -98,17 +137,171 @@ ideas = {
 			}
 		}
 		MEN_royal_guard = {
+			allowed = { always = no }
 			picture = generic_infantry_bonus
 			modifier = {
 				conscription = 0.02
 			}
 		}
 		MEN_low_discipline = {
+			allowed = { always = no }
 			picture = tfv_can_conscription_crisis
 			modifier = {
 				army_morale_factor = -0.15
 				army_org_factor = -0.05
 			}
 		}
+		MEN_military_school_idea = {
+			allowed = { always = no }
+			picture = generic_infantry_bonus
+			modifier = {
+				army_org_factor = 0.05
+			}
+		}
+		MEN_pro_japanese_sentiment = {
+			allowed = { always = no }
+			picture = prince_de_defect
+			available = {
+				NOT = {
+					is_subject_of = JAP
+					JAP = {
+						has_completed_focus = JAP_strengthen_civilian_government
+						has_completed_focus = JAP_the_unthinkable_option
+					}
+				}
+			}
+			modifier = {
+				fascism_drift = 0.1
+			}
+		}
+		MEN_darijaya_rebellious = {
+			allowed = { always = no }
+			picture = darijaya_defect
+			modifier = {
+				stability_weekly = -0.01
+				conscription_factor = -0.1
+				drift_defence_factor = -0.2
+			}
+		}
+		MEN_military_cooperation_idea = {
+			allowed = { always = no }
+			picture = CZE_planning_bonus
+			modifier = {
+				planning_speed = 0.05
+				max_planning = 0.05
+			}
+		}
+		MEN_limited_military = {
+			allowed = { always = no }
+			picture = chi_army_corruption
+			modifier = {
+				conscription_factor = -0.5
+			}
+		}
+		MEN_advisory_board = {
+			allowed = { always = no }
+			picture = received_attache
+			modifier = {
+				political_advisor_cost_factor = -0.25
+				high_command_cost_factor = -0.25
+				army_chief_cost_factor = -0.25
+			}
+		}
+		MEN_education_idea = {
+			allowed = { always = no }
+			picture = generic_research_bonus
+			modifier = {
+				research_speed_factor = 0.02
+			}
+		}
+		MEN_administration_idea = {
+			allowed = { always = no }
+			picture =  generic_central_management
+			modifier = {
+				global_building_slots_factor = 0.1
+				mobilization_speed = 0.1
+			}
+		}
+		MEN_chin_doihara_agreement = {
+			picture = HUN_treaty_of_triannon
+			available = {
+				612 = {
+					is_demilitarized_zone = yes
+				}
+			}
+		}
+		MEN_centralized_opium_trade = {
+			allowed = { always = no }
+
+			picture = prc_permit_opium_trade
+
+			removal_cost = -1
+
+			modifier = {
+				consumer_goods_factor = -0.2
+				political_power_gain = 0.15
+			}
+		}
+		MEN_public_granaries = {
+			allowed = { always = no }
+
+			picture = generic_agrarian_society
+
+			removal_cost = -1
+
+			modifier = {
+				supply_consumption_factor = -0.1
+				MONTHLY_POPULATION = 0.05
+			}
+		}
+		MEN_livestock_for_military = {
+			allowed = { always = no }
+
+			picture = generic_agrarian_society
+
+			removal_cost = -1
+
+			modifier = {
+				acclimatization_hot_climate_gain_factor = 0.1
+				acclimatization_cold_climate_gain_factor = 0.1
+				cavalry_defence_factor = 0.05
+			}
+			
+		}
+		MEN_three_years_plan_idea = {
+			allowed = { always = no }
+
+			picture = generic_production_bonus
+
+			removal_cost = -1
+
+			modifier = {
+				production_speed_buildings_factor = 0.15
+			}
+		}
+		MEN_deregulated_economy = {
+			allowed = { always = no }
+
+			picture = generic_production_bonus
+
+			removal_cost = -1
+
+			modifier = {
+				production_factory_max_efficiency_factor = 0.05
+			}
+		}
+		MEN_mintuan_idea = {
+			allowed = { always = no }
+			picture = 
+			removal_cost = -1
+
+			modifier = {
+				conscription = 0.005
+				army_core_defence_factor = 0.1
+				army_core_attack_factor = 0.05
+			}
+		}
+		#MEN_lamaseries = {
+		#}
 	}
 }

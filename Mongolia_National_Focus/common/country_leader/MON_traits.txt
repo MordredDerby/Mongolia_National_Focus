@@ -7,7 +7,7 @@ leader_traits = {
 	}
 	intellectual = {
 		random = no
-		research_time_factor = -0.02
+		research_speed_factor = 0.02
 	}
 	cooperative_leader = {
 		random = no
@@ -17,10 +17,12 @@ leader_traits = {
 	staunch_traditionalist = {
 		random = no
 		drift_defence_factor = 0.5
-		
-		ai_will_do = {
-			factor = 1
-		}
+	}
+	buddhist_socialist = {
+		random = no
+		sprite = 13
+		communism_drift = 0.1
+		stability_factor = 0.05
 	}
 	spirit_of_genghis_improved = {
 		random = no
@@ -34,5 +36,28 @@ leader_traits = {
 		ai_will_do = {
 			factor = 1
 		}
+	}
+	japanese_police = {
+		sprite = 13
+		random = no
+		stability_factor = 0.05
+		enemy_partisan_effect = -0.25
+		occupation_cost = -0.02
+	}
+	japanese_finance = {
+		sprite = 10
+		random = no
+		production_factory_max_efficiency_factor = 0.1
+		consumer_goods_factor = -0.05
+	}
+	japanese_consultant = {
+		sprite = 13
+		random = no
+		justify_war_goal_time = -0.15
+		subversive_activites_upkeep = -0.15
+		political_power_factor = 0.1
+	}
+	export_company = {
+		random = no
 	}
 }

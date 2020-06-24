@@ -1,15 +1,20 @@
 add_namespace = MONCLN
 
-#Японская Монголия
+#Japanese-controlled Mongolia
 country_event = {
 	id = MONCLN.1
 	title = MONCLN.1.t
 	desc = MONCLN.1.d
 	picture = GFX_report_event_japan_europe_pact
 	fire_only_once = yes
+	is_triggered_only = yes
 	
 	trigger = {
 		tag = JAP
+		NOR = {
+			MON = { is_ai = yes }
+			MEN = { is_ai = yes }
+		}
 		MEN = { is_puppet_of = JAP }
 		OR = {
 			MON = { is_puppet_of = JAP }
@@ -42,7 +47,7 @@ country_event = {
 						330 = { controller = { is_puppet_of = JAP } }
 					}
 				}
-				MON = { transfer_state = 330 }
+				MEN = { transfer_state = 330 }
 			}
 			if = {
 				limit = {
@@ -51,7 +56,7 @@ country_event = {
 						611 = { controller = { is_puppet_of = JAP } }
 					}
 				}
-				MON = { transfer_state = 611 }
+				MEN = { transfer_state = 611 }
 			}
 			if = {
 				limit = {
@@ -60,7 +65,7 @@ country_event = {
 						612 = { controller = { is_puppet_of = JAP } }
 					}
 				}
-				MON = { transfer_state = 612 }
+				MEN = { transfer_state = 612 }
 			}
 			if = {
 				limit = {
@@ -69,7 +74,7 @@ country_event = {
 						621 = { controller = { is_puppet_of = JAP } }
 					}
 				}
-				MON = { transfer_state = 621 }
+				MEN = { transfer_state = 621 }
 			}
 			if = {
 				limit = {
@@ -78,7 +83,7 @@ country_event = {
 						616 = { controller = { is_puppet_of = JAP } }
 					}
 				}
-				MON = { transfer_state = 616 }
+				MEN = { transfer_state = 616 }
 			}
 			if = {
 				limit = {
@@ -87,7 +92,7 @@ country_event = {
 						618 = { controller = { is_puppet_of = JAP } }
 					}
 				}
-				MON = { transfer_state = 618 }
+				MEN = { transfer_state = 618 }
 			}
 			set_province_name = { id = 4801 name = "Urga" }
 		}
@@ -96,7 +101,7 @@ country_event = {
 		name = MONCLN.1.b
 	}
 }
-#Судьба Чойбалсана
+#Fate of Choibalsan
 country_event = {
 	id = MONCLN.2
 	title = MONCLN.2.t
@@ -106,7 +111,10 @@ country_event = {
 	
 	trigger = {
 		tag = MON
-		NOT = { has_government = communism }
+		NOT = { 
+			has_government = communism 
+			has_country_flag = MAN_split
+		}
 	}
 	mean_time_to_happen = {
 		days = 7
@@ -115,14 +123,27 @@ country_event = {
 		name = MONCLN.2.a
 		remove_unit_leader = 821895
 		add_popularity = { ideology = communism popularity = -0.1 }
-		add_national_unity = 0.05
-			army_experience = -5
+		add_stability = 0.05
+		army_experience = -5
+		set_country_flag = MON_communists_purged
 	}
 	option = {
 		name = MONCLN.2.b
+		random_army_leader = { 
+			limit = { has_id = 080295 }
+			add_unit_leader_trait = JAP_communist_sympathizer
+		}
+	}
+	option = {
+		name = MONCLN.2.c
+		random_army_leader = { 
+			limit = { has_id = 080295 }
+			demote_leader = yes
+			set_nationality = SOV
+		}
 	}
 }
-#Богдо-гэгэн при смене режима
+#Bogd Khan and new government
 country_event = {
 	id = MONCLN.3
 	title = MONCLN.3.t
@@ -134,7 +155,10 @@ country_event = {
 		tag = MON
 		has_country_flag = bogd_khan
 		OR = { 
-			has_government = democratic 
+			AND = {
+				has_government = democratic 
+				NOT = { has_country_flag = constitutinal_monarchy }
+			}
 			AND = {
 				has_government = neutrality
 				has_country_flag = whie_mongolia
@@ -155,6 +179,7 @@ country_event = {
 		trigger = { has_government = democratic }
 		add_ideas = MON_bogd_khan
 		set_cosmetic_tag = MON_const
+		set_country_flag = constitutinal_monarchy
 	}
 	option = {
 		name = MONCLN.3.c
@@ -168,7 +193,7 @@ country_event = {
 		add_ideas = MON_bogd_khan
 	}
 }
-#Марионеточные Ма присоединяются к КНР
+#Puppet Ma got annexed by PRC
 country_event = {
 	id = MONCLN.4
 	title = MONCLN.4.t
@@ -221,6 +246,78 @@ country_event = {
 	}
 	option = {
 		name = MONCLN.5.a
+		MEN = {
+			every_unit_leader = {
+				set_nationality = MON
+			}
+		}
 		annex_country = { target = MEN transfer_troops = yes }
+	}
+}
+
+#Монголия может присоединиться вместе с Тувой
+country_event = {
+	id = MONCLN.6
+	title = MONCLN.6.t
+	desc = MONCLN.6.d
+	picture = GFX_report_event_japan_europe_pact
+	fire_only_once = yes
+	
+	trigger = {
+		tag = MON
+		has_completed_focus = MON_SOV_focus
+		is_ai = yes
+		SOV = { has_completed_focus = SOV_annex_tannu_tuva }
+		TAN = { exists = no }
+	}
+	option = {
+		name = MONCLN.6.a
+		ai_chance = { 
+			factor = 1
+		}
+		every_unit_leader = {
+			set_nationality = SOV
+		}
+		SOV = { annex_country = { target = MON transfer_troops = yes } }
+		any_state = {
+			limit = {
+				is_core_of = MON
+			}
+			add_core_of = SOV
+		}
+	}
+	option = {
+		name = MONCLN.6.b
+		ai_chance = { 
+			factor = 5
+		}
+		add_political_power = 20
+	}
+}
+
+#Чойбалсан - марионетка СССР
+country_event = {
+	id = MONCLN.7
+	fire_only_once = yes
+	hidden = yes
+
+	trigger = {
+		tag = MON
+		is_puppet_of = SOV
+		SOV = { has_government = communism }
+		NOT = { has_country_flag = MON_communists_purged }
+	}
+
+	immediate = {
+		create_country_leader = {
+			name = "Khorloogiin Choibalsan"
+			desc = "POLITICS_KHORLOOGIIN_CHOIBALSAN_DESC"
+			picture = "gfx/leaders/MON/Portrait_Choibalsan.dds"
+			expire = "1952.1.1"
+			ideology = stalinism
+			traits = {
+				staunch_stalinist
+			}
+		}
 	}
 }

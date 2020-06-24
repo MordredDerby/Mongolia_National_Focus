@@ -1,0 +1,404 @@
+MON_japanese_help = {
+	MON_japanese_guns = {
+		icon = generic_prepare_civil_war
+		allowed = {
+		}
+		visible = {
+			tag = MON
+			has_idea = japanese_advisors_idea
+		}
+		available = {
+
+		}
+		cost = 50
+		days_remove = 30
+		remove_effect = {
+			add_equipment_to_stockpile = {
+			    type = infantry_equipment_0
+			    amount = 500
+			    producer = JAP
+			}
+			hidden_effect = {
+				add_to_variable = {
+				    var = reliance_on_japan
+				    value = 1
+				}
+			}
+		}
+	}
+	MON_japanese_planes = {
+		icon = generic_air
+		allowed = {
+		}
+		visible = {
+			tag = MON
+			has_idea = japanese_advisors_idea
+		}
+		available = {
+
+		}
+		cost = 50
+		days_remove = 30
+		remove_effect = {
+			add_equipment_to_stockpile = {
+			    type = fighter_equipment_0
+			    amount = 50
+			    producer = JAP
+			}
+			hidden_effect = {
+				add_to_variable = {
+				    var = reliance_on_japan
+				    value = 1
+				}
+			}
+		}
+	}
+	MON_japanese_armor = {
+		icon = generic_tank
+		allowed = {
+		}
+		visible = {
+			tag = MON
+			has_idea = japanese_advisors_idea
+		}
+		available = {
+
+		}
+		cost = 50
+		days_remove = 30
+		remove_effect = {
+			add_equipment_to_stockpile = {
+			    type = light_tank_equipment_1
+			    amount = 120
+			    producer = JAP
+			}
+			hidden_effect = {
+				add_to_variable = {
+				    var = reliance_on_japan
+				    value = 1
+				}
+			}
+		}
+	}
+	MON_japanese_experience = {
+		icon = generic_army_support
+		allowed = {
+		}
+		visible = {
+			tag = MON
+			has_idea = japanese_advisors_idea
+		}
+		available = {
+
+		}
+		cost = 50
+		days_remove = 30
+		complete_effect = {
+			army_experience = 25
+			hidden_effect = {
+				add_to_variable = {
+				    var = reliance_on_japan
+				    value = 1
+				}
+			}
+		}
+		modifier = {
+			experience_gain_army_factor = 0.50
+		}
+	}
+	MON_japanese_construction = {
+		icon = generic_construction
+		allowed = {
+		}
+		visible = {
+			tag = MON
+			has_idea = japanese_advisors_idea
+		}
+		available = {
+
+		}
+		cost = 100
+		days_remove = 180
+		modifier = {
+			production_speed_buildings_factor = 0.25
+		}
+		remove_effect = {
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 1
+			}
+			hidden_effect = {
+				add_to_variable = {
+				    var = reliance_on_japan
+				    value = 1
+				}
+			}
+		}
+	}
+	MON_japanese_research = {
+		icon = generic_research
+		allowed = {
+		}
+		visible = {
+			tag = MON
+			has_idea = japanese_advisors_idea
+		}
+		available = {
+
+		}
+		cost = 100
+		days_remove = 180
+		modifier = {
+			research_speed_factor = 0.05
+		}
+		remove_effect = {
+			hidden_effect = {
+				add_to_variable = {
+				    var = reliance_on_japan
+				    value = 1
+				}
+			}
+		}
+	}
+	MON_japanese_officer_training = {
+		icon = generic_army_support
+		allowed = {
+		}
+		visible = {
+			tag = MON
+			has_idea = japanese_advisors_idea
+		}
+		available = {
+
+		}
+		cost = 150
+		days_remove = 60
+		modifier = {
+			military_leader_cost_factor = -0.50
+			army_leader_start_planning_level = 1
+		}
+		complete_effect = {
+			every_unit_leader = {
+				add_planning = 1
+			}
+		}
+		remove_effect = {
+			custom_effect_tooltip = kamikaze_focus_tooltip
+			hidden_effect = {
+				add_to_variable = {
+				    var = reliance_on_japan
+				    value = 1
+				}
+				set_rule = { can_use_kamikaze_pilots = yes }
+			}
+		}
+	}
+	MON_japanese_education = {
+		icon = generic_research
+		allowed = {
+		}
+		visible = {
+			tag = MON
+			has_idea = japanese_advisors_idea
+		}
+		available = {
+
+		}
+		cost = 100
+		days_remove = 60
+		remove_effect = {
+		}
+	}
+	MON_reduce_reliance = {
+		icon = generic_independence
+		allowed = {
+		}
+		visible = {
+			tag = MON
+			has_idea = japanese_advisors_idea
+		}
+		available = {
+
+		}
+		cost = 100
+		days_remove = 60
+		remove_effect = {
+			add_to_variable = {
+				var = reliance_on_japan
+				value = -1
+			}
+		}
+	}
+	MON_join_japan_faction = {
+		icon = generic_construction
+		allowed = {
+			tag = MON
+		}
+		visible = {
+			tag = MON
+			has_idea = japanese_advisors_idea
+		}
+		available = {
+			JAP = { is_faction_leader = yes }
+		}
+		complete_effect = {
+			JAP = {
+				country_event = { id = generic.2 }
+			}
+		}
+	}
+}
+political_actions = {
+	JAP_pressure_mongolia = {
+		icon = decision_generic_political_discourse
+		allowed = {
+		}
+		visible = {
+			tag = JAP
+			MON = { has_idea = japanese_advisors_idea }
+		}
+		available = {
+			divisions_in_state = {
+			    size > 19
+			    state = 330
+			}
+			MON = {
+				divisions_in_state = {
+			    size < 20
+			    state = 330
+				}
+			}
+		}
+		cost = 50
+		days_remove = 60
+		remove_effect = {
+			MON = {
+				add_to_variable = {
+				    var = reliance_on_japan
+				    value = 1
+				}
+			}
+		}
+	}
+	JAP_influence_mongolian_admistration_1 = {
+		icon = decision_generic_political_discourse
+		allowed = {
+		}
+		visible = {
+			tag = JAP
+			MON = { has_idea = japanese_advisors_idea }
+			NOT = { 
+				has_decision = JAP_influence_mongolian_admistration_2
+				has_decision = JAP_influence_mongolian_admistration_3 
+			}
+		}
+		available = {
+			MON = {
+				OR = {
+					has_idea = MON_hono_tsutsugi
+					has_idea = MON_mori_ichiro
+					has_idea = MON_takeshimoto_taira
+				}
+			}
+		}
+		cost = 150
+		days_remove = 60
+		remove_effect = {
+			MON = {
+				add_to_variable = {
+				    var = reliance_on_japan
+				    value = 1
+				}
+			}
+		}
+	}
+	JAP_influence_mongolian_admistration_2 = {
+		icon = decision_generic_political_discourse
+		allowed = {
+		}
+		visible = {
+			tag = JAP
+			MON = { has_idea = japanese_advisors_idea }
+			NOT = { has_decision = JAP_influence_mongolian_admistration_3 }
+		}
+		available = {
+			MON = {
+				OR = {
+					AND = {
+						has_idea = MON_hono_tsutsugi
+						has_idea = MON_mori_ichiro
+					}
+					AND = {
+						has_idea = MON_hono_tsutsugi
+						has_idea = MON_takeshimoto_taira
+					}
+					AND = {
+						has_idea = MON_mori_ichiro
+						has_idea = MON_takeshimoto_taira
+					}
+				}
+			}
+		}
+		cost = 100
+		days_remove = 60
+		remove_effect = {
+			MON = {
+				add_to_variable = {
+				    var = reliance_on_japan
+				    value = 1
+				}
+			}
+		}
+	}
+	JAP_influence_mongolian_admistration_3 = {
+		icon = decision_generic_political_discourse
+		allowed = {
+		}
+		visible = {
+			tag = JAP
+			MON = { has_idea = japanese_advisors_idea }
+		}
+		available = {
+			MON = {
+				AND = {
+					has_idea = MON_hono_tsutsugi
+					has_idea = MON_mori_ichiro
+					has_idea = MON_takeshimoto_taira
+				}
+			}
+		}
+		cost = 50
+		days_remove = 60
+		remove_effect = {
+			MON = {
+				add_to_variable = {
+				    var = reliance_on_japan
+				    value = 1
+				}
+			}
+		}
+	}
+	JAP_influence_mongolian_army = {
+		icon = generic_army_support
+		allowed = {
+		}
+		visible = {
+			tag = JAP
+			MON = { has_idea = japanese_advisors_idea }
+		}
+		available = {
+			MON = {
+				has_idea = MON_oba_seisho 
+			}
+		}
+		cost = 50
+		days_remove = 60
+		remove_effect = {
+			MON = {
+				add_to_variable = {
+				    var = reliance_on_japan
+				    value = 1
+				}
+			}
+		}
+	}
+}

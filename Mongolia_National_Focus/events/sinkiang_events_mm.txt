@@ -1,0 +1,40 @@
+
+add_namespace = SIK
+
+#Abandon soviets?
+country_event = {
+	id = SIK.1
+	title = SIK.1.t
+	fire_only_once = yes
+	desc = SIK.1.d
+	trigger = {
+		#tag = SIK 
+		#SOV = { any_war_score < 39 }
+		always = no
+	}
+	option = {
+		name = SIK.1.a
+		set_politics = {
+			ruling_party = neutrality
+			elections_allowed = no
+		}
+		create_country_leader = {
+			name = "Sheng Shicai"
+			desc = "POLITICS_SHENG_SHICAI_DESC"
+			picture = "gfx/leaders/SIK/Portrait_Sinkiang_Sheng_Shicai.dds"
+			expire = "1965.1.1"
+			ideology = despotism
+			traits = {
+				#
+			}
+		}
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.7
+		}
+	}
+	option = {
+		name = SIK.1.b
+	}
+}
+

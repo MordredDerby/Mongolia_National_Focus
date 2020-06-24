@@ -1,9 +1,5 @@
 spriteTypes = {	
 	spriteType = {
-		name = "GFX_goal_tfv_smiling_buddha"
-		texturefile = "gfx/interface/goals/goal_tfv_smiling_buddha.dds"
-	}
-	spriteType = {
 		name = "GFX_focus_SAF_colonialist_crusade"
 		texturefile = "gfx/interface/goals/focus_SAF_colonialist_crusade.dds"
 	}
@@ -27,7 +23,7 @@ spriteTypes = {
 		name = "GFX_focus_MON_russian_colony"
 		texturefile = "gfx/interface/goals/focus_russian_colony.dds"
 	}
-	spriteType = {
+	spriteType = {###
 		name = "GFX_focus_MON_KMT_ties"
 		texturefile = "gfx/interface/goals/focus_KMT_ties.dds"
 	}
@@ -50,5 +46,125 @@ spriteTypes = {
 	spriteType = {
 		name = "GFX_focus_MON_buddhism"
 		texturefile = "gfx/interface/goals/focus_buddhism.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_MON_greater_mongolia"
+		texturefile = "gfx/interface/goals/greater_mongolia.dds"
+	}
+	spriteType = {
+		name = "GFX_goal_MON_emblem_red_gold"
+		texturefile = "gfx/interface/goals/goal_MON_emblem_red_gold.dds"
+	}
+	spriteType = {
+		name = "GFX_goal_MON_emblem_black"
+		texturefile = "gfx/interface/goals/goal_MON_emblem_black.dds"
+	}
+	spriteType = {
+		name = "GFX_goal_MON_coa_bogd_khan"
+		texturefile = "gfx/interface/goals/goal_MON_coa_bogd_khan.dds"
+	}
+	spriteType = {
+		name = "GFX_goal_MON_bhuddist_knot"
+		texturefile = "gfx/interface/goals/goal_MON_bhuddist_knot.dds"
+	}
+	spriteType = {
+		name = "GFX_MON_focus_agriculture"
+		texturefile = "gfx/interface/goals/focus_agriculture.dds"
+	}
+	spriteType = {
+		name = "GFX_MON_focus_electricity"
+		texturefile = "gfx/interface/goals/focus_electricity.dds"
+	}
+	spriteType = {
+		name = "GFX_MON_focus_bogd_khan_crown"
+		texturefile = "gfx/interface/goals/focus_bogd_khan_crown.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_mongolia_monastery"
+		texturefile = "gfx/interface/goals/focus_mongolia_monastery.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_harmony"
+		texturefile = "gfx/interface/goals/focus_harmony.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_shav_ministry"
+		texturefile = "gfx/interface/goals/focus_shav_ministry.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_MON_eight_articles"
+		texturefile = "gfx/interface/goals/focus_MON_eight_articles.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_MON_landgrab"
+		texturefile = "gfx/interface/goals/focus_MON_landgrab.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_chinese_mongolia"
+		texturefile = "gfx/interface/goals/focus_chinese_mongolia.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_MON_autonomy"
+		texturefile = "gfx/interface/goals/focus_MON_autonomy.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_qing_hat"
+		texturefile = "gfx/interface/goals/focus_qing_hat.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_papers_handshake"
+		texturefile = "gfx/interface/goals/focus_papers_handshake.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_KMT_puppet"
+		texturefile = "gfx/interface/goals/focus_KMT_puppet.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_inner_mongolia"
+		texturefile = "gfx/interface/goals/focus_inner_mongolia.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_supress_japanese"
+		texturefile = "gfx/interface/goals/focus_supress_japanese.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_autonomous_army"
+		texturefile = "gfx/interface/goals/focus_autonomous_army.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_darijaya"
+		texturefile = "gfx/interface/goals/focus_darijaya.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_agrarian_soldiers"
+		texturefile = "gfx/interface/goals/focus_agrarian_soldiers.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_cavalry"
+		texturefile = "gfx/interface/goals/focus_cavalry.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_skull_nomads"
+		texturefile = "gfx/interface/goals/focus_skull_nomads.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_agriculture"
+		texturefile = "gfx/interface/goals/r56_goal_generic_agriculture.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_MEN_opium"
+		texturefile = "gfx/interface/goals/focus_MEN_opium.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_MEN_opium_trade"
+		texturefile = "gfx/interface/goals/focus_MEN_opium_trade.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_MEN_livestock"
+		texturefile = "gfx/interface/goals/focus_MEN_livestock.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_MEN_books"
+		texturefile = "gfx/interface/goals/focus_MEN_books.dds"
 	}
 }

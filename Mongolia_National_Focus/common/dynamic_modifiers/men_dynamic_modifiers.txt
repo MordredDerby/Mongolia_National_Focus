@@ -1,0 +1,9 @@
+MEN_lamaseries = {
+	icon = "GFX_idea_MON_buddhism"
+	enable = { always = yes }
+	remove_trigger = { always = no }
+
+	conscription_factor = men_monastic_population
+	stability_factor = men_monastic_stability
+	#political_power_gain = men_monastic_political_power
+}

@@ -1,0 +1,9 @@
+﻿l_english:
+ CHIMON.1.t:0 "[From.GetLeader] Requests Governorship"
+ CHIMON.1.d:0 "After reintegration Mongolia was administered by interim government led by [From.GetLeader]. Now the province is generally considered to be ready for reorganization. It is possible to make it full-fledged governorate, reducing [From.$OVERLORDADJ$] influence or keep current balance by granting it limited autonomy."
+ CHIMON.1.a:0 "Name [From.GetLeader] governor"
+ CHIMON.1.b:0 "Retain some [From.$OVERLORDADJ$] involvement"
+ CHIMON.1.c:0 "Keep interim status"
+ CHIMON.2.t:0 "Governorship Granted"
+ CHIMON.2.d:0 "The central government agreed to grant us full authority over Outer Mongolia."
+ CHIMON.2.a:0 "Wise decision"

@@ -1,0 +1,255 @@
+operations = {
+	MON_retake_mongolia = {
+
+		icon = generic_nationalism
+
+		allowed = {
+			is_literally_china = yes
+		}
+
+		available = {
+			NOT = { has_non_aggression_pact_with = MON }
+			has_war = no
+			is_subject = no
+		}
+
+		visible = {
+			is_neighbor_of = MON
+			MON = { 
+				is_in_faction = no
+				is_subject = no
+			}
+		}
+
+		fire_only_once = yes
+
+		cost = 50
+
+		complete_effect = {
+			create_wargoal = { type = puppet_wargoal_focus target = MON }
+			set_country_flag = chinese_attacking_mongolia_flag
+			save_global_event_target_as = chinese_attacking_mongolia
+		}
+	}
+}
+
+economy_decisions = {
+	SHX_colonize_ordos = {
+		icon = generic_nationalism
+		allowed = {
+			tag = SHX
+		}
+		highlight_states = {
+			state = 746
+		}
+		visible = {
+			has_completed_focus = SHX_farmer_soldiers
+			owns_state = 746
+			746 = {
+				is_owned_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			746 = { is_owned_and_controlled_by = ROOT }
+		}
+		cancel_trigger = {
+			746 = {
+				NOT = { is_owned_and_controlled_by = ROOT }
+			}
+		}
+		fire_only_once = yes
+		cost = 100
+		days_remove = 180
+		complete_effect = {
+			random_owned_controlled_state = {
+				limit = {
+					is_core_of = ROOT
+				}
+				add_manpower = -5000
+			}
+			746 = {
+				add_manpower = 5000
+			}
+		}
+		remove_effect = {
+			random_owned_controlled_state = {
+				limit = {
+					is_core_of = ROOT
+				}
+				add_manpower = -5000
+			}
+			746 = {
+				add_manpower = 5000
+				add_core_of = SHX
+			}
+		}
+	}
+
+	SHX_colonize_suiyuan = {
+		icon = generic_nationalism
+		allowed = {
+			tag = SHX
+		}
+		highlight_states = {
+			state = 621
+		}
+		visible = {
+			has_completed_focus = SHX_farmer_soldiers
+			owns_state = 621
+			621 = {
+				is_owned_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			621 = { is_owned_and_controlled_by = ROOT }
+		}
+		cancel_trigger = {
+			621 = {
+				NOT = { is_owned_and_controlled_by = ROOT }
+			}
+		}
+		fire_only_once = yes
+		cost = 100
+		days_remove = 180
+		complete_effect = {
+			random_owned_controlled_state = {
+				limit = {
+					is_core_of = ROOT
+				}
+				add_manpower = -5000
+			}
+			621 = {
+				add_manpower = 5000
+			}
+		}
+		remove_effect = {
+			random_owned_controlled_state = {
+				limit = {
+					is_core_of = ROOT
+				}
+				add_manpower = -5000
+			}
+			621 = {
+				add_manpower = 5000
+				add_core_of = SHX
+			}
+		}
+	}
+	#Bring more Chinese settlers as warlord Mongolia 
+}
+
+crisis = {
+	
+	darijaya_timer = {
+		icon = generic_civil_support
+		highlight_states = {
+			state = 756
+		}
+		available = {
+			OR = {
+				has_stability > 0.6
+				NOT = { controls_state = 756 }
+				NOT = { has_idea = MEN_darijaya_rebellious }
+			}
+		}
+
+		days_mission_timeout = 350
+
+		activation = {
+			has_idea = MEN_darijaya_rebellious
+			has_stability < 0.6
+		}
+
+		visible = {
+			original_tag = XSM
+		}
+
+		fixed_random_seed = no
+
+		fire_only_once = no
+
+		is_good = no
+
+		timeout_effect = {
+			clr_country_flag = crisis_in_progress
+			country_event = {
+				id = MEN.45
+			}
+		}
+	}
+
+	negotiate_darijaya = {
+		icon = decision_generic_political_discourse
+		highlight_states = {
+			state = 756
+		}
+		visible = {
+			has_idea = MEN_darijaya_rebellious
+		}
+		available = {
+			custom_trigger_tooltip = {
+    			tooltip = darijaya_decision_active_tt
+    			has_country_flag = darijaya_decision_active
+    		}
+		}
+		cost = 75
+		days_remove = 30
+		complete_effect = {
+			set_country_flag = darijaya_decision_active
+		}
+		fixed_random_seed = no
+		remove_effect = {
+			clr_country_flag = darijaya_decision_active
+			random_list = {
+				30 = {
+					country_event = { id = MEN.41 }
+				}
+				70 = {
+					country_event = { id = MEN.42 }
+				}
+			}
+		}
+	}
+	arrest_darijaya = {
+		icon = decision_generic_ignite_civil_war
+		highlight_states = {
+			state = 756
+		}
+		visible = {
+			has_idea = MEN_darijaya_rebellious
+		}
+		custom_cost_text = arrest_darijaya_cost
+        custom_cost_trigger = {
+        	command_power > 49
+            has_political_power > 49
+        }
+		available = {
+			command_power > 49
+            has_political_power > 49
+            custom_trigger_tooltip = {
+    			tooltip = darijaya_decision_active_tt
+    			has_country_flag = darijaya_decision_active
+    		}
+		}
+		days_remove = 30
+		complete_effect = {
+			add_command_power = -50
+			add_political_power = -50
+			set_country_flag = darijaya_decision_active
+		}
+		fixed_random_seed = no
+		remove_effect = {
+			clr_country_flag = darijaya_decision_active
+			random_list = {
+				30 = {
+					country_event = { id = MEN.44 }
+				}
+				70 = {
+					country_event = { id = MEN.43 }
+				}
+			}
+		}
+	}
+}

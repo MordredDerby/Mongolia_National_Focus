@@ -1,0 +1,32 @@
+on_actions = {
+	on_new_term_election = {
+		random_events = {
+			100 = MON.52			
+		}
+		random_events = {
+			100 = MON.53
+		}
+		random_events = {
+			100 = MON.61
+		}
+	}
+
+	on_state_control_changed = {
+		effect = {
+			if = {
+				limit = {
+					has_dlc = "Waking the Tiger"
+					is_literally_china = yes
+					has_country_flag = chinese_attacking_mongolia
+					FROM = { tag = MON }
+				}
+				country_event = { id = MONBW.1 }
+				white_peace = FROM
+				puppet = FROM
+				FROM  = {
+					country_event = { id = MONBW.1 }
+				}
+			}
+		}
+	}
+}

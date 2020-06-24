@@ -8,7 +8,7 @@ add_namespace = MON_news
 #Монголы в Сеуле
 #Монголы в Маньчжурии
 
-#Переворот в Синзяне
+#Переворот в Синцзяне
 news_event = {
 	id = MON_news.1
 	title = MON_news.1.t

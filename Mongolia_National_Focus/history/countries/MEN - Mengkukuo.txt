@@ -1,4 +1,4 @@
-﻿capital = 611
+﻿capital = 621
 
 oob = "MEN_1936"
 
@@ -7,8 +7,14 @@ set_technology = {
 }
 add_ideas = {
 	MON_nomadic
+	MEN_pro_japanese_sentiment
+	MEN_limited_military
+	MEN_chin_doihara_agreement
 }
-set_national_unity = 0.5
+set_variable = { men_monastic_population = -0.3 }
+set_variable = { men_monastic_population_show = 30 }
+set_variable = { men_monastic_stability = 0.15 }
+add_dynamic_modifier = { modifier = MEN_lamaseries }
 
 1939.1.1 = {
 	add_to_war = {
@@ -16,17 +22,20 @@ set_national_unity = 0.5
 		enemy = CHI
 	}
 	add_political_power = 1198
+	JAP = {
+		puppet = MEN
+	}
 	
 	#generic focuses
-	complete_national_focus = army_effort
-	complete_national_focus = equipment_effort
-	complete_national_focus = motorization_effort
-	complete_national_focus = aviation_effort
-	complete_national_focus = naval_effort
-	complete_national_focus = flexible_navy
-	complete_national_focus = industrial_effort
-	complete_national_focus = construction_effort
-	complete_national_focus = production_effort
+	complete_national_focus = MEN_army_effort
+	complete_national_focus = MEN_equipment_effort
+	complete_national_focus = MEN_motorization_effort
+	complete_national_focus = MEN_aviation_effort
+	complete_national_focus = MEN_naval_effort
+	complete_national_focus = MEN_flexible_navy
+	complete_national_focus = MEN_industrial_effort
+	complete_national_focus = MEN_construction_effort
+	complete_national_focus = MEN_production_effort
 	
 	oob = "MEN_1939"
 	set_technology = {
@@ -55,47 +64,95 @@ set_national_unity = 0.5
 	}
 }
 
+set_cosmetic_tag = MEN_CHI
+CHI = {
+	puppet = MEN
+}
 set_politics = {
-
 	parties = {
 		democratic = { 
-			popularity = 0
-			banned = yes
+			popularity = 10
 		}
 
 		fascism = {
-			popularity = 80
+			popularity = 30
 		}
 		
 		communism = {
 			popularity = 0
-			banned = yes
 		}
 
 		neutrality = {
-			popularity = 20
+			popularity = 60
 		}
 	}
 	
-	ruling_party = fascism
+	ruling_party = neutrality
 	last_election = "1936.1.1"
 	election_frequency = 48
 	elections_allowed = no
 }
 
 create_country_leader = {
-	name = "Prince Demchugdongrub"
-	desc = "POLITICS_DEMCHUGDONGRUB_DESC"
-	picture = "gfx/leaders/MON/Portrait_Demchugdongrub.dds"
+	name = "Yondonwangchug"
+	desc = "POLITICS_YONDONWANGCHUG_DESC"
+	picture = "gfx/leaders/MEN/Portrait_Yondonwangchug.dds"
+	expire = "1965.1.1"
+	ideology = moderatism
+	traits = {
+		old_figurehead
+	}
+}
+create_country_leader = {
+	name = "Yondonwangchug"
+	desc = "POLITICS_YONDONWANGCHUG_DESC"
+	picture = "gfx/leaders/MEN/Portrait_Yondonwangchug.dds"
 	expire = "1965.1.1"
 	ideology = fascism_ideology
 	traits = {
-		spirit_of_genghis
+		old_figurehead
 	}
 }
-create_corps_commander = {
-	name = "Demchugdongrub"
-	portrait_path = "gfx/leaders/MON/Portrait_Demchugdongrub.dds"
-	traits = { }
-	skill = 1
+create_country_leader = {
+	name = "Ulanhu"
+	desc = "POLITICS_ULANHU_DESC"
+	picture = "gfx/leaders/MEN/Portrait_Ulanhu.dds"
+	expire = "1988.1.1"
+	ideology = marxism
+	traits = {
+		communist_revolutionary
+	}
 }
+
+create_corps_commander = {
+	id = 80202
+	name = "Demchugdongrub"
+	portrait_path = "gfx/leaders/MON/Portrait_Demchugdongrub.tga"
+	traits = { 
+		cavalry_leader
+		trickster
+		#guerilla_fighter
+	}
+	skill = 2
+	attack_skill = 2
+	defense_skill = 2
+	planning_skill = 1
+	logistics_skill = 2
+}
+
+create_corps_commander = {
+	id = 1873
+	name = "Jodbajab"
+	desc = "MILITARY_JODBAJAB_DESC"
+	portrait_path = "gfx/leaders/MEN/Portrait_Jodbajab.dds"
+	traits = { 
+		cavalry_officer
+		old_guard
+	}
+	skill = 1
+	attack_skill = 1
+	defense_skill = 1
+	planning_skill = 1
+	logistics_skill = 1
+}
+

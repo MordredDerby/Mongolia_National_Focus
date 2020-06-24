@@ -151,20 +151,15 @@ country_event = {
 	id = MEN.6
 	title = MEN.6.t
 	fire_only_once = yes
-	trigger = {
-		tag = MEN
-		owns_state = 330
-	}
-	mean_time_to_happen = {
-		days = 7
-	}
+	is_triggered_only = yes
+
 	desc = MEN.6.d
 	option = {
 		name = MEN.6.a
 		set_province_name = { id = 4801 name = "Urga" }
 		set_capital = 330
 		set_cosmetic_tag = MEN_MON
-		add_national_unity = 0.1
+		add_stability = 0.1
 		add_political_power = 100
 		add_autonomy_ratio = {
 			value = 0.5
@@ -225,7 +220,10 @@ country_event = {
 	id = MEN.8
 	title = MEN.8.t
 	fire_only_once = yes
+	is_triggered_only = yes
+
 	trigger = {
+		always = no
 		tag = MEN
 		SHX = {
 			OR = {
@@ -243,6 +241,10 @@ country_event = {
 	option = {
 		name = MEN.8.a
 		transfer_state = 621
+		add_autonomy_ratio = {
+			value = 0.1
+			localization = MEN_suiyuan_victory
+		}
 	}
 }
 #Additional troops
@@ -280,6 +282,7 @@ country_event = {
 		}
 		division_template = {
 			name = "Grand Han Righteous Army"
+			is_locked = yes
 			regiments = {
 				infantry = { x = 0 y = 0 }
 				infantry = { x = 0 y = 1 }
@@ -288,10 +291,6 @@ country_event = {
 		        infantry = { x = 1 y = 0 }
 				infantry = { x = 1 y = 1 }
 				infantry = { x = 1 y = 2 }
-
-				infantry = { x = 2 y = 0 }
-				infantry = { x = 2 y = 1 }
-				infantry = { x = 2 y = 2 }
 			}
 		}
 		random_owned_controlled_state = {
@@ -321,6 +320,7 @@ country_event = {
 		}
 		division_template = {
 			name = "Grand Han Righteous Army"
+
 			regiments = {
 				infantry = { x = 0 y = 0 }
 				infantry = { x = 0 y = 1 }
@@ -330,18 +330,22 @@ country_event = {
 				infantry = { x = 1 y = 1 }
 				infantry = { x = 1 y = 2 }
 
-				infantry = { x = 2 y = 0 }
-				infantry = { x = 2 y = 1 }
-				infantry = { x = 2 y = 2 }
+				#infantry = { x = 2 y = 0 }
+				#infantry = { x = 2 y = 1 }
+				#infantry = { x = 2 y = 2 }
 			}
 		}
 		random_owned_controlled_state = {
 			create_unit = { 
-				division = "name = \"Grand Han Righteous Army\" division_template = \"Grand Han Righteous Army\" start_experience_factor = 0.4" 
+				division = "name = \"Grand Han Righteous Army\" division_template = \"Grand Han Righteous Army\" start_experience_factor = 0.6 start_equipment_factor = 0.8" 
 				owner = MEN
 			}
 			create_unit = { 
 				division = "name = \"Li Shouxin Division\" division_template = \"Morit Diviziin\" start_experience_factor = 1" 
+				owner = MEN
+			}
+			create_unit = { 
+				division = "name = \"Honghuzi\" division_template = \"Morit Diviziin\" start_experience_factor = 0.2 start_equipment_factor = 0.3" 
 				owner = MEN
 			}
 		}
@@ -358,10 +362,12 @@ country_event = {
 	id = MEN.10
 	title = MEN.10.t
 	fire_only_once = yes
+	is_triggered_only = yes
 	trigger = {
+		always = no
 		tag = MEN
 		owns_state = 621
-		SHX = { 
+		XSM = { 
 			OR = {
 				has_war_with = CHI 
 				has_war_with = PRC 
@@ -376,7 +382,11 @@ country_event = {
 	desc = MEN.10.d
 	option = {
 		name = MEN.10.a
-		transfer_state = 621
+		transfer_state = 616
+		add_autonomy_ratio = {
+			value = 0.1
+			localization = MEN_ningxia_victory
+		}
 	}
 }
 #Peaceful independence without TfV
@@ -425,8 +435,8 @@ country_event = {
 					has_war = no
 					is_puppet = no
 				}
-				puppet = MCK
-				end_puppet = MCK
+				puppet = MEN
+				end_puppet = MEN
 			}
 		}
 		declare_war_on = {
@@ -455,7 +465,7 @@ country_event = {
 	is_triggered_only = yes
 	desc = MEN.14.d
 
-	option = {
+	option = { #Demchugdongrub flees
 		name = MEN.14.a
 		ai_chance = {
 			factor = 3
@@ -471,8 +481,12 @@ country_event = {
 			}
 		}
 		MON = { country_event = { id = MEN.15 } }
+		random_army_leader = { 
+			limit = { has_id = 80202 }
+			set_nationality = MON
+		}
 	}
-	option = {
+	option = { #Switch to MON
 		name = MEN.14.b
 		trigger = { is_ai = no  }
 		MON = { change_tag_from = MEN }
@@ -487,8 +501,19 @@ country_event = {
 			}
 		}
 		MON = { country_event = { id = MEN.15 } }
+		random_army_leader = { 
+			limit = { has_id = 80202 }
+			set_nationality = MON
+		}
 	}
-	option = {
+	option = { #Refuse
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0
+				MON = { is_ai = no }
+			}
+		}
 		name = MEN.14.c
 		MON = { country_event = { id = MEN.16 } }
 	}
@@ -500,13 +525,11 @@ country_event = {
 	is_triggered_only = yes
 	desc = MEN.15.d
 
-	option = {
-		name = MEN.15.a
-		retire_country_leader = yes
+	immediate = {
 		create_country_leader = {
 			name = "Demchugdongrub"
 			desc = "POLITICS_DEMCHUGDONGRUB_DESC"
-			picture = "gfx/leaders/MON/Portrait_Demchugdongrub.dds"
+			picture = "gfx/leaders/MON/Portrait_Demchugdongrub.tga"
 			expire = "1965.1.1"
 			ideology = fascism_ideology
 			traits = {
@@ -515,6 +538,17 @@ country_event = {
 			}
 		}
 		set_country_flag = demchugdongrub_khan
+	}
+
+	option = {
+		name = MEN.15.a
+	}
+	option = {
+		name = MEN.16.a
+		trigger = { 
+			MEN = { is_subject = no }
+		}
+		puppet = MEN
 	}
 }
 #Demchugdongrub refused
@@ -526,7 +560,7 @@ country_event = {
 
 	option = {
 		name = MEN.16.a
-		retire_country_leader = yes
+		#retire_country_leader = yes
 		create_country_leader = {
 			name = "Tserendondovyn Navaanneren"
 			picture = "gfx/leaders/MON/Portrait_Navaanneren.dds"
@@ -539,3 +573,1144 @@ country_event = {
 		}
 	}
 }
+
+#China wants us to move to Chahar
+country_event = {
+	id = MEN.17
+	title = MEN.17.t
+	is_triggered_only = yes
+	desc = MEN.17.d
+	option = { #Obey
+		name = MEN.17.a
+		ai_chance = {
+			factor = 1
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 0
+			}
+		}
+		set_cosmetic_tag = MEN_chahar
+		SHX = { 
+			country_event = { id = MEN.21 days = 7 } 
+			transfer_state = 621
+		}
+		unlock_decision_tooltip = MEN_choose_path
+		set_country_flag = MEN_split_resolved
+	}
+	option = { #Resist
+		ai_chance = {
+			factor = 1
+		}
+		name = MEN.17.b
+		SHX = { country_event = { id = MEN.18 days = 7 } }
+	}
+}
+
+#Shanxi notified - Mongols resist
+country_event = {
+	id = MEN.18
+	title = MEN.18.t
+	is_triggered_only = yes
+	desc = MEN.18.d
+	option = { #Enforce the order
+		name = MEN.18.a
+		ai_chance = {
+			factor = 5
+		}
+		start_border_war = {
+			#change_state_after_war = no
+			attacker = {
+				state = 746
+				num_provinces = 3
+				on_win = MEN.23
+				on_lose = MEN.22
+				#on_cancel = 
+			}
+				
+			defender = {
+				state = 621
+				num_provinces = 3
+				on_win = MEN.25
+				on_lose = MEN.24
+				#on_cancel = 
+			}
+		}
+		set_border_war_data = {
+			attacker = 746
+			defender = 621
+			defender_modifier = 2.5
+			attacker_modifier = 2.5
+			#combat_width = 100
+		}
+	}
+	option = { #Let it slide
+		name = MEN.18.b
+		ai_chance = {
+			factor = 1
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 0
+			}
+		}
+		CHI = { country_event = { id = MEN.19 } }
+		MEN = { country_event = { id = MEN.20 } }
+	}
+}
+#China notified - Mongols resist and Shanxi does nothing
+country_event = {
+	id = MEN.19
+	title = MEN.19.t
+	is_triggered_only = yes
+	desc = MEN.19.d
+	option = { 
+		name = MEN.19.a
+	}
+}
+#Mongols notified - empty treat
+country_event = {
+	id = MEN.20
+	title = MEN.20.t
+	is_triggered_only = yes
+	desc = MEN.20.d
+	option = { 
+		name = MEN.20.a
+		unlock_decision_tooltip = MEN_choose_path
+		set_country_flag = MEN_suiyuan_status_quo
+		set_country_flag = MEN_split_resolved
+	}
+}
+#Shanxi/China notified - Mongols obey
+country_event = {
+	id = MEN.21
+	title = MEN.21.t
+	is_triggered_only = yes
+	desc = MEN.21.d
+	option = { 
+		name = MEN.21.a
+	}
+}
+#Shanxi/China notified - border war lost
+country_event = {
+	id = MEN.22
+	title = MEN.22.t
+	is_triggered_only = yes
+	desc = MEN.22.d
+	option = { 
+		name = MEN.22.a
+	}
+}
+#Shanxi/China notified - border war won
+country_event = {
+	id = MEN.23
+	title = MEN.23.t
+	is_triggered_only = yes
+	desc = MEN.23.d
+	option = { 
+		name = MEN.23.a
+	}
+}
+#Mongols notified - border war lost
+country_event = {
+	id = MEN.24
+	title = MEN.24.t
+	is_triggered_only = yes
+	desc = MEN.24.d
+	option = { 
+		name = MEN.24.a
+		set_cosmetic_tag = MEN_chahar
+		unlock_decision_tooltip = MEN_choose_path
+		set_country_flag = MEN_split_resolved
+		set_country_flag = MEN_suiyuan_defeat
+	}
+}
+#Mongols notified - border war won
+country_event = {
+	id = MEN.25
+	title = MEN.25.t
+	is_triggered_only = yes
+	desc = MEN.25.d
+	option = { 
+		name = MEN.25.a
+		unlock_decision_tooltip = MEN_choose_path
+		set_country_flag = MEN_suiyuan_victory
+		set_country_flag = MEN_split_resolved
+	}
+}
+#Yondonwangchug dies
+country_event = {
+	id = MEN.26
+	title = MEN.26.t
+	desc = MEN.26.d
+	picture = GFX_report_event_generic_funeral
+
+	trigger = {
+		original_tag = MEN
+		has_country_leader = { ruling_only = yes name = "Yondonwangchug" }
+		date > 1938.1.1
+	}
+
+	mean_time_to_happen = {
+		days = 120
+	}
+
+	option = { #Chinese autonomy - Serengdongrub
+		name = MEN.26.a
+		create_country_leader = {
+			name = "Serengdongrub"
+			picture = "gfx/leaders/MEN/Portrait_Serengdongrub.dds"
+			expire = "1965.1.1"
+			ideology = moderatism
+			traits = {
+			}
+		}
+	}
+	option = { #Japanese puppet - Demchugdongrub
+		name = MEN.26.a
+		create_country_leader = {
+			name = "Demchugdongrub"
+			picture = "gfx/leaders/MON/Portrait_Demchugdongrub.tga"
+			expire = "1965.1.1"
+			ideology = fascism_ideology
+			traits = {
+			}
+		}
+	}
+	option = { #Independence - Demchugdongrub
+		name = MEN.26.a
+		create_country_leader = {
+			name = "Demchugdongrub"
+			picture = "gfx/leaders/MON/Portrait_Demchugdongrub.tga"
+			expire = "1965.1.1"
+			ideology = despotism
+			traits = {
+			}
+		}
+	}
+}
+#Nima-odsor killed
+country_event = {
+	id = MEN.27
+	title = MEN.27.t
+	desc = MEN.27.d
+
+	fire_only_once = yes
+
+	trigger = {
+		tag = MEN
+		date > 1936.1.22
+	}
+
+	option = {
+		name = MEN.27.a
+		add_stability = -0.025
+		ai_chance = {
+			factor = 5
+		}
+	}
+	option = {
+		name = MEN.27.b
+		custom_effect_tooltip = MEN_prevent_split_tt
+		remove_ideas = MEN_pro_japanese_sentiment
+		add_stability = -0.2
+		add_political_power = -50
+		random_army_leader = { 
+			limit = { has_id = 80202 }
+			set_nationality = MAN
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 0
+			}
+		}
+	}
+}
+
+#Pailingmiao tries to remilitarize Chahar
+country_event = {
+	id = MEN.28
+	title = MEN.28.t
+	desc = MEN.28.d
+
+	is_triggered_only = yes
+
+	option = { #Ignore
+		name = MEN.28.a
+	}
+	option = { #Demand retreat
+		name = MEN.28.b
+		hidden_effect = {
+			MEN = {	country_event = { id = MEN.29 } }
+		}
+	}
+}
+#Japanese demand retreat 
+country_event = {
+	id = MEN.29
+	title = MEN.29.t
+	desc = MEN.29.d
+
+	is_triggered_only = yes
+
+	option = { #Retreat
+		name = MEN.29.a
+		612 = { set_demilitarized_zone = yes }
+		add_stability = -0.1
+		add_political_power = -50
+		hidden_effect = {
+			MAN = {	country_event = { id = MEN.30 } }
+		}
+	}
+	option = { #Hold ground
+		name = MEN.29.b
+		hidden_effect = {
+			MAN = { country_event = { id = MEN.31 } }
+		}
+	}
+}
+#Pailingmiao folds
+country_event = {
+	id = MEN.30
+	title = MEN.30.t
+	desc = MEN.30.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = MEN.30.a
+	}
+}
+#Pailingmiao resists
+country_event = {
+	id = MEN.31
+	title = MEN.31.t
+	desc = MEN.31.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = MEN.31.a
+		start_border_war = {
+			change_state_after_war = no
+			attacker = {
+				state = 715
+				num_provinces = 3
+				on_win = MEN.32
+				on_lose = MEN.33
+				#on_cancel = 
+			}
+				
+			defender = {
+				state = 612
+				num_provinces = 3
+				on_win = MEN.34
+				on_lose = MEN.35
+				#on_cancel = 
+			}
+		}
+	}
+}
+#MAN - border war won
+country_event = {
+	id = MEN.32
+	title = MEN.32.t
+	desc = MEN.32.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = MEN.32.a
+	}
+}
+#MAN - border war lost
+country_event = {
+	id = MEN.33
+	title = MEN.33.t
+	desc = MEN.33.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = MEN.33.a
+	}
+}
+#MEN - border war won
+country_event = {
+	id = MEN.34
+	title = MEN.34.t
+	desc = MEN.34.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = MEN.34.a
+	}
+}
+#MEN - border war lost
+country_event = {
+	id = MEN.35
+	title = MEN.35.t
+	desc = MEN.35.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = MEN.35.a
+		612 = {
+			set_demilitarized_zone = yes
+		}
+	}
+}
+#Chinese autonomy, Japanese puppet or independence
+country_event = {
+	id = MEN.36
+	title = MEN.36.t
+	desc = MEN.36.d
+
+	is_triggered_only = yes
+
+	option = { # Independence
+		name = MEN.36.a
+		trigger = { 
+			has_country_flag = MEN_suiyuan_victory
+			NOT = { has_country_flag = MEN_forced_loyalty }
+		}
+		ai_chance = { 
+			factor = 5
+		}
+		CHI = { end_puppet = MEN }
+		drop_cosmetic_flag = yes
+	}
+	option = { #Japan
+		name = MEN.36.b
+		trigger = {
+			has_idea = MEN_pro_japanese_sentiment
+			NOT = {
+				has_country_flag = MEN_forced_loyalty
+			}
+		}
+		ai_chance = { 
+			factor = 2
+			modifier = {
+				factor = 2
+				has_country_flag = MEN_suiyuan_defeat
+			}
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 0
+			}
+		}
+		set_cosmetic_tag = MEN_military
+		JAP = { 
+			set_autonomy = {
+			    target = MEN
+			    autonomy_state = autonomy_wtt_imperial_associate
+			} 
+		}
+		612 = { set_demilitarized_zone = no }
+		load_focus_tree = mengjiang_tree_japanese
+	}
+	option = { #China
+		name = MEN.36.c
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 3
+				has_country_flag = MEN_suiyuan_status_quo
+			}
+		}
+		set_country_flag = MEN_loyal
+		set_global_flag = MEN_loyal_timer
+		load_focus_tree = mengjiang_tree_chinese
+	}
+}
+#Bailingmiao Mutiny
+country_event = {
+	id = MEN.37
+	title = MEN.37.t
+	desc = MEN.37.d
+
+	is_triggered_only = yes
+
+	#immediate = {
+	#	if = {
+	#		limit = {
+	#			has_border_war_between = {
+	#			    attacker = 746
+	#			    defender = 621
+	#			}
+	#		}
+	#		cancel_border_war = {
+	#		    dont_fire_events = yes
+	#		    defender = 746
+	#		    attacker = 621
+	#		}
+	#	}
+	#}
+
+	option = { #Supress
+		name = MEN.37.a
+		ai_chance = {
+			factor = 5
+		}
+		add_stability = -0.05
+		add_manpower = -3000
+		add_timed_idea = {
+		    idea = mutiny_1
+		    days = 30
+		}
+		add_timed_idea = {
+		    idea = communist_partisans_recruiting
+		    days = 180
+		}
+	}
+	option = { #Forced to remain autonomy
+		name = MEN.37.b
+		ai_chance = {
+			factor = 2
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 0
+			}
+		}
+		remove_ideas = MEN_pro_japanese_sentiment
+		set_country_flag = MEN_forced_loyalty
+		add_stability = -0.15
+	}
+	option = { #Communists take power!
+		name = MEN.37.c
+		ai_chance = {
+			factor = 1
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 0
+			}
+		}
+		set_country_flag = MEN_forced_loyalty
+		add_stability = -0.25
+		set_politics = {
+			ruling_party = communism
+			elections_allowed = no
+		}
+		create_corps_commander = {
+			name = "Ulanhu"
+			portrait_path = "gfx/leaders/MEN/Portrait_Ulanhu.dds"
+			traits = {
+				cavalry_officer
+				desert_fox
+				politically_connected
+			}
+			skill = 2
+			attack_skill = 2
+			defense_skill = 2
+			planning_skill = 1
+			logistics_skill = 2
+		}
+		PRC = {
+			puppet = MEN
+		}
+	}
+}
+
+#Pro-Japanese rebellion
+country_event = {
+	id = MEN.38
+	title = MEN.38.t
+	desc = MEN.38.d
+
+	trigger = {
+		tag = MEN
+		has_idea = MEN_pro_japanese_sentiment
+		is_subject = yes
+		has_war_with = JAP
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = { #Remain loyal
+		name = MEN.38.a
+		start_civil_war = {
+    		ideology = fascism
+    		capital = 612
+    		states = { 
+    			612
+    		}
+		}
+		hidden_effect = {
+			random_country = {
+				limit = {
+					original_tag = MEN
+					has_government = fascism
+				}
+				save_event_target_as = MEN_revolter
+				set_cosmetic_tag = MEN_military
+				create_country_leader = {
+					name = "Demchugdongrub"
+					desc = "POLITICS_DEMCHUGDONGRUB_DESC"
+					picture = "gfx/leaders/MON/Portrait_Demchugdongrub.tga"
+					expire = "1965.1.1"
+					ideology = fascism_ideology
+					traits = {
+						spirit_of_genghis
+					}
+				}
+				load_focus_tree = mengjiang_tree_japanese
+			}
+			every_unit_leader = {
+				limit = {
+					OR = {
+						has_id = 80202
+						has_id = 1873
+					}
+				}
+				set_nationality = event_target:MEN_revolter
+			}
+			JAP = {
+				puppet = event_target:MEN_revolter
+			}
+		}
+	}
+	option = { #Side with rebels
+		name = MEN.38.b
+		start_civil_war = {
+    		ideology = neutrality
+    		ruling_party = fascism
+    		only_own_territory = yes
+    		capital = 612
+    		states = { 
+    			611 621 746 
+    		}
+    		keep_unit_leaders = {
+				80202 1873
+			}
+		}
+		JAP = {
+			puppet = MEN
+		}
+		load_focus_tree = mengjiang_tree_japanese
+		hidden_effect = {
+			set_cosmetic_tag = MEN_military
+			create_country_leader = {
+				name = "Demchugdongrub"
+				desc = "POLITICS_DEMCHUGDONGRUB_DESC"
+				picture = "gfx/leaders/MON/Portrait_Demchugdongrub.tga"
+				expire = "1965.1.1"
+				ideology = fascism_ideology
+				traits = {
+					spirit_of_genghis
+				}
+			}
+		}
+	}
+}
+#Council split timeout
+country_event = {
+	id = MEN.39
+	title = MEN.39.t
+	desc = MEN.39.d
+
+	trigger = {
+		tag = MEN
+		NOT = { has_global_flag = mongol_council_split }
+		date > 1936.6.1
+	}
+	option = {
+		name = MEN.39.a
+		unlock_decision_tooltip = MEN_choose_path
+		set_country_flag = MEN_split_resolved
+	}
+}
+#Darijaya mobilizing
+country_event = {
+	id = MEN.40
+	title = MEN.40.t
+	desc = MEN.40.d
+
+	is_triggered_only = yes
+	option = {
+		name = MEN.40.a
+		add_ideas = MEN_darijaya_rebellious
+		set_country_flag = crisis_in_progress
+	}
+}
+#Negotiations with Darijaya - Success
+country_event = {
+	id = MEN.41
+	title = MEN.41.t
+	desc = MEN.41.d
+
+	is_triggered_only = yes
+	option = { #Make him commander
+		name = MEN.41.a
+		create_corps_commander = {
+			name = "Darijaya"
+			portrait_path = "gfx/leaders/Asia/Portrait_Asia_Generic_land_14.dds"
+			traits = { 
+			}
+			skill = 1
+		}
+		add_stability = -0.025
+		add_war_support = 0.05
+		remove_ideas = MEN_darijaya_rebellious
+		clr_country_flag = crisis_in_progress
+	}
+	option = { #Leave him be
+		name = MEN.41.b
+		add_stability = 0.05
+		remove_ideas = MEN_darijaya_rebellious
+		clr_country_flag = crisis_in_progress
+	}
+}
+#Negotiations with Darijaya - Failure
+country_event = {
+	id = MEN.42
+	title = MEN.42.t
+	desc = MEN.42.d
+
+	is_triggered_only = yes
+	option = {
+		name = MEN.42.a
+		add_stability = -0.05
+	}
+}
+#Darijaya captured
+country_event = {
+	id = MEN.43
+	title = MEN.43.t
+	desc = MEN.43.d
+
+	is_triggered_only = yes
+	option = {
+		name = MEN.43.a
+		clr_country_flag = crisis_in_progress
+		remove_ideas = MEN_darijaya_rebellious
+	}
+}
+#Darijaya fights back!
+country_event = {
+	id = MEN.44
+	title = MEN.44.t
+	desc = MEN.44.d
+
+	is_triggered_only = yes
+	option = {
+		name = MEN.44.a
+		effect_tooltip = {
+			MEN = {
+				transfer_state = 756
+			}
+		}
+		hidden_effect = {
+			MEN = { country_event = { id = MEN.47 } }
+		}
+		clr_country_flag = crisis_in_progress
+		remove_ideas = MEN_darijaya_rebellious
+		if = {
+			limit = {
+				NOT = { has_war_with = MEN }
+			}
+			create_wargoal = {
+ 			   type = take_core_state
+ 			   target = MEN
+ 			   generator = 756
+			}
+		}
+	}
+}
+#Darijaya defects
+country_event = {
+	id = MEN.45
+	title = MEN.45.t
+	desc = MEN.45.d
+
+	is_triggered_only = yes
+	option = {
+		name = MEN.45.a
+		remove_ideas = MEN_darijaya_rebellious
+		effect_tooltip = {
+			MEN = {
+				transfer_state = 756
+			}
+		}
+		if = {
+			limit = {
+				NOT = { has_war_with = MEN }
+			}
+			create_wargoal = {
+ 			   type = take_core_state
+ 			   target = MEN
+ 			   generator = 756
+			}
+		}
+		MEN = {
+			hidden_effect = {
+				country_event = { id = MEN.47 }
+			}
+		}
+	}
+}
+#Japanese smugglers captured
+country_event = {
+	id = MEN.46
+	title = MEN.46.t
+	desc = MEN.46.d
+
+	is_triggered_only = yes
+	option = {
+		name = MEN.46.a
+		add_equipment_to_stockpile = {
+			type = infantry_equipment_0
+			amount = 300
+			producer = JAP
+		}
+		hidden_effect = {
+			MEN = { country_event = { id = MEN.48 } }
+		}
+	}
+}
+#MEN notified of success
+country_event = {
+	id = MEN.47
+	title = MEN.47.t
+	desc = MEN.47.d
+
+	is_triggered_only = yes
+	option = {
+		name = MEN.47.a
+		create_corps_commander = {
+			name = "Darijaya"
+			portrait_path = "gfx/leaders/Asia/Portrait_Asia_Generic_land_14.dds"
+			traits = { 
+			}
+			skill = 1
+		}
+		transfer_state = 756
+		add_state_core = 756
+		756 = { #specify
+			create_unit = { 
+				division = "name = \"Darijaya Militia\" division_template = \"Morit Diviziin\" start_experience_factor = 0.1 force_equipment_variants = { infantry_equipment_0 = { owner = "JAP" } }" 
+				owner = MEN
+			}
+		}
+		add_political_power = 50
+	}
+}
+#MEN notified of failure
+country_event = {
+	id = MEN.48
+	title = MEN.48.t
+	desc = MEN.48.d
+
+	is_triggered_only = yes
+	option = {
+		name = MEN.48.a
+	}
+}
+#Loyal MEN asks to return Suiyuan - for overlord
+country_event = {
+	id = MEN.49
+	title = MEN.49.t
+	desc = MEN.49.d
+
+	is_triggered_only = yes
+	option = {
+		name = MEN.49.a
+		effect_tooltip = {
+			MEN = {
+				transfer_state = 621
+				transfer_state = 746
+			}
+		}
+		SHX = {
+			custom_effect_tooltip = needs_approval
+			hidden_effect = {
+				country_event = { id = MEN.52 }
+			}
+		}
+	}
+	option = {
+		name = MEN.49.b
+	}
+}
+#Suiyuan returned
+country_event = {
+	id = MEN.50
+	title = MEN.50.t
+	desc = MEN.50.d
+
+	is_triggered_only = yes
+	option = { 
+		name = MEN.50.a
+		transfer_state = 621
+		transfer_state = 746
+	}
+}
+#Suiyuan not returned
+country_event = {
+	id = MEN.51
+	title = MEN.51.t
+	desc = {
+		text = MEN.51.d
+		trigger = {
+			FROM = { has_country_flag = warlord_refused_suiyuan }
+		}
+	}
+	desc = {
+		text = MEN.51.db
+		trigger = {
+			FROM = { NOT = { has_country_flag = warlord_refused_suiyuan } }
+		}
+	}
+
+	is_triggered_only = yes
+	option = { 
+		name = MEN.51.a
+	}
+}
+#Central government wants to return Suyiuan to Mongols
+country_event = {
+	id = MEN.52
+	title = MEN.52.t
+	desc = MEN.52.d
+
+	is_triggered_only = yes
+	option = { 
+		name = MEN.52.a
+		MEN = {
+			country_event = { id = MEN.50 }
+		}
+	}
+	option = { 
+		name = MEN.52.b
+		MEN = {
+			country_event = { id = MEN.51 }
+		}
+		FROM = {
+			country_event = { id = MEN.51 }
+		}
+		add_stability = -0.15
+	}
+}
+#MEN asks for Hulunbuir
+country_event = {
+	id = MEN.53
+	title = MEN.53.t
+	desc = MEN.53.d
+
+	is_triggered_only = yes
+	option = { 
+		name = MEN.53.a
+		ai_chance = { 
+			factor = 1 
+			modifier = {
+				factor = 10
+				MEN = {
+					controls_state = 330
+				}
+			}
+		}
+		effect_tooltip = {
+			MEN = {
+				transfer_state = 761
+			}
+		}
+		hidden_effect = {
+			MEN = { country_event = MEN.54 }
+			MAN = { country_event = MEN.56 }
+		} 
+	}
+	option = { 
+		name = MEN.53.b
+		ai_chance = { factor = 5 }
+		hidden_effect = {
+			MEN = { country_event = MEN.55 }
+		}
+	}
+}
+#Hulunbuir ceded
+country_event = {
+	id = MEN.54
+	title = MEN.54.t
+	desc = MEN.54.d
+
+	is_triggered_only = yes
+	option = { 
+		name = MEN.54.a
+		effect_tooltip = {
+			transfer_state = 761
+		}
+		add_autonomy_ratio = {
+			value = -0.1
+		}
+	}
+}
+#Hulunbuir not ceded
+country_event = {
+	id = MEN.55
+	title = MEN.55.t
+	desc = MEN.55.d
+
+	is_triggered_only = yes
+	option = {
+		name = MEN.55.a
+	}
+}
+#MAN - overlord cedes Hulunbuir to Mongols
+country_event = {
+	id = MEN.56
+	title = MEN.56.t
+	desc = MEN.56.d
+
+	is_triggered_only = yes
+	option = {
+		name = MEN.56.a
+		MEN = {
+			transfer_state = 761
+		}
+		add_autonomy_ratio = {
+			value = 0.1
+		}
+	}
+}
+#Mongols want to collaborate
+country_event = {
+	id = MEN.57
+	title = MEN.57.t
+	desc = MEN.57.d
+
+	is_triggered_only = yes
+	option = {
+		name = MEN.57.a
+		ai_chance = { factor = 10 }
+		effect_tooltip = {
+			puppet = MEN
+		}
+		hidden_effect = { MEN = { country_event = MEN.58 } }
+	}
+	option = {
+		name = MEN.57.b
+		hidden_effect = { MEN = { country_event = MEN.59 } }
+	}
+}
+#Japan agreed to give autonomy
+country_event = {
+	id = MEN.58
+	title = MEN.58.t
+	desc = MEN.58.d
+
+	is_triggered_only = yes
+	option = {
+		name = MEN.58.a
+		JAP = { puppet = MEN }
+		hidden_effect = {
+			if = {
+				limit = { 
+					owns_state = 611
+				}
+				set_state_controller = 611
+			}
+			if = {
+				limit = { 
+					owns_state = 612
+				}
+				set_state_controller = 612
+			}
+			if = {
+				limit = { 
+					owns_state = 621
+				}
+				set_state_controller = 621
+			}
+			if = {
+				limit = { 
+					owns_state = 746
+				}
+				set_state_controller = 746
+			}
+		}
+		set_cosmetic_tag = MEN_military
+		else_if  = {
+			limit = {
+				MAN = {
+					has_unit_leader = 80202
+				}
+			}
+			create_country_leader = {
+				name = "Demchugdongrub"
+				picture = "gfx/leaders/MEN/Portrait_Demchugdongrub.tga"
+				expire = "1965.1.1"
+				ideology = fascism_ideology
+				traits = {
+				}
+			}
+			create_country_leader = {
+				name = "Demchugdongrub"
+				picture = "gfx/leaders/MEN/Portrait_Demchugdongrub.tga"
+				expire = "1965.1.1"
+				ideology = despotism
+				traits = {
+				}
+			}
+			MAN = {
+				random_army_leader = { 
+					limit = { has_id = 80202 }
+					set_nationality = MEN
+				}
+			}
+		}
+		else = {
+			create_country_leader = {
+				name = "Li Shouxin"
+				picture = "gfx/leaders/MEN/Portrait_Shouxin.dds"
+				expire = "1970.1.1"
+				ideology = fascism_ideology
+				traits = {
+				}
+			}
+			create_country_leader = {
+				name = "Li Shouxin"
+				picture = "gfx/leaders/MEN/Portrait_Shouxin.dds"
+				expire = "1970.1.1"
+				ideology = despotism
+				traits = {
+				}
+			}
+			create_corps_commander = {
+				id = 071192
+				name = "Li Shouxin"
+				portrait_path = "gfx/leaders/MEN/Portrait_Shouxin.dds"
+				traits = { 
+					cavalry_officer
+				}
+				skill = 2
+				attack_skill = 2
+				defense_skill = 2
+				planning_skill = 1
+				logistics_skill = 2
+			}
+			random_owned_controlled_state = {
+				create_unit = { 
+					division = "name = \"Li Shouxin Division\" division_template = \"Morit Diviziin\" start_experience_factor = 0.8 force_equipment_variants = { motorized_equipment_1 = { owner = "JAP" } }" 
+					owner = MEN
+				}
+			}
+		}
+		load_focus_tree = mengjiang_tree_japanese
+	}
+}
+#Japan refused to give autonomy
+country_event = {
+	id = MEN.59
+	title = MEN.59.t
+	desc = MEN.59.d
+
+	is_triggered_only = yes
+	option = {
+		name = MEN.59.a
+	}
+}
+
+

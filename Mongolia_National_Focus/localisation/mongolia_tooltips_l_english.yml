@@ -5,23 +5,68 @@
  voting_rights_tt:0 "Allow elections\n"
  east_wall_TT:0 "Add §Y12 Land Forts§! on Japanese border.\n"
  capital_fort_TT:0 "Add §Y12 Land Forts§! around capital.\n"
+ soviets_no_more_tt:0 "USSR ceased to exist\n"
+ ulanhu_tt:0 "Ulanhu and his troops arrives at the capital\n"
+ same_ieology_with_tuva_tt:0 "Same non-communist ideology with Tuva"
+ soviet_allowance_tt:0 "USSR doesn't prevent our expansion"
+ available_high_command_tt:0 "Available as high command"
+
+ #Opinions
  drifted_from:0 "Left us"
  drifted_to:0 "Joined us"
  refused_transfer:0 "Refused to cede lands"
  transfered:0 "Ceded lands"
- soviets_no_more_tt:0 "USSR doesn't exist\n"
+
+ #Triggers
+ same_ieology_with_tuva_tt:0 "Same non-communist ideology with Tuva"
+ soviet_allowance_tt:0 "USSR doesn't prevent our expansion"
+ 2_doctrines_researched_tt:0 "Second slot of any doctrine researched"
+ 5_doctrines_researched_tt:0 "Fifth slot of any doctrine researched"
+ 7_doctrines_researched_tt:0 "Seventh slot of any doctrine researched"
+ split_resolved_tt:0 "Council integrity has has been resolved"
+ japan_decided_ideology_tt:0 "Japan has selected a political national focus"
+ darijaya_decision_active_tt:0 "Already taking measures"
+ 
+ #Effects
+ chahar_backlash_tt:0 "§RJapanese may react harshly.§!\n"
+ MEN_prevent_split_tt:0 "§GWill prevent further pressure from Central Government§!\n"
  MON_restore_monarchy_tt:0 "Restore theocratic monarchy\n"
  spawn_whites:0 "Form §Y infanttry division§! of White immigrants\n"
- neutrality_drift:0 "Daily Non-Aligned Support"
- ulanhu_tt:0 "Ulanhu and his troops arrives at the capital\n"
- same_ieology_with_tuva_tt:0 "Same non-communist ideology with Tuva"
+ MEN_max_autonomy_tt:0 "§GIncrease autonomy status§!"
+ MEN_increase_monastic_population_tt:0 "Monastic Population: §R+2.5%§!\n"
+ MEN_decrease_monastic_population_tt:0 "Monastic Population: §G-5%§!\n"
+ MEN_increase_monastic_support_tt:0 "Monastic Support: §G+5%§!\n"
+ MEN_decrease_monastic_support_tt:0 "Monastic Support: §R-5%§!\n"
+ MEN_decrease_monastic_support_big_tt:0 "Monastic Support: §R-10%§!\n"
+ 
+ #Traits
  pillar_of_nation:0 "Pillar of Nation"
  intellectual:0 "Intellectual"
  cooperative_leader:0 "Cooperative Leader"
  spirit_of_genghis_improved:0 "Spirit of Genghis"
  staunch_traditionalist:0 "Staunch Traditionalist"
+ japanese_police:0 "Security Consultant"
+ japanese_finance:0 "Financial Consultant"
+ japanese_consultant:0 "Political Consultant"
+ export_company:0 "Export Company"
+ buddhist_socialist:0 "Buddhist Socialist"
+
+ #Ministers triggers
  MON_communists_purged:0 " Purged"
+
+ #Autonomy
  MEN_japanese_rifles:0 "Japanese equipment"
  MEN_japanese_planes_aut:0 "Japanese planes"
  MEN_japanese_investors:0 "Japanese investments"
  MEN_royal_marriage_aut:0 "Royal marriage"
+ MON_warlord_administration:0 "Loyal administration"
+
+ #Scripted localisation
+ MON_CAPITAL_KHUREE:0 "Niĭslel Khüree"
+ MON_CAPITAL_URGA:0 "Urga"
+ MON_CAPITAL_BATTAR_KHOT:0 "Baatar Khot"
+ MON_CAPITAL_ULAANBAATAR:0 "Ulaanbaatar"
+ SOV_ABBREVIATION:0 "Sov"
+ SOV_ABBREVIATION_RUS:0 "Rus"
+ TAN_ABBREVIATION_NONEXISTENT:0 ""
+ TAN_ABBREVIATION:0 "tuv"

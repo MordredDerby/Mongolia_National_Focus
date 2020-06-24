@@ -1,0 +1,87 @@
+shared_focus = {
+	id = SHX_farmer_soldiers
+	icon = GFX_focus_agrarian_soldiers
+	x = 4
+	relative_position_id = CHI_industrial_investment
+	allow_branch = {
+		tag = SHX
+	}
+	available = {
+		owns_state = 621
+		owns_state = 746
+	}
+	cost = 10
+
+	completion_reward = {
+		#add_ideas = MON_agriculture_idea
+		621 = {
+			add_manpower = 4000
+		}
+	}
+}
+
+shared_focus = {
+	id = SHX_mining
+	icon = GFX_focus_generic_steel
+	prerequisite = { focus = SHX_farmer_soldiers }
+	x = -1
+	y = 1
+	relative_position_id = SHX_farmer_soldiers
+	available = {
+		621 = { is_owned_and_controlled_by = SHX }
+	}
+	cost = 10
+
+	completion_reward = {
+		621 = {
+			add_resource = {
+				type = steel
+				amount = 8
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = SHX_gelaohui
+	icon = GFX_focus_skull_nomads
+	prerequisite = { focus = SHX_farmer_soldiers }
+	x = 1
+	y = 1
+	relative_position_id = SHX_farmer_soldiers
+	cost = 10
+	completion_reward = {
+		add_war_support = 0.05
+		add_political_power = 50
+	}
+}
+
+shared_focus = {
+	id = SHX_defeudalization
+	icon = GFX_focus_rom_abdicate
+	prerequisite = { focus = SHX_gelaohui }
+	prerequisite = { focus = SHX_mining }
+	available = {
+		621 = { 
+			is_core_of = SHX 
+			is_owned_and_controlled_by = SHX
+		}
+		746 = { 
+			is_core_of = SHX 
+			is_owned_and_controlled_by = SHX
+		}
+	}
+	x = 0
+	y = 2
+	relative_position_id = SHX_farmer_soldiers
+	cost = 10
+	completion_reward = {
+		add_stability = 0.1
+		621 = {
+			add_extra_state_shared_building_slots = 2
+		}
+		746 = {
+			add_extra_state_shared_building_slots = 2
+		}
+	}
+}

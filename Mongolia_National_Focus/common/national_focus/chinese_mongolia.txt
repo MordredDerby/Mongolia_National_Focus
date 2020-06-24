@@ -1,0 +1,370 @@
+shared_focus = {
+	id = MON_chinese_railroad
+	icon = GFX_goal_generic_construct_infrastructure
+	prerequisite = { focus = CHI_industrial_investment }
+	x = 2
+	y = 1
+	relative_position_id = CHI_industrial_investment
+	allow_branch = { has_country_flag = mongolia_warlord }
+
+	cost = 10
+
+	available = {
+
+	}
+
+	bypass = {
+		
+	}
+
+	cancel_if_invalid = yes
+	continue_if_invalid = no
+	available_if_capitulated = no
+
+	complete_tooltip = {
+
+	}
+
+	completion_reward = {
+		330 = {
+			add_building_construction = {
+				type = infrastructure
+				level = 2
+				instant_build = yes
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = MON_chinese_occupation 
+	icon = GFX_focus_chinese_mongolia
+	x = 6
+	y = 0
+	relative_position_id = CHI_industrial_investment
+	allow_branch = { has_country_flag = mongolia_warlord }
+
+	cost = 5
+
+	cancel_if_invalid = yes
+	continue_if_invalid = no
+	available_if_capitulated = no
+
+	completion_reward = {
+		add_political_power = 60
+	}
+}
+
+shared_focus = {
+	id = MON_eight_articles 
+	icon = GFX_focus_MON_eight_articles
+	x = -2
+	y = 1
+	relative_position_id = MON_chinese_occupation
+	prerequisite = { focus = MON_chinese_occupation }
+	mutually_exclusive = {
+		focus = MON_chinese_autonomy
+	}
+
+	cost = 10
+
+	cancel_if_invalid = yes
+	continue_if_invalid = no
+	available_if_capitulated = no
+
+	completion_reward = {
+		add_ideas = MON_eight_articles_idea
+	}
+}
+shared_focus = {
+	id = MON_chinese_settlers
+	icon = GFX_goal_generic_construction2
+	prerequisite = { focus = MON_eight_articles }
+	x = 0
+	y = 1
+	relative_position_id = MON_eight_articles
+	
+	cost = 10
+
+	cancel_if_invalid = yes
+	continue_if_invalid = no
+	available_if_capitulated = no
+
+	completion_reward = {
+		330 = {
+			add_manpower = 10000
+		}
+		add_ideas = MON_chinese_colonisation_idea
+	}
+}
+shared_focus = {
+	id = MON_chinese_secularisation
+	icon = GFX_goal_generic_political_pressure
+	prerequisite = { focus = MON_chinese_settlers }
+	x = 0
+	y = 1
+	relative_position_id = MON_chinese_settlers
+
+	cost = 10
+
+	cancel_if_invalid = yes
+	continue_if_invalid = no
+	available_if_capitulated = no
+
+	completion_reward = {
+		
+	}
+}
+shared_focus = {
+	id = MON_land_appropriation
+	icon = GFX_focus_MON_landgrab
+	prerequisite = { focus = MON_chinese_secularisation }
+	x = 0
+	y = 1
+	relative_position_id = MON_chinese_secularisation
+
+	cost = 10
+
+	cancel_if_invalid = yes
+	continue_if_invalid = no
+	available_if_capitulated = no
+
+	completion_reward = {
+		add_stability = -0.1
+		swap_ideas = {
+			remove_idea = MON_chinese_colonisation_idea
+			add_idea = MON_chinese_colonisation_idea_2
+		}
+		330 = {
+			add_manpower = 15000
+		}
+	}
+}
+shared_focus = {
+	id = MON_chinese_autonomy
+	icon = GFX_focus_MON_autonomy
+	prerequisite = { focus = MON_chinese_occupation }
+	x = 0
+	y = 1
+	relative_position_id = MON_chinese_occupation
+	offset = {
+		x = 0
+		y = 0
+		trigger = {
+			tag = MON
+			has_country_flag = mongolia_warlord
+		}
+	}
+
+	cost = 10
+
+	cancel_if_invalid = yes
+	continue_if_invalid = no
+	available_if_capitulated = no
+
+	completion_reward = {
+		add_stability = 0.15
+		add_political_power = -60
+	}
+}
+shared_focus = {
+	id = MON_cooperation_with_elites
+	icon = GFX_focus_qing_hat
+	prerequisite = { focus = MON_chinese_autonomy }
+	x = 0
+	y = 1
+	relative_position_id = MON_chinese_autonomy
+	offset = {
+		x = 0
+		y = 0
+		trigger = {
+			tag = MON
+			has_country_flag = mongolia_warlord
+		}
+	}
+
+	cost = 10
+
+	cancel_if_invalid = yes
+	continue_if_invalid = no
+	available_if_capitulated = no
+
+	completion_reward = {
+		add_ideas = MON_native_elites
+	}
+}
+shared_focus = {
+	id = MON_figurehead_bogd_khan
+	icon = GFX_goal_MON_coa_bogd_khan
+	prerequisite = { focus = MON_cooperation_with_elites }
+	x = 0
+	y = 1
+	relative_position_id = MON_cooperation_with_elites
+	offset = {
+		x = 0
+		y = 0
+		trigger = {
+			tag = MON
+			has_country_flag = mongolia_warlord
+		}
+	}
+
+	cost = 10
+
+	cancel_if_invalid = yes
+	continue_if_invalid = no
+	available_if_capitulated = no
+
+	completion_reward = {
+		add_ideas = MON_bogd_khan
+	}
+}
+shared_focus = {
+	id = MON_native_militias
+	icon = GFX_goal_generic_cavalry
+	prerequisite = { focus = MON_figurehead_bogd_khan }
+	x = 0
+	y = 1
+	relative_position_id = MON_figurehead_bogd_khan
+	offset = {
+		x = 0
+		y = 0
+		trigger = {
+			tag = MON
+			has_country_flag = mongolia_warlord
+		}
+	}
+
+	cost = 10
+
+	cancel_if_invalid = yes
+	continue_if_invalid = no
+	available_if_capitulated = no
+
+	completion_reward = {
+		add_war_support = 0.1
+		add_ideas = MON_native_militias_idea 
+	}
+}
+shared_focus = {
+	id = MON_reshuffle_administration
+	icon = GFX_focus_generic_diplomatic_treaty
+	prerequisite = { focus = MON_chinese_occupation }
+	x = 2
+	y = 1
+	relative_position_id = MON_chinese_occupation
+	offset = {
+		x = 0
+		y = 0
+		trigger = {
+			tag = MON
+			has_country_flag = mongolia_warlord
+		}
+	}
+
+	cost = 10
+
+	bypass = {
+		is_subject = no
+	}
+
+	cancel_if_invalid = yes
+	continue_if_invalid = no
+	available_if_capitulated = no
+
+	completion_reward = {
+		add_autonomy_ratio = {
+			value = 0.25
+			localization = MON_warlord_administration
+		}
+	}
+}
+shared_focus = {
+	id = MON_oppose_overlord
+	icon = GFX_goal_generic_demand_territory
+	prerequisite = { focus = MON_reshuffle_administration }
+	x = 0
+	y = 1
+	relative_position_id = MON_reshuffle_administration
+	offset = {
+		x = 0
+		y = 0
+		trigger = {
+			tag = MON
+			has_country_flag = mongolia_warlord
+		}
+	}
+
+	cost = 10
+
+	cancel_if_invalid = yes
+	continue_if_invalid = no
+	available_if_capitulated = no
+
+	completion_reward = {
+		add_ideas = MON_opposing_overlord
+	}
+}
+shared_focus = {
+	id = MON_assume_governorship
+	icon = GFX_focus_generic_support_the_left_right
+	prerequisite = { focus = MON_oppose_overlord }
+	x = 0
+	y = 1
+	relative_position_id = MON_oppose_overlord
+	offset = {
+		x = 0
+		y = 0
+		trigger = {
+			tag = MON
+			has_country_flag = mongolia_warlord
+		}
+	}
+
+	cost = 10
+
+	available = {
+		compare_autonomy_state > autonomy_puppet
+	}
+
+	cancel_if_invalid = yes
+	continue_if_invalid = no
+	available_if_capitulated = no
+
+	completion_reward = {
+		event_target:WTT_current_china_leader = {
+			country_event = { id = CHIMON.1 }
+		}
+	}
+}
+shared_focus = {
+	id = MON_attract_officers
+	icon = GFX_goal_generic_military_deal
+	prerequisite = { focus = MON_assume_governorship }
+	x = 0
+	y = 1
+	relative_position_id = MON_oppose_overlord
+	offset = {
+		x = 0
+		y = 0
+		trigger = {
+			tag = MON
+			has_country_flag = mongolia_warlord
+		}
+	}
+
+	cost = 10
+
+	available = {
+		is_subject = no
+	}
+
+	cancel_if_invalid = yes
+	continue_if_invalid = no
+	available_if_capitulated = no
+
+	completion_reward = {
+		army_experience = 25
+		add_war_support = 0.1
+	}
+}

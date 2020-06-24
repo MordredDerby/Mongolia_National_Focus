@@ -1,0 +1,134 @@
+add_namespace = MONBW
+
+#Mongolia puppeted by warlord
+country_event = {
+	id = MONBW.1
+	title = MONBW.1.t
+	desc = MONBW.1.d
+	fire_only_once = yes
+	trigger = {
+		tag = MON
+		has_defensive_war = yes
+		any_war_score < 60
+		any_country = {
+			has_offensive_war_with = MON
+			has_country_flag = chinese_attacking_mongolia_flag
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = { 
+		hidden_effect = {
+			set_party_name = {
+				ideology = neutrality
+				name = MON_kuomintang
+			}
+			set_party_name = {
+				ideology = democratic
+				name = MON_CHI_democratic_party
+			}
+			set_party_name = {
+				ideology = communism
+				long_name = MON_CHI_communism_party_long
+				name = MON_CHI_communism_party
+			}
+		}
+	}
+
+	option = {
+		name = MONBW.1.a
+		set_cosmetic_tag = MON_CHI
+		remove_ideas = {
+			MON_power_struggle
+			MON_provisional_government
+		}
+		add_ideas = { 
+			PRC_government_corruption
+			CHI_ineffective_bureaucracy_warlord
+		}
+		add_stability = -0.2
+		hidden_effect = {
+			create_country_leader = {
+				name = "Wu Zhongxin"
+				picture = "gfx/leaders/MON/Portrait_Wu_Zhongxin.dds"
+				expire = "1965.1.1"
+				ideology = despotism
+				traits = {}
+			}
+			create_country_leader = {
+				name = "Wu Zhongxin"
+				picture = "gfx/leaders/MON/Portrait_Wu_Zhongxin.dds"
+				expire = "1965.1.1"
+				ideology = marxsism
+				traits = {}
+			}
+			create_country_leader = {
+				name = "Wu Zhongxin"
+				picture = "gfx/leaders/MON/Portrait_Wu_Zhongxin.dds"
+				expire = "1965.1.1"
+				ideology = socialism
+				traits = {}
+			}
+			create_country_leader = {
+				name = "Wu Zhongxin"
+				picture = "gfx/leaders/MON/Portrait_Wu_Zhongxin.dds"
+				expire = "1965.1.1"
+				ideology = fascism_ideology
+				traits = {}
+			}
+			set_country_flag = mongolia_warlord
+			load_focus_tree = china_warlord_focus
+			if = {
+				limit = { has_global_flag = KMT_mod_enabled }
+				add_ideas = {
+					cg_warlords
+					cu_is_warlord
+				}
+			}
+			event_target:chinese_attacking_mongolia = {
+				country_event = { id = MONBW.2 }
+				puppet = MON
+			}
+		}
+	}
+}
+
+#Warlord notified
+country_event = {
+	id = MONBW.2
+	title = MONBW.2.t
+	desc = MONBW.2.d
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = MONBW.2.a
+	}
+	option = {
+		name = MONBW.2.b
+		MON = { change_tag_from = ROOT }
+	}
+}
+
+country_event = {
+	id = MONBW.3
+	title = MONBW.3.t
+	desc = MONBW.3.d
+	is_triggered_only = yes
+	fire_only_once = yes
+	hidden = yes
+
+	immediate = {
+		#761 = { set_state_flag = MON_clash_territory }
+		#611 = { set_state_flag = MON_clash_territory }
+		#612 = { set_state_flag = MON_clash_territory }
+		621 = { set_state_flag = MON_clash_territory }
+		746 = { set_state_flag = MON_clash_territory }
+		616 = { set_state_flag = MON_clash_territory }
+		756 = { set_state_flag = MON_clash_territory }
+		618 = { set_state_flag = MON_clash_territory }
+	}
+}

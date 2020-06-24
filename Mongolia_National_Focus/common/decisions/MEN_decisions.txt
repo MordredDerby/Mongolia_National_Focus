@@ -1,0 +1,916 @@
+MEN_nation_building = {
+	MEN_choose_path = {
+		icon = decision_generic_political_discourse
+		allowed = {
+			tag = MEN
+		}
+		visible = {
+			is_subject_of = CHI
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = split_resolved_tt
+				has_country_flag = MEN_split_resolved
+			}
+			custom_trigger_tooltip = {
+				tooltip = japan_decided_ideology_tt
+				JAP = {
+					OR = {
+						focus_progress = {
+  							focus = JAP_strengthen_civilian_government
+  							progress > 0
+						}
+						focus_progress = {
+  							focus = JAP_the_unthinkable_option
+  							progress > 0
+						}
+						focus_progress = {
+  							focus = JAP_support_the_kodoha_faction
+  							progress > 0
+						}
+						focus_progress = {
+  							focus = JAP_purge_the_kodoha_faction
+  							progress > 0
+						}
+						has_completed_focus = JAP_strengthen_civilian_government
+						has_completed_focus = JAP_the_unthinkable_option
+						has_completed_focus = JAP_purge_the_kodoha_faction
+						has_completed_focus = JAP_support_the_kodoha_faction
+					}
+				}
+			}
+		}
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 1000
+		}
+		complete_effect = {
+			country_event = { id = MEN.36 }
+		}
+	}
+	MEN_switch_sides = {
+		icon = decision_generic_political_discourse
+		allowed= {
+		 	original_tag = MEN
+		}
+		visible = {
+			has_capitulated = yes
+			has_war_with = JAP
+			overlord = { is_literally_china = yes }
+		}
+		available = {
+			all_owned_state = {
+				is_controlled_by = JAP
+			}
+		}
+		complete_effect = {
+			JAP = { country_event = { id = MEN.57 } }
+		}
+	}
+	MON_mengjiang_success = {
+
+		icon = generic_form_nation
+
+		allowed = {
+			tag = MEN
+		}
+
+		available = {
+			has_completed_focus = MEN_invade_MON
+			owns_state = 330
+		}
+
+		visible = {
+			has_completed_focus = MEN_invade_MON
+		}
+
+		fire_only_once = yes
+
+		complete_effect = {
+			set_cosmetic_tag = MEN_MON
+			add_stability = 0.1
+			add_political_power = 100
+			add_autonomy_ratio = {
+				value = 0.5
+				localization = MEN_khalkha_victory
+			}
+		}
+	}
+	MEN_employ_li_shouxin = {
+		icon = generic_prepare_civil_war
+		allowed = {
+			original_tag = MEN
+		}
+		visible = {
+			is_subject_of = JAP
+			NOT = { has_unit_leader = 071192 }
+		}
+		available = {
+			has_completed_focus = MEN_prepare
+		}
+		fire_only_once = yes
+		cost = 25
+		complete_effect = {
+			create_corps_commander = {
+				id = 071192
+				name = "Li Shouxin"
+				portrait_path = "gfx/leaders/MEN/Portrait_Shouxin.dds"
+				traits = { 
+					cavalry_officer
+				}
+				skill = 2
+				attack_skill = 2
+				defense_skill = 2
+				planning_skill = 1
+				logistics_skill = 2
+			}
+			random_owned_controlled_state = {
+				create_unit = { 
+					division = "name = \"Li Shouxin Division\" division_template = \"Morit Diviziin\" start_experience_factor = 0.8"
+					#force_equipment_variants = { motorized_equipment_1 = { owner = "JAP" } } 
+					owner = MEN
+				}
+			}
+		}
+	}
+	MEN_employ_ganjuurjab = {
+		icon = generic_prepare_civil_war
+		allowed = {
+			original_tag = MEN
+		}
+		visible = {
+			is_subject_of = JAP
+		}
+		available = {
+			has_completed_focus = MEN_prepare
+		}
+		fire_only_once = yes
+		days_remove = 15
+		remove_effect = {
+			create_corps_commander = {
+				name = "Ganjuurjab"
+				portrait_path = "gfx/leaders/MEN/Portrait_Ganjuurjab.dds"
+				traits = { 
+					cavalry_officer
+				}
+				skill = 1
+				attack_skill = 1
+				defense_skill = 1
+				planning_skill = 1
+				logistics_skill = 1
+			}
+		}
+	}
+	MEN_employ_wang_ying = {
+		icon = generic_prepare_civil_war
+		allowed = {
+			original_tag = MEN
+		}
+		visible = {
+			is_subject_of = JAP
+		}
+		available = {
+			has_completed_focus = MEN_prepare
+		}
+		fire_only_once = yes
+		cost = 25
+		days_remove = 30
+		remove_effect = {
+			create_corps_commander = {
+				name = "Wang Ying"
+				portrait_path = "gfx/leaders/Asia/Portrait_Asia_Generic_land_4.dds"
+				traits = { 
+				}
+				skill = 1
+			}
+			division_template = {
+				name = "Juntuán"
+				regiments = {
+					infantry = { x = 0 y = 0 }
+					infantry = { x = 0 y = 1 }
+					infantry = { x = 0 y = 2 }
+				}
+			}
+			create_unit = { 
+				division = "name = \"Grand Han Righteous Army\" division_template = \"Juntuán\" start_experience_factor = 0.3" 
+				#force_equipment_variants = { infantry_equipment_0 = { owner = "CHI" } } 
+				owner = MEN
+			}
+			create_unit = { 
+				division = "name = \"Grand Han Righteous Army\" division_template = \"Juntuán\" start_experience_factor = 0.3" 
+				#force_equipment_variants = { infantry_equipment_0 = { owner = "MAN" } } 
+				owner = MEN
+			}
+		}
+	}
+	MEN_hire_bandits = {
+		icon = generic_prepare_civil_war
+		allowed = {
+			original_tag = MEN
+		}
+		visible = {
+			has_country_flag = MEN_split_resolved
+		}
+		custom_cost_text = MEN_hire_bandits_cost
+        custom_cost_trigger = {
+        	command_power >24
+            has_political_power > 24
+        }
+		available = {
+			command_power >24
+            has_political_power > 24
+			OR = {
+				has_completed_focus = MEN_autonomous_army
+				has_completed_focus = MEN_prepare
+			}
+		}
+		fire_only_once = yes
+		cost = 25
+		days_remove = 30
+		complete_effect = {
+			add_command_power = -25
+			add_political_power = -25
+		}
+		remove_effect = {
+			division_template = {
+				name = "Honghuzi"
+				#is_locked = yes
+				regiments = {
+					cavalry = { x = 0 y = 0 }
+					cavalry = { x = 0 y = 1 }
+					cavalry = { x = 0 y = 2 }
+				}
+			}
+			create_unit = { 
+				division = "name = \"Honghuzi\" division_template = \"Honghuzi\" start_experience_factor = 0 start_equipment_factor = 0.5" 
+				#force_equipment_variants = { infantry_equipment_0 = { owner = "SHX" } } 
+				owner = MEN
+			}
+			create_unit = { 
+				division = "name = \"Honghuzi\" division_template = \"Honghuzi\" start_experience_factor = 0 start_equipment_factor = 0.5" 
+				#force_equipment_variants = { infantry_equipment_0 = { owner = "MEN" } } 
+				owner = MEN
+			}
+			create_unit = { 
+				division = "name = \"Honghuzi\" division_template = \"Honghuzi\" start_experience_factor = 0 start_equipment_factor = 0.5"
+				#force_equipment_variants = { infantry_equipment_0 = { owner = "CHI" } } 
+				owner = MEN
+			}
+			add_timed_idea = {
+				idea = MEN_low_discipline
+				days = 90
+			}
+		}
+	}
+	MEN_incite_darijaya_revolt = {
+		icon = decision_generic_ignite_civil_war
+		allowed = {
+			original_tag = MEN
+		}
+		visible = {
+			XSM = { has_idea = MEN_darijaya_rebellious }
+			NOT = { controls_state = 756 }
+		}
+		available = {
+			XSM = { has_idea = MEN_darijaya_rebellious }
+		}
+		fire_only_once = yes
+		cost = 100
+		days_remove = 30
+		remove_effect = {
+			XSM = {
+				random_list = {
+					50 = {
+						country_event = { id = MEN.45 }
+					}
+					50 = {
+						country_event = { id = MEN.46 }
+					}
+				}
+			}
+		}
+	}
+	MEN_take_disloyal_suiyuan = {
+		icon = decision_generic_ignite_civil_war
+		visible = {
+			original_tag = MEN
+			OR = {
+				AND = {
+					overlord = { tag = CHI }
+					621 = {
+						owner = {
+							has_completed_focus = CHI_cooperation_with_the_communists
+						}
+					}
+				}
+				AND = {
+					overlord = { tag = PRC }
+					621 = {
+						owner = {
+							has_completed_focus = CHI_cooperation_with_the_nationalists
+						}
+					}
+				}
+				AND = {
+					overlord = { 
+						OR = {
+							tag = PRC 
+							tag = CHI
+						}
+					}
+					621 = {
+						owner = {
+							has_completed_focus = CHI_opposition
+						}
+					}
+				}
+			}
+		}
+		available = {
+		}
+		cost = 75
+		days_remove = 15
+		remove_effect = {
+			#start_border_war = {
+			#	#change_state_after_war = no
+			#	attacker = {
+			#		state = 611
+			#		num_provinces = 3
+			#		on_win = 
+			#		on_lose = 
+			#		#on_cancel = 
+			#	}	
+			#	defender = {
+			#		state = 621
+			#		num_provinces = 3
+			#		on_win = 
+			#		on_lose = 
+			#		#on_cancel = 
+			#	}
+			#}
+		}
+	}
+	MEN_take_disloyal_ordos = {
+		icon = decision_generic_ignite_civil_war
+		allowed = {
+			original_tag = MEN
+		}
+		visible = {
+			OR = {
+				AND = {
+					overlord = { tag = CHI }
+					621 = {
+						owner = {
+							has_completed_focus = CHI_cooperation_with_the_communists
+						}
+					}
+				}
+				AND = {
+					overlord = { tag = PRC }
+					621 = {
+						owner = {
+							has_completed_focus = CHI_cooperation_with_the_nationalists
+						}
+					}
+				}
+				AND = {
+					overlord = { 
+						OR = {
+							tag = PRC 
+							tag = CHI
+						}
+					}
+					621 = {
+						owner = {
+							has_completed_focus = CHI_opposition
+						}
+					}
+				}
+			}
+		}
+		available = {
+		}
+		cost = 75
+		days_remove = 15
+		remove_effect = {
+			#start_border_war = {
+			#	#change_state_after_war = no
+			#	attacker = {
+			#		state = 621
+			#		num_provinces = 3
+			#		on_win = 
+			#		on_lose = 
+			#		#on_cancel = 
+			#	}	
+			#	defender = {
+			#		state = 746
+			#		num_provinces = 3
+			#		on_win = 
+			#		on_lose = 
+			#		#on_cancel = 
+			#	}
+			#}
+		}
+	}
+	MEN_ask_suiyuan_ordos = {
+		icon = decision_generic_political_discourse
+		allowed = {
+			original_tag = MEN
+		}
+		visible = {
+			has_country_flag = MEN_loyal
+			has_global_flag = {
+			    flag = MEN_loyal_timer
+			    days > 365
+			}
+			621 = { is_owned_and_controlled_by = SHX }
+			746 = { is_owned_and_controlled_by = SHX }
+			OR = {
+				AND = {
+					overlord = { tag = CHI }
+					621 = {
+						owner = {
+							has_completed_focus = CHI_cooperation_with_the_nationalists
+						}
+					}
+				}
+				AND = {
+					overlord = { tag = PRC }
+					621 = {
+						owner = {
+							has_completed_focus = CHI_cooperation_with_the_communists
+						}
+					}
+				}
+			}
+		}
+		available = {
+			#has_war = no
+		}
+		cost = 50
+		days_re_enable = 180
+		complete_effect = {
+			overlord = { country_event = { id = MEN.49 } }
+		}
+	}
+	MEN_reclaim_name = {
+		icon = generic_nationalism
+		allowed = {
+			original_tag = MEN
+		}
+		visible = {
+			has_cosmetic_tag = MEN_chahar
+			owns_state = 621
+		}
+		available = {
+		}
+		fire_only_once = yes
+		complete_effect = {
+			set_cosmetic_tag = MEN_CHI
+		}
+	}
+	MEN_ask_hulunbuir = {
+		allowed = {
+			original_tag = MEN
+		}
+		visible = {
+			is_subject_of = JAP
+			MAN = { is_subject_of = JAP }
+		}
+		available = {
+		}
+		cost = 75
+		days_re_enable = 180
+		complete_effect = {
+			JAP = { country_event = { id = MEN.52 } }
+		}
+	}
+	#Demand Hulunbuir from independent Manchukuo
+	#Free Darijaya from arrest
+}
+
+operations = {
+	MEN_infiltrate_shanxi = {
+		visible = {
+			has_completed_focus = MEN_infiltration
+		}
+		custom_cost_text = infiltrate_shanxi_cost
+        custom_cost_trigger = {
+        	command_power > 49
+            has_political_power > 24
+        }
+		available = {
+			command_power > 49
+            has_political_power > 24
+		}
+		complete_effect = {
+			add_command_power = -50
+			add_political_power = -25
+		}
+		days_remove = 30
+		remove_effect = {
+			add_timed_idea = {
+				idea = MEN_prepare_SHX
+				days = 200
+			}
+		}
+	}
+	MEN_infiltrate_ma = {
+		visible = {
+			has_completed_focus = MEN_infiltration
+		}
+		custom_cost_text = infiltrate_ma_cost
+        custom_cost_trigger = {
+        	command_power > 49
+            has_political_power > 24
+        }
+		available = {
+			command_power > 49
+            has_political_power > 24
+		}
+		complete_effect = {
+			add_command_power = -50
+			add_political_power = -25
+		}
+		days_remove = 30
+		remove_effect = {
+			add_timed_idea = {
+				idea = MEN_prepare_XSM
+				days = 200
+			}
+		}
+	}
+}
+
+political_actions = {
+	#China: Split Pailingmiao Council
+	CHI_split_MEN = {
+		icon = decision_generic_ignite_civil_war
+		allowed = {
+			tag = CHI
+		}
+		available = {
+			has_war = no
+			MEN = { has_idea = MEN_pro_japanese_sentiment }
+		}
+		visible = {
+			MEN = {
+				is_subject_of = CHI
+			}
+			MEN = { has_idea = MEN_pro_japanese_sentiment }
+		}
+		cost = 25
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 1000
+		}
+		complete_effect = {
+			MEN = { country_event = { id = MEN.17 } }
+			set_global_flag = mongol_council_split
+		}
+	}
+	#Commie China - incite Bailingmiao Mutiny
+	PRC_MEN_revolt = {
+		icon = decision_generic_ignite_civil_war
+		allowed = {
+			tag = PRC
+		}
+		available = {
+			has_war = no
+			MEN = { has_idea = MEN_pro_japanese_sentiment }
+		}
+		visible = {
+			MEN = { 
+				has_idea = MEN_pro_japanese_sentiment 
+				owns_state = 612
+				NOT = { has_country_flag = MEN_loyal }
+			}
+		}
+		cost = 50
+		fire_only_once = yes
+		ai_will_do = {
+			factor = 1000
+		}
+		complete_effect = {
+			MEN = { country_event = { id = MEN.37 } }
+		}
+	}
+}
+
+economy_decisions = {
+	MEN_fund_underground_gun_shops = {
+		icon = generic_industry
+		allowed = {
+			original_tag = MEN
+		}
+		available = {
+			has_completed_focus = MEN_production_effort
+		}
+		visible = {
+			NOT = {
+				has_idea = MAN_underground_gun_shops
+				has_idea = MEN_limited_military
+			}
+		}
+		cost = 50
+		ai_will_do = {
+			factor = 1
+		}
+		complete_effect = {
+			add_ideas = MAN_underground_gun_shops
+			add_offsite_building = { type = arms_factory level = 3 }
+		}
+	}
+	MEN_remove_underground_gun_shops = {
+		icon = generic_industry
+		available = {
+			has_idea = MAN_underground_gun_shops
+		}
+		visible = {
+			has_idea = MAN_underground_gun_shops
+		}
+		cost = 0
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				has_war = yes
+				factor = 0
+			}
+		}
+		complete_effect = {
+			remove_ideas = MAN_underground_gun_shops
+			add_offsite_building = { type = arms_factory level = -3 }
+		}
+	}
+	#Remington purchase
+	MEN_purchase_remington_rifles = {
+		icon = generic_industry
+		allowed = {
+			original_tag = MEN
+		}
+		visible = {
+			has_idea = MEN_remington
+		}
+		available = {
+			has_idea = MEN_remington
+			OR = {
+				NOT = { has_war_with = JAP }
+				any_country = {
+					has_completed_focus = uk_burma_focus
+				}
+			}
+		}
+		cost = 50
+		days_remove = 90
+		remove_effect = {
+			add_equipment_to_stockpile = {
+			    type = infantry_equipment_0
+			    amount = 2000
+			    producer = USA
+			}
+		}
+	}
+
+	MEN_three_year_plan_mission = {
+		icon = generic_construction
+		available = {
+			#factories, focuses
+			has_idea = MEN_centralized_opium_trade
+			has_idea = MEN_public_granaries
+			has_idea = MEN_livestock_for_military
+			has_idea = MEN_logistics
+			has_idea = YUG_idea_expanded_mining_industry
+			num_of_factories > 10
+		}
+
+		days_mission_timeout = 1095
+
+		activation = {
+			has_completed_focus = MEN_three_year_plan
+		}
+
+		visible = {
+			original_tag = MEN
+		}
+
+		fixed_random_seed = no
+
+		fire_only_once = yes
+
+		is_good = no
+
+		complete_effect = {
+			every_state = {
+				add_extra_state_shared_building_slots = 1
+			}
+			add_stability = 0.15
+			add_political_power = 50
+			set_country_flag = three_year_plan_completed
+		}
+
+		timeout_effect = {
+			add_stability = -0.15
+			add_political_power = -50
+			set_country_flag = three_year_plan_failed
+		}
+	}
+}
+
+MEN_lamaseries_cat = {
+	MEN_donate_monasteries = {
+		icon = ger_mefo_bills
+		allowed = {
+			original_tag = MEN
+		}
+		visible = {
+			has_dynamic_modifier = { modifier = MEN_lamaseries }
+			check_variable = {
+			    var = men_monastic_stability
+			    value = 0.4
+			    compare = less_than_or_equals
+			}
+		}
+		available = {
+		}
+		cost = 50
+		days_remove = 30
+		remove_effect = {
+			custom_effect_tooltip = MEN_increase_monastic_support_tt
+			add_to_variable = {
+			    var = men_monastic_stability
+			    value = 0.05
+			}
+		}
+		modifier = {
+			industrial_capacity_factory = -0.1
+		}
+	}
+	MEN_donate_monasteries_peasants = {
+		icon = generic_political_discourse
+		allowed = {
+			original_tag = MEN
+		}
+		visible = {
+			has_dynamic_modifier = { modifier = MEN_lamaseries }
+			check_variable = {
+			    var = men_monastic_population
+			    value = -0.6
+			    compare = greater_than_or_equals
+			}
+		}
+		available = {
+			OR = {
+				has_government = fascism
+				has_government = neutrality
+			}
+		}
+		cost = 25
+		days_re_enable = 30
+		complete_effect = {
+			custom_effect_tooltip = MEN_increase_monastic_population_tt
+			custom_effect_tooltip = MEN_increase_monastic_support_tt
+			add_to_variable = {
+			    var = men_monastic_stability
+			    value = 0.05
+			}
+			add_to_variable = {
+			    var = men_monastic_population
+			    value = -0.025
+			}
+			add_to_variable = {
+			    var = men_monastic_population_show
+			    value = 2.5
+			}
+		}
+	}
+	MEN_build_monastery = {
+		icon = generic_construction
+		allowed = {
+			original_tag = MEN
+		}
+		visible = {
+			has_dynamic_modifier = { modifier = MEN_lamaseries }
+		}
+		available = {
+			check_variable = {
+			    var = men_monastic_stability
+			    value = 0.4
+			    compare = less_than_or_equals
+			}
+		}
+		cost = 50
+		days_remove = 30
+		remove_effect = {
+			custom_effect_tooltip = MEN_increase_monastic_support_tt
+			add_to_variable = {
+			    var = men_monastic_stability
+			    value = 0.05
+			}
+		}
+		modifier = {
+			production_speed_buildings_factor = -0.1
+		}
+	}
+	MEN_conscript_monks = {
+		icon = generic_prepare_civil_war
+		allowed = {
+			original_tag = MEN
+		}
+		visible = {
+			has_dynamic_modifier = { modifier = MEN_lamaseries }
+		}
+		available = {
+			check_variable = {
+			    var = men_monastic_population
+			    value = -0.05
+			    compare = less_than_or_equals
+			}
+		}
+		cost = 50
+		days_remove = 30
+		complete_effect = {
+			custom_effect_tooltip = MEN_decrease_monastic_population_tt
+			custom_effect_tooltip = MEN_decrease_monastic_support_tt
+			add_to_variable = {
+			    var = men_monastic_population
+			    value = 0.05
+			}
+			add_to_variable = {
+			    var = men_monastic_population_show
+			    value = -5
+			}
+			add_to_variable = {
+			    var = men_monastic_stability
+			    value = -0.5
+			}
+		}
+		modifier = {
+			mobilization_speed = 0.1
+		}
+	}
+	MEN_monastic_exams = {
+		icon = generic_decision
+		allowed = {
+			original_tag = MEN
+		}
+		visible = {
+			has_dynamic_modifier = { modifier = MEN_lamaseries }
+			check_variable = {
+			    var = men_monastic_population
+			    value = -0.1
+			    compare = less_than_or_equals
+			}
+		}
+		available = {
+			has_completed_focus = MEN_reform_monasticism
+		}
+		cost = 100
+		days_remove = 30
+		remove_effect = {
+			custom_effect_tooltip = MEN_decrease_monastic_population_tt
+			add_to_variable = {
+			    var = men_monastic_population
+			    value = 0.05
+			}
+			add_to_variable = {
+			    var = men_monastic_population_show
+			    value = -5
+			}
+		}
+	}
+	MEN_confiscate_monastic_property = {
+		icon = generic_scorched_earth
+		allowed = {
+			original_tag = MEN
+		}
+		visible = {
+			has_dynamic_modifier = { modifier = MEN_lamaseries }
+			check_variable = {
+			    var = men_monastic_population
+			    value = -0.1
+			    compare = less_than_or_equals
+			}
+		}
+		available = {
+			OR = {
+				has_government = communism
+				has_government = democratic
+			}
+		}
+		cost = 50
+		days_remove = 90
+		remove_effect = {
+			custom_effect_tooltip = MEN_decrease_monastic_support_big_tt
+			add_to_variable = {
+			    var = men_monastic_stability
+			    value = -0.1
+			}
+		}
+		modifier = {
+			industrial_capacity_factory = 0.1
+			consumer_goods_factor = -0.1
+		}
+	}
+	#MEN_liquidate_monasteries
+	#icon = oppression
+}

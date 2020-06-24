@@ -52,11 +52,11 @@ ideas = {
 				production_speed_buildings_factor = 0.05
 			}
 		}
-		MON_cavalry = {
+		MON_cavalry_idea = {
 			picture = generic_infantry_bonus
 			modifier = {
-				cavalry_attack_factor = 0.05
-				cavalry_defence_factor = 0.05
+				cavalry_attack_factor = 0.1
+				cavalry_defence_factor = 0.1
 			}
 		}
 		MON_defence = {		
@@ -77,7 +77,8 @@ ideas = {
 			removal_cost = -1
 			picture = generic_infantry_bonus
 			modifier = {
-				attrition = -0.1
+				acclimatization_hot_climate_gain_factor = 0.1
+				acclimatization_cold_climate_gain_factor = 0.1
 			}
 		}
 		MON_peoples_war = {		
@@ -114,7 +115,7 @@ ideas = {
 			}
 			
 			modifier = {
-				research_time_factor = -0.04
+				research_speed_factor = 0.04
 			}
 		}
 		MON_likbez = {
@@ -261,7 +262,7 @@ ideas = {
 			picture = generic_production_bonus
 			
 			modifier = {
-				MONTHLY_POPULATION = 0.10
+				MONTHLY_POPULATION = 0.05
 				conscription_factor = -0.1
 			}
 		}
@@ -275,7 +276,7 @@ ideas = {
 			picture = generic_production_bonus
 			
 			modifier = { 
-				MONTHLY_POPULATION = 0.05
+				MONTHLY_POPULATION = 0.02
 				conscription_factor = -0.15
 			}
 		}
@@ -300,9 +301,9 @@ ideas = {
 			
 			modifier = { 
 				political_power_factor = -0.25
-				research_time_factor = 0.10
+				research_speed_factor = -0.10
 				industrial_capacity_factory = -0.10
-				unity_factor = -0.1
+				stability_factor = -0.1
 			}
 		}
 		MON_provisional_government = {
@@ -324,6 +325,7 @@ ideas = {
 			modifier = { 
 				partisan_effect = 0.2
 				enemy_partisan_effect = -0.3
+				non_core_manpower = 0.05
 			}
 		}
 		MON_export_revolution_idea = {
@@ -352,7 +354,7 @@ ideas = {
 		MON_harmonic_diplomacy = {
 			allowed = { always = no }
 			
-			picture = neutrality_idea
+			picture = harmonic_diplomacy
 			
 			allowed_civil_war = { always = no }
 			
@@ -415,21 +417,21 @@ ideas = {
 			}
 		}
 		MON_joint_ventures_military = {
-			picture = idea_can_wartime_prices_and_trade_board
+			picture = generic_central_management
 			allowed_civil_war = { always = no }
 			modifier = { 
 				industrial_capacity_factory = 0.1
 			}
 		}
 		MON_joint_ventures_civillian = {
-			picture = idea_can_wartime_prices_and_trade_board
+			picture = generic_central_management
 			allowed_civil_war = { always = no }
 			modifier = { 
 				consumer_goods_factor = -0.05
 			}
 		}
 		MON_chinese_buff = {
-			picture = idea_can_wartime_prices_and_trade_board
+			picture = can_wartime_prices_and_trade_board
 			allowed_civil_war = { always = no }
 			modifier = { 
 				industrial_capacity_factory = 0.05
@@ -438,14 +440,16 @@ ideas = {
 		MON_nomadic = {
 			picture = nomadic
 			modifier = {
-				conscription = 0.03
+				#conscription = 0.03
+				conscription_factor = 0.25
 				production_factory_efficiency_gain_factor = -0.15
 			}
 		}
 		MON_nomadic_comp = {
 			picture = nomadic
 			modifier = {
-				conscription = 0.03
+				#conscription = 0.03
+				conscription_factor = 0.25
 			}
 		}
 		MON_sovereign_democracy = {
@@ -460,9 +464,30 @@ ideas = {
 			}
 		}
 		MON_military_academy_idea = {
-			picture = german_advisors
+			picture = mongolia_academy
 			modifier = {
-
+				military_leader_cost_factor = -0.50
+				army_leader_start_level = 1
+			}
+		}
+		MON_socdems_idea = {
+			picture = generic_democratic_drift_bonus
+			modifier = {
+				political_power_cost = -0.1
+				stability_factor = 0.05
+			}
+		}
+		MON_liberals_idea = {
+			picture = generic_democratic_drift_bonus
+			modifier = {
+				production_speed_buildings_factor = 0.05
+			}
+		}
+		MON_conservatives_idea = {
+			picture = generic_democratic_drift_bonus
+			modifier = {
+				army_core_defence_factor = 0.05
+				army_core_attack_factor = 0.05
 			}
 		}
 	}
@@ -479,8 +504,7 @@ ideas = {
 			}
 
 			traits = { 
-				silent_workhorse 
-				popular_figurehead
+				financial_expert
 			}
 			
 			ai_will_do = {
@@ -490,7 +514,7 @@ ideas = {
 		
 		MON_horloogiyn_choybalsan_pol = {
 			
-			picture = choibalsan
+			picture = choibalsan_blue
 
 			allowed = {
 				original_tag = MON
@@ -504,6 +528,31 @@ ideas = {
 				factor = 1
 			}
 		}
+
+		MON_tsedeny_luvsankhaimchig = {
+			picture = generic_political_advisor_asia_1
+			allowed = {
+				original_tag = MON
+			}
+			available =	{
+				has_government = neutrality
+			}			
+			traits = { staunch_monarchist }
+			
+			ai_will_do = {
+				factor = 1
+			}
+		}
+		MON_agvan_dorzhiev = {
+			picture = generic_political_advisor_asia_2
+			allowed = {
+				original_tag = MON
+			}
+			traits = { buddhist_socialist }
+			ai_will_do = {
+				factor = 1
+			}
+		}
 	}
 	high_command = {
 
@@ -513,7 +562,6 @@ ideas = {
 			
 			allowed = {
 				tag = MON
-				#has_completed_focus = MON_military_academy
 			}
 			available = {
 				has_completed_focus = MON_military_academy
@@ -531,7 +579,6 @@ ideas = {
 			
 			allowed = {
 				tag = MON
-				#has_completed_focus = MON_military_academy
 			}
 			
 			available = {

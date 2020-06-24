@@ -1,4 +1,4 @@
-MON = {
+﻿MON = {
 	army = {
 		male = {
 			"gfx/leaders/MON/Portrait_Mongol_Generic.dds"

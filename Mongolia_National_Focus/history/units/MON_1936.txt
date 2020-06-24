@@ -16,7 +16,7 @@ division_template = {
 	regiments = {
 		motorized = { x = 0 y = 0 }
 		motorized = { x = 0 y = 1 }
-		motorized = { x = 0 y = 2 }
+		mot_artillery_brigade = { x = 0 y = 2 }
 	}
 }
 
@@ -95,10 +95,15 @@ units = {
 
 ##### No notable air force (only about 6 aircraft in 1936) #####
 air_wings = {
-	330 = { 
+	330 = {
 		fighter_equipment_0 = {
 			owner = "SOV" 
 			amount = 6
+		}
+		name = "Mongolian People's Republic Air Corps"
+		transport_plane_equipment_1 = {
+			owner = "GER" 
+			amount = 1
 		}
 	}
 }

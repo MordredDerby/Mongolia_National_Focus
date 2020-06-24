@@ -1,0 +1,49 @@
+defined_text = {
+	name = GetMongoliaCapital
+	text = {
+		trigger = {
+			has_country_flag = mon_capital_khuree
+		}
+		localization_key = MON_CAPITAL_KHUREE
+	}
+	text = {
+		trigger = {
+			has_country_flag = mon_capital_urga
+		}
+		localization_key = MON_CAPITAL_URGA
+	}
+	text = {
+		trigger = {
+			has_country_flag = mon_capital_baatar_khot
+		}
+		localization_key = MON_CAPITAL_BATTAR_KHOT
+	}
+	text = {
+		localization_key = MON_CAPITAL_ULAANBAATAR
+	}
+}
+
+defined_text = {
+	name = GetSovietAbbreviation
+	text = {
+		trigger = {
+			NOT = { has_government = communism }
+		}
+		localization_key = SOV_ABBREVIATION_RUS
+	}
+	text = {
+		localization_key = SOV_ABBREVIATION
+	}
+}
+defined_text = {
+	name = GetTuvaAbbreviation
+	text = {
+		trigger = {
+			NOT = { country_exists = TAN }
+		}
+		localization_key = TAN_ABBREVIATION_NONEXISTENT
+	}
+	text = {
+		localization_key = TAN_ABBREVIATION
+	}
+}

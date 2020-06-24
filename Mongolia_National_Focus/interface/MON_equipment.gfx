@@ -1,0 +1,10 @@
+spriteTypes = {	
+	spriteType = {
+		name = "GFX_MON_infantry_weapons_medium"
+		texturefile = "gfx/interface/technologies/MON_infantry_equipment_0.dds"
+	}
+	spriteType = {
+		name = "GFX_MON_const_infantry_weapons_medium"
+		texturefile = "gfx/interface/technologies/MON_const_infantry_equipment_0.dds"
+	}
+}

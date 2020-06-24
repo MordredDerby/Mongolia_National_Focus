@@ -1,0 +1,46 @@
+ideas = {
+	country = {
+		MON_eight_articles_idea = {
+			picture = generic_constitutional_guarantees
+			modifier = {
+				stability_factor = -0.1
+				production_speed_buildings_factor = 0.1
+			}
+		}
+		MON_chinese_colonisation_idea = {
+			picture = chinese_colonization
+			modifier = {
+				MONTHLY_POPULATION = 0.2
+			}
+		}
+		MON_chinese_colonisation_idea_2 = {
+			picture = chinese_colonization
+			modifier = {
+				MONTHLY_POPULATION = 0.25
+				production_factory_max_efficiency_factor = 0.05
+			}
+		}
+		MON_native_elites = {
+			picture = MON_local_elites
+			modifier = {
+				#political_advisor_cost_factor = -0.25
+				#trade_laws_cost_factor = -0.25
+				#mobilization_laws_cost_factor = -0.25
+				#economy_cost_factor = -0.25
+			}
+		}
+		MON_native_militias_idea = {
+			picture = chi_army_corruption2
+			modifier = {
+				conscription = 0.025
+			}
+		}
+		MON_opposing_overlord = {
+			picture = chi_wargaming_division
+			modifier = {
+				autonomy_gain = 1
+				political_power_gain = -0.5
+			}
+		}
+	}
+}
